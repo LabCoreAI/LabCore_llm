@@ -1,0 +1,84 @@
+# ------------------------------
+# Python / Packaging
+# ------------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+*.whl
+build/
+dist/
+pip-wheel-metadata/
+
+# ------------------------------
+# Virtual environments
+# ------------------------------
+.venv/
+venv/
+env/
+
+# ------------------------------
+# Test / Lint / Type-check caches
+# ------------------------------
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.hypothesis/
+.tox/
+.nox/
+
+# ------------------------------
+# IDE / OS
+# ------------------------------
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ------------------------------
+# Logs / Runtime temp
+# ------------------------------
+*.log
+*.tmp
+*.temp
+
+# ------------------------------
+# Secrets / local config
+# ------------------------------
+.env
+.env.*
+*.local
+
+# ------------------------------
+# ML / training artifacts
+# ------------------------------
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.gguf
+*.bin
+*.npy
+*.npz
+
+checkpoints/*
+!checkpoints/.gitkeep
+
+runs/*
+!runs/.gitkeep
+
+outputs/*
+!outputs/.gitkeep
+
+data/raw/*
+!data/raw/.gitkeep
+
+data/processed/*
+!data/processed/.gitkeep

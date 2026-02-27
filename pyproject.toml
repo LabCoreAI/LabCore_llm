@@ -1,0 +1,58 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "labcore-llm"
+version = "0.2.0"
+description = "Minimal GPT-like training stack from scratch."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "GPL-3.0" }
+authors = [{ name = "GhostPunishR" }]
+
+dependencies = [
+  "numpy>=1.26",
+  "tiktoken>=0.7",
+]
+
+[project.optional-dependencies]
+torch = [
+  "torch>=2.2",
+]
+
+dev = [
+  "pytest>=8.0",
+  "ruff>=0.8.0",
+]
+
+hf = [
+  "datasets>=2.21.0",
+  "huggingface_hub>=0.25.0",
+  "safetensors>=0.4.5",
+]
+
+demo = [
+  "gradio>=5.0.0",
+]
+
+gguf = [
+  "llama-cpp-python>=0.3.2",
+  "optimum>=1.22.0",
+]
+
+finetune = [
+  "transformers>=4.46.0",
+  "peft>=0.13.0",
+  "accelerate>=1.0.0",
+]
+
+all = [
+  "labcore-llm[torch,hf,demo,gguf,finetune]",
+]
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]

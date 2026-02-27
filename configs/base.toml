@@ -1,0 +1,31 @@
+[data]
+dataset = "tinyshakespeare"
+processed_dir = "data/processed"
+
+[model]
+block_size = 128
+n_layer = 6
+n_head = 8
+n_embd = 256
+dropout = 0.1
+bias = true
+use_rope = false
+use_flash = false
+
+[training]
+batch_size = 32
+max_iters = 2000
+eval_interval = 200
+eval_iters = 50
+log_interval = 20
+learning_rate = 3e-4
+weight_decay = 0.01
+grad_clip = 1.0
+device = "cuda"
+checkpoint_dir = "checkpoints"
+data_format = "txt"
+
+[generation]
+max_new_tokens = 200
+temperature = 0.9
+top_k = 40

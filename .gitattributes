@@ -1,0 +1,50 @@
+# ------------------------------
+# Global normalization
+# ------------------------------
+* text=auto eol=lf
+
+# ------------------------------
+# Source and config files
+# ------------------------------
+*.py text eol=lf
+*.toml text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.gitignore text eol=lf
+*.gitattributes text eol=lf
+Makefile text eol=lf
+
+# ------------------------------
+# Shell / batch scripts
+# ------------------------------
+*.sh text eol=lf
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# ------------------------------
+# Binary ML artifacts
+# ------------------------------
+*.pt binary
+*.pth binary
+*.ckpt binary
+*.safetensors binary
+*.gguf binary
+*.bin binary
+*.npy binary
+*.npz binary
+
+# ------------------------------
+# Common binary assets
+# ------------------------------
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.pdf binary
+*.zip binary
