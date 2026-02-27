@@ -68,6 +68,11 @@ Thumbs.db
 *.npy
 *.npz
 
+# TensorBoard / W&B / caches
+runs/**/events.out.tfevents.*
+wandb/
+.cache/
+
 checkpoints/*
 !checkpoints/.gitkeep
 
@@ -82,3 +87,8 @@ data/raw/*
 
 data/processed/*
 !data/processed/.gitkeep
+
+# Allow metadata for reproducibility / examples
+!data/meta.json
+!data/processed/meta.json
+!data/**/meta.json

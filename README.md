@@ -8,6 +8,8 @@
 LabCore LLM is a modular GPT training stack built for practical local workflows:
 data preparation, training, generation, web demo, Hugging Face export, and GGUF conversion.
 
+---
+
 ## What This Project Delivers
 
 | Area | Included |
@@ -21,17 +23,55 @@ data preparation, training, generation, web demo, Hugging Face export, and GGUF 
 | Distribution | Hugging Face export (`safetensors`) + GGUF quantization script |
 | Fine-tuning | Instruction LoRA script for HF-compatible CausalLM models |
 
+---
+
 ## Installation
 
+### 1) Install PyTorch (CPU or CUDA)
+
+Install PyTorch first using the official selector for your platform:
+
+https://pytorch.org/get-started/locally/
+
+Choose CPU-only or CUDA depending on your hardware.
+
+---
+
+### 2) Install LabCore LLM
+
+Minimal install:
+
 ```bash
-pip install -e .[dev]
+pip install -e .
+```
+
+Install with PyTorch dependency included:
+
+```bash
+pip install -e ".[torch]"
+```
+
+Developer tools (tests + lint):
+
+```bash
+pip install -e ".[torch,dev]"
 ```
 
 Optional extras:
 
 ```bash
-pip install -e .[gguf,finetune]
+pip install -e ".[hf,demo]"
+pip install -e ".[gguf]"
+pip install -e ".[finetune]"
 ```
+
+Install everything:
+
+```bash
+pip install -e ".[all]"
+```
+
+---
 
 ## Quick Start
 
@@ -61,6 +101,8 @@ python generate.py --checkpoint checkpoints/ckpt_last.pt --meta data/meta.json -
 
 Note: when `--output-format bin --output-dir data` is used, metadata is written to `data/meta.json`.
 
+---
+
 ## Config Presets
 
 | Config | Params | Tokenizer | Positional Encoding | Attention Path | Data Format |
@@ -68,6 +110,8 @@ Note: when `--output-format bin --output-dir data` is used, metadata is written 
 | `configs/base.toml` | ~5M | Char | Learned absolute | Standard causal | txt/npy |
 | `configs/bpe_medium_50M.toml` | ~50M | BPE (GPT-2) | Learned absolute | Standard causal | txt/npy |
 | `configs/bpe_50M_rope_flash.toml` | ~50M | BPE (GPT-2) | RoPE | SDPA + Flash (if available) | bin/mmap |
+
+---
 
 ## Main Commands
 
@@ -82,6 +126,8 @@ Note: when `--output-format bin --output-dir data` is used, metadata is written 
 | `python scripts/fine_tune_instruction.py ...` | Run LoRA instruction fine-tuning |
 
 `Makefile` is optional convenience; all workflows run directly with Python commands.
+
+---
 
 ## Export and Deployment
 
@@ -103,6 +149,8 @@ Optional push:
 python scripts/export_hf.py --checkpoint checkpoints/ckpt_last.pt --meta data/processed/meta.json --output-dir outputs/hf_export --push --repo-id GhostPunishR/labcore-llm-50M
 ```
 
+---
+
 ### Gradio demo
 
 Local checkpoint:
@@ -117,6 +165,8 @@ Remote model:
 python demo_gradio.py --source hf --repo-id GhostPunishR/labcore-llm-50M
 ```
 
+---
+
 ### GGUF quantization (llama.cpp)
 
 ```bash
@@ -124,11 +174,15 @@ python scripts/quantize_gguf.py --hf-dir outputs/hf_export --llama-cpp-dir third
 python scripts/quantize_gguf.py --hf-dir outputs/hf_export --llama-cpp-dir third_party/llama.cpp --quant-type Q5_K_M
 ```
 
+---
+
 ## Fine-tuning (Instruction / LoRA)
 
 ```bash
 python scripts/fine_tune_instruction.py --model-id GhostPunishR/labcore-llm-50M --dataset Open-Orca/OpenOrca --output-dir outputs/lora_openorca
 ```
+
+---
 
 ## Repository Layout
 
@@ -149,24 +203,34 @@ LabCore_llm/
 |- demo_gradio.py          # web demo entrypoint
 ```
 
+---
+
 ## Quality and Validation
 
 - CI workflow runs lint + tests.
-- Local test command:
+
+Local test command:
 
 ```bash
 python -m pytest -q
 ```
+
+---
 
 ## Hardware Guidance
 
 - CPU-only: good for smoke tests and short runs.
 - GPU (recommended): NVIDIA CUDA for practical training speed.
 - 50M presets are tuned for mid-range 8 GB VRAM setups (for example RTX 4060 class).
+- If running CPU-only, start with `configs/base.toml` and small `--max-iters`.
+
+---
 
 ## License
 
 This project is licensed under GPL-3.0-or-later.
+
+---
 
 ## Citation
 
