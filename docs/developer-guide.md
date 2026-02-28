@@ -21,7 +21,7 @@ tests/         # unit tests
 
 ```bash
 python -m venv .venv
-# PowerShell
+## PowerShell
 .\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
 python -m pip install -e ".[torch,dev]"
@@ -58,4 +58,3 @@ ruff check src scripts tests train.py generate.py demo_gradio.py --select E9,F63
 - Project uses `src/` layout with setuptools.
 - Optional dependency groups are defined in `pyproject.toml`.
 - Entry scripts are plain Python files, not console-script wrappers.
-

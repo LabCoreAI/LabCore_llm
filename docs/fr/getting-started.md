@@ -29,9 +29,9 @@ pip install -e ".[torch,dev]"
 Extras:
 
 ```bash
-pip install -e ".[hf,demo]"
+pip install -e ".[torch,hf,demo]"
 pip install -e ".[gguf]"
-pip install -e ".[finetune]"
+pip install -e ".[torch,hf,finetune]"
 ```
 
 ## Smoke Test Rapide
@@ -63,9 +63,15 @@ pip install -e ".[torch,dev]"
 
 ### Probleme download dataset
 
-`prepare_data.py` depend de `datasets`; tinyshakespeare a un fallback HTTP.
+`prepare_data.py` utilise `datasets` pour charger les jeux HF.  
+Pour `wikitext`, installer:
+
+```bash
+pip install -e ".[hf]"
+```
+
+`tinyshakespeare` garde un fallback HTTP si `datasets` est indisponible.
 
 ## Suite
 
 Voir [Pipeline Data](data-pipeline.md).
-

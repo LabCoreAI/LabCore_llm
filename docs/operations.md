@@ -29,6 +29,26 @@ Reference: `SUPPORT.md`
 - Bugs: issue template
 - Features: feature request template
 
+## Quality and Validation
+
+Primary local checks:
+
+```bash
+python -m pytest -q
+ruff check src scripts tests train.py generate.py demo_gradio.py --select E9,F63,F7,F82
+```
+
+CI workflows:
+
+- `.github/workflows/ci.yml` (lint + tests)
+- `.github/workflows/docs.yml` (docs build/deploy)
+
+## Hardware Guidance
+
+- CPU-only is fine for smoke tests and very short runs.
+- CUDA GPU is recommended for practical training speed.
+- For ~8 GB VRAM setups, start with the 50M preset families and tune batch/sequence settings as needed.
+
 ## Troubleshooting Matrix
 
 ### `ModuleNotFoundError: torch`
@@ -61,7 +81,7 @@ Build docs locally:
 
 ```bash
 pip install -r docs/requirements.txt
-mkdocs serve
+python -m mkdocs serve
 ```
 
 Deploy docs via GitHub Actions:
@@ -69,3 +89,12 @@ Deploy docs via GitHub Actions:
 - Push to `master` or `main`
 - `docs.yml` builds and deploys `site/` to `gh-pages`
 
+## License
+
+This project is licensed under GPL-3.0.  
+See [LICENSE](https://github.com/LabCoreAI/LabCore_llm/blob/master/LICENSE).
+
+## Disclaimer
+
+This project is intended for educational and research purposes.
+It is not optimized for large-scale production deployment.

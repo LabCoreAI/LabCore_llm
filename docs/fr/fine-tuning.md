@@ -18,13 +18,13 @@ python scripts/fine_tune_instruction.py \
 ## Dependances
 
 ```bash
-pip install -e ".[finetune]"
+pip install -e ".[torch,hf,finetune]"
 ```
 
 Ou:
 
 ```bash
-pip install -e ".[torch,dev,finetune]"
+pip install -e ".[torch,dev,hf,finetune]"
 ```
 
 ## Ce que fait le script

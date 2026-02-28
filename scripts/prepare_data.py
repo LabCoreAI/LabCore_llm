@@ -15,7 +15,7 @@ def _load_dataset_text(dataset_name: str) -> str:
     try:
         from datasets import load_dataset
     except ImportError as exc:
-        raise RuntimeError("Install dev dependencies to use datasets: pip install -e .[dev]") from exc
+        raise RuntimeError('Install HF dependencies to use datasets: pip install -e ".[hf]"') from exc
 
     if dataset_name == "wikitext":
         ds = load_dataset("wikitext", "wikitext-2-raw-v1")

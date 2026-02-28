@@ -27,9 +27,9 @@ pip install -e ".[torch,dev]"
 Optional extras:
 
 ```bash
-pip install -e ".[hf,demo]"
+pip install -e ".[torch,hf,demo]"
 pip install -e ".[gguf]"
-pip install -e ".[finetune]"
+pip install -e ".[torch,hf,finetune]"
 ```
 
 Install all extras:
@@ -70,9 +70,15 @@ pip install -e ".[torch,dev]"
 
 ### Dataset download errors
 
-`scripts/prepare_data.py` uses `datasets`; tinyshakespeare has an HTTP fallback path.
+`scripts/prepare_data.py` uses `datasets` for HF dataset loading.  
+For `wikitext`, install HF dependencies:
+
+```bash
+pip install -e ".[hf]"
+```
+
+`tinyshakespeare` has an HTTP fallback path if `datasets` is unavailable.
 
 ## Next Step
 
 Continue with [Data Pipeline](data-pipeline.md).
-

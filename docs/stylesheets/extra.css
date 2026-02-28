@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap');
 
 /* Body font */
 body {
-  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-family: 'Sora', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   font-weight: 400;
 }
 
@@ -10,7 +10,7 @@ body {
 .md-typeset h1,
 .md-typeset h2,
 .md-typeset h3 {
-  font-family: 'Space Grotesk', 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'Space Grotesk', 'Sora', system-ui, -apple-system, sans-serif;
   font-weight: 700;
   letter-spacing: -0.2px;
 }
@@ -26,13 +26,30 @@ body {
   line-height: 1.6;
 }
 
+.md-header__title,
+.md-tabs__link,
+.md-nav__link {
+  font-family: 'Sora', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-weight: 500;
+}
+
 /* LabCoreAI Header Gradient */
 .md-header {
   background: linear-gradient(
     90deg,
     #1D2069 0%,
-    #3947BF 40%,
-    #9956F5 70%,
+    #3046A8 45%,
+    #3C75C8 75%,
+    #6CDEF6 100%
+  );
+}
+
+.md-tabs {
+  background: linear-gradient(
+    90deg,
+    #1D2069 0%,
+    #3046A8 45%,
+    #3C75C8 75%,
     #6CDEF6 100%
   );
 }
