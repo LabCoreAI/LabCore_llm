@@ -1,5 +1,5 @@
 [general]
-run_name = "bpe_50M_rope_flash"
+run_name = "bpe_35M_rope_flash"
 seed = 1337
 tokenizer = "bpe"
 
@@ -8,9 +8,9 @@ dataset = "wikitext"
 processed_dir = "data"
 
 [model]
-n_layer = 12
-n_head = 12
-n_embd = 768
+n_layer = 5
+n_head = 8
+n_embd = 448
 block_size = 512
 vocab_size = 50257
 dropout = 0.1
@@ -36,3 +36,4 @@ eval_interval = 200
 eval_iters = 50
 save_interval = 500
 data_format = "bin"
+

@@ -70,6 +70,22 @@ plugins:
         - locale: fr
           name: Français
           build: true
+          nav_translations:
+            Home: Accueil
+            Guides: Guides
+            Getting Started: Démarrage
+            Data Pipeline: Pipeline de données
+            Training: Entraînement
+            Inference & Demo: Inférence et démo
+            Fine-Tuning: Ajustement fin
+            Export & Deployment: Export et déploiement
+            Reference: Référence
+            Configuration: Configuration
+            Operations: Opérations
+            Troubleshooting: Dépannage
+            Benchmarks: Performances
+            Development: Développement
+            Developer Guide: Guide développeur
 
 nav:
   - Home: index.md

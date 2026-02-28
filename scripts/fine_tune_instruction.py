@@ -31,7 +31,7 @@ def main() -> None:
     parser.add_argument("--dataset", default="yahma/alpaca-cleaned", help="HF dataset path (Alpaca/OpenOrca-style).")
     parser.add_argument("--dataset-split", default="train")
     parser.add_argument("--output-dir", default="outputs/lora_instruction")
-    parser.add_argument("--config", default="configs/bpe_50M_rope_flash.toml")
+    parser.add_argument("--config", default="configs/bpe_rope_flash/bpe_50M_rope_flash.toml")
     parser.add_argument("--max-samples", type=int, default=20000)
     parser.add_argument("--max-seq-len", type=int, default=None)
     parser.add_argument("--learning-rate", type=float, default=None)

@@ -18,8 +18,9 @@ Flags:
 ## Presets disponibles
 
 - `configs/base.toml`
-- `configs/bpe_medium_50M.toml`
-- `configs/bpe_50M_rope_flash.toml`
+- `configs/bpe_medium/bpe_medium_50M.toml`
+- `configs/bpe_rope_flash/bpe_50M_rope_flash.toml`
+- Variantes de taille disponibles dans `configs/bpe_medium/` et `configs/bpe_rope_flash/` (`5M` a `50M`).
 
 ## Comportement runtime
 
@@ -62,4 +63,3 @@ Definir `model.vocab_size` ou verifier `meta.json`.
 ## Suite
 
 Voir [Inference et Demo](inference-and-demo.md).
-

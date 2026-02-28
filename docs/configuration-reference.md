@@ -90,5 +90,4 @@ device = "cpu"
 
 ## Example: 50M RoPE/Flash Style
 
-Use `configs/bpe_50M_rope_flash.toml` as the baseline for binary pipelines.
-
+Use `configs/bpe_rope_flash/bpe_50M_rope_flash.toml` as the baseline for binary pipelines.

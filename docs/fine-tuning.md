@@ -10,7 +10,7 @@ python scripts/fine_tune_instruction.py \
   --dataset yahma/alpaca-cleaned \
   --dataset-split train \
   --output-dir outputs/lora_instruction \
-  --config configs/bpe_50M_rope_flash.toml \
+  --config configs/bpe_rope_flash/bpe_50M_rope_flash.toml \
   --max-samples 20000 \
   --epochs 1
 ```
@@ -53,4 +53,3 @@ The script supports common naming variants:
 ## Next Step
 
 Review [Configuration Reference](configuration-reference.md) for full tuning controls.
-

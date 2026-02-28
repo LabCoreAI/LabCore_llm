@@ -10,7 +10,7 @@ python scripts/fine_tune_instruction.py \
   --dataset yahma/alpaca-cleaned \
   --dataset-split train \
   --output-dir outputs/lora_instruction \
-  --config configs/bpe_50M_rope_flash.toml \
+  --config configs/bpe_rope_flash/bpe_50M_rope_flash.toml \
   --max-samples 20000 \
   --epochs 1
 ```
@@ -51,4 +51,3 @@ pip install -e ".[torch,dev,finetune]"
 ## Suite
 
 Voir [Reference Config](configuration-reference.md).
-

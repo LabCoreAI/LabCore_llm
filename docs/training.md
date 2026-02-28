@@ -18,8 +18,9 @@ CLI flags:
 ## Presets
 
 - `configs/base.toml`: small char baseline (`txt` data format)
-- `configs/bpe_medium_50M.toml`: BPE preset with 50M-class model (`txt`)
-- `configs/bpe_50M_rope_flash.toml`: BPE + RoPE + Flash with `bin` format
+- `configs/bpe_medium/bpe_medium_50M.toml`: BPE preset with 50M-class model (`txt`)
+- `configs/bpe_rope_flash/bpe_50M_rope_flash.toml`: BPE + RoPE + Flash with `bin` format
+- Additional size variants are available in `configs/bpe_medium/` and `configs/bpe_rope_flash/` (`5M` to `50M`).
 
 ## Runtime Behavior
 
@@ -71,4 +72,3 @@ Ensure one source provides vocab size:
 ## Next Step
 
 Continue with [Inference and Demo](inference-and-demo.md).
-
