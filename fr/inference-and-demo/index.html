@@ -598,10 +598,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#generation-cli" class="md-nav__link">
+  <a href="#commandes-rapides" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Generation CLI
+        Commandes Rapides
       
     </span>
   </a>
@@ -609,10 +609,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#demo-gradio-locale" class="md-nav__link">
+  <a href="#reglages-stables-debug" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Demo Gradio locale
+        Reglages stables (debug)
       
     </span>
   </a>
@@ -620,71 +620,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#demo-gradio-depuis-hf" class="md-nav__link">
+  <a href="#voir-aussi" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Demo Gradio depuis HF
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sampling" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Sampling
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#depannage" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Depannage
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Depannage">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#tokenizer-char-sans-vocab" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        tokenizer char sans vocab
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dependances-hf-demo-manquantes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        dependances HF demo manquantes
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#suite" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Suite
+        Voir aussi
       
     </span>
   </a>
@@ -1048,10 +987,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#generation-cli" class="md-nav__link">
+  <a href="#commandes-rapides" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Generation CLI
+        Commandes Rapides
       
     </span>
   </a>
@@ -1059,10 +998,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#demo-gradio-locale" class="md-nav__link">
+  <a href="#reglages-stables-debug" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Demo Gradio locale
+        Reglages stables (debug)
       
     </span>
   </a>
@@ -1070,71 +1009,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#demo-gradio-depuis-hf" class="md-nav__link">
+  <a href="#voir-aussi" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Demo Gradio depuis HF
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sampling" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Sampling
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#depannage" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Depannage
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Depannage">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#tokenizer-char-sans-vocab" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        tokenizer char sans vocab
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dependances-hf-demo-manquantes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        dependances HF demo manquantes
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#suite" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Suite
+        Voir aussi
       
     </span>
   </a>
@@ -1162,59 +1040,25 @@
 
 
 <h1 id="inference-et-demo">Inference et Demo</h1>
-<p>Deux modes principaux:</p>
+<p>Cette page FR couvre la generation CLI et la demo Gradio avec les chemins standard.
+Utilisez les memes metadata et checkpoint que pour l'entrainement.</p>
+<h2 id="commandes-rapides">Commandes Rapides</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python<span class="w"> </span>generate.py<span class="w"> </span>--checkpoint<span class="w"> </span>checkpoints/ckpt_last.pt<span class="w"> </span>--meta<span class="w"> </span>data/processed/meta.json<span class="w"> </span>--tokenizer<span class="w"> </span>char<span class="w"> </span>--prompt<span class="w"> </span><span class="s2">&quot;To be&quot;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>python<span class="w"> </span>demo_gradio.py<span class="w"> </span>--source<span class="w"> </span><span class="nb">local</span><span class="w"> </span>--checkpoint<span class="w"> </span>checkpoints/ckpt_last.pt<span class="w"> </span>--meta<span class="w"> </span>data/processed/meta.json<span class="w"> </span>--device<span class="w"> </span>cpu<span class="w"> </span>--port<span class="w"> </span><span class="m">7860</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>python<span class="w"> </span>demo_gradio.py<span class="w"> </span>--source<span class="w"> </span>hf<span class="w"> </span>--repo-id<span class="w"> </span>GhostPunishR/labcore-llm-50M<span class="w"> </span>--device<span class="w"> </span>cpu<span class="w"> </span>--port<span class="w"> </span><span class="m">7860</span>
+</code></pre></div>
+<h2 id="reglages-stables-debug">Reglages stables (debug)</h2>
 <ul>
-<li>generation CLI (<code>generate.py</code>)</li>
-<li>interface web Gradio (<code>demo_gradio.py</code>)</li>
+<li><code>temperature = 0.2</code></li>
+<li><code>top-k = 20</code></li>
+<li><code>max-new-tokens = 80</code></li>
 </ul>
-<h2 id="generation-cli">Generation CLI</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python<span class="w"> </span>generate.py<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span>--checkpoint<span class="w"> </span>checkpoints/ckpt_last.pt<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span>--meta<span class="w"> </span>data/processed/meta.json<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span>--tokenizer<span class="w"> </span>char<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span>--prompt<span class="w"> </span><span class="s2">&quot;To be&quot;</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span>--max-new-tokens<span class="w"> </span><span class="m">200</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span>--temperature<span class="w"> </span><span class="m">0</span>.9<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span>--top-k<span class="w"> </span><span class="m">40</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span>--device<span class="w"> </span>cpu
-</code></pre></div>
-<h2 id="demo-gradio-locale">Demo Gradio locale</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python<span class="w"> </span>demo_gradio.py<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span>--source<span class="w"> </span><span class="nb">local</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span>--checkpoint<span class="w"> </span>checkpoints/ckpt_last.pt<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span>--meta<span class="w"> </span>data/processed/meta.json<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span>--device<span class="w"> </span>cpu<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span>--port<span class="w"> </span><span class="m">7860</span>
-</code></pre></div>
-<h2 id="demo-gradio-depuis-hf">Demo Gradio depuis HF</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>python<span class="w"> </span>demo_gradio.py<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span>--source<span class="w"> </span>hf<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span>--repo-id<span class="w"> </span>GhostPunishR/labcore-llm-50M<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span>--device<span class="w"> </span>cpu<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span>--port<span class="w"> </span><span class="m">7860</span>
-</code></pre></div>
-<h2 id="sampling">Sampling</h2>
-<p><code>demo_gradio.py</code> supporte:</p>
+<h2 id="voir-aussi">Voir aussi</h2>
 <ul>
-<li>temperature</li>
-<li>top-k</li>
-<li>top-p</li>
+<li><a href="./">Inference &amp; Demo (EN)</a></li>
+<li><a href="../export-and-deployment/">Export &amp; Deployment (EN)</a></li>
+<li><a href="../troubleshooting/">Troubleshooting (EN)</a></li>
 </ul>
-<p><code>generate.py</code> supporte:</p>
-<ul>
-<li>temperature</li>
-<li>top-k</li>
-</ul>
-<h2 id="depannage">Depannage</h2>
-<h3 id="tokenizer-char-sans-vocab">tokenizer char sans vocab</h3>
-<p>Regenerer la data char + <code>meta.json</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>python<span class="w"> </span>scripts/prepare_data.py<span class="w"> </span>--dataset<span class="w"> </span>tinyshakespeare<span class="w"> </span>--tokenizer<span class="w"> </span>char<span class="w"> </span>--output-format<span class="w"> </span>txt
-</code></pre></div>
-<h3 id="dependances-hf-demo-manquantes">dependances HF demo manquantes</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[hf,demo]&quot;</span>
-</code></pre></div>
-<h2 id="suite">Suite</h2>
-<p>Voir <a href="../export-and-deployment/">Export et Deploiement</a>.</p>
 
 
 

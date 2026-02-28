@@ -570,10 +570,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#main-command" class="md-nav__link">
+  <a href="#commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Main Command
+        Command(s)
       
     </span>
   </a>
@@ -581,10 +581,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#presets" class="md-nav__link">
+  <a href="#data_format-and-metadata-mapping" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Presets
+        data_format and Metadata Mapping
       
     </span>
   </a>
@@ -592,32 +592,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#runtime-behavior" class="md-nav__link">
+  <a href="#checkpointing-and-resume-behavior" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Runtime Behavior
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#checkpoints-and-logs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Checkpoints and Logs
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#performance-guidance" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Performance Guidance
+        Checkpointing and Resume Behavior
       
     </span>
   </a>
@@ -633,41 +611,13 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Common Errors">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#binary-shards-not-found" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Binary shards not found
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#unable-to-infer-vocab_size" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Unable to infer vocab_size
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
-  <a href="#next-step" class="md-nav__link">
+  <a href="#next-related" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Next Step
+        Next / Related
       
     </span>
   </a>
@@ -1059,10 +1009,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#main-command" class="md-nav__link">
+  <a href="#commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Main Command
+        Command(s)
       
     </span>
   </a>
@@ -1070,10 +1020,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#presets" class="md-nav__link">
+  <a href="#data_format-and-metadata-mapping" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Presets
+        data_format and Metadata Mapping
       
     </span>
   </a>
@@ -1081,32 +1031,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#runtime-behavior" class="md-nav__link">
+  <a href="#checkpointing-and-resume-behavior" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Runtime Behavior
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#checkpoints-and-logs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Checkpoints and Logs
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#performance-guidance" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Performance Guidance
+        Checkpointing and Resume Behavior
       
     </span>
   </a>
@@ -1122,41 +1050,13 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Common Errors">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#binary-shards-not-found" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Binary shards not found
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#unable-to-infer-vocab_size" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Unable to infer vocab_size
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
-  <a href="#next-step" class="md-nav__link">
+  <a href="#next-related" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Next Step
+        Next / Related
       
     </span>
   </a>
@@ -1184,68 +1084,75 @@
 
 
 <h1 id="training">Training</h1>
-<p>Training is driven by TOML configs plus optional CLI overrides.</p>
-<h2 id="main-command">Main Command</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python<span class="w"> </span>train.py<span class="w"> </span>--config<span class="w"> </span>configs/base.toml<span class="w"> </span>--tokenizer<span class="w"> </span>char<span class="w"> </span>--max-iters<span class="w"> </span><span class="m">2000</span>
+<p>Use this page to launch, monitor, and checkpoint training runs with consistent settings.
+Prerequisites: prepared dataset and metadata from <a href="../data-pipeline/">Data Pipeline</a>.</p>
+<h2 id="commands">Command(s)</h2>
+<p>Reference training command:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python<span class="w"> </span>train.py<span class="w"> </span>--config<span class="w"> </span>configs/base.toml<span class="w"> </span>--tokenizer<span class="w"> </span>char<span class="w"> </span>--max-iters<span class="w"> </span><span class="m">5000</span>
 </code></pre></div>
-<p>CLI flags:</p>
+<p>Device override examples:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python<span class="w"> </span>train.py<span class="w"> </span>--config<span class="w"> </span>configs/base.toml<span class="w"> </span>--tokenizer<span class="w"> </span>char<span class="w"> </span>--max-iters<span class="w"> </span><span class="m">5000</span><span class="w"> </span>--device<span class="w"> </span>cpu
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>python<span class="w"> </span>train.py<span class="w"> </span>--config<span class="w"> </span>configs/base.toml<span class="w"> </span>--tokenizer<span class="w"> </span>char<span class="w"> </span>--max-iters<span class="w"> </span><span class="m">5000</span><span class="w"> </span>--device<span class="w"> </span>cuda
+</code></pre></div>
+<p><code>train.py</code> flags:</p>
 <ul>
-<li><code>--config</code>: path to TOML preset</li>
-<li><code>--max-iters</code>: override training max iterations</li>
+<li><code>--config</code>: TOML preset path (<code>CONFIG_EXAMPLE = configs/base.toml</code>)</li>
+<li><code>--max-iters</code>: runtime override for total iterations</li>
 <li><code>--device</code>: <code>cpu</code> or <code>cuda</code></li>
 <li><code>--tokenizer</code>: <code>char</code> or <code>bpe</code></li>
 </ul>
-<h2 id="presets">Presets</h2>
+<h2 id="data_format-and-metadata-mapping"><code>data_format</code> and Metadata Mapping</h2>
+<table>
+<thead>
+<tr>
+<th>Training mode</th>
+<th>Config value</th>
+<th>Data artifacts expected</th>
+<th>Metadata path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Text pipeline</td>
+<td><code>training.data_format = "txt"</code></td>
+<td><code>data/processed/train.txt</code> + <code>data/processed/val.txt</code> (or <code>.npy</code>)</td>
+<td><code>data/processed/meta.json</code> (<code>META_TXT</code>)</td>
+</tr>
+<tr>
+<td>Binary pipeline</td>
+<td><code>training.data_format = "bin"</code></td>
+<td><code>data/train.bin</code> + <code>data/val.bin</code></td>
+<td><code>data/meta.json</code> (<code>META_BIN</code>)</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For binary mode, if <code>data.processed_dir</code> points to <code>data/processed</code>, <code>train.py</code> automatically checks the parent directory (<code>data/</code>) for <code>train.bin</code> and <code>val.bin</code>.</p>
+</div>
+<h2 id="checkpointing-and-resume-behavior">Checkpointing and Resume Behavior</h2>
+<p>Produced during training:</p>
 <ul>
-<li><code>configs/base.toml</code>: small char baseline (<code>txt</code> data format)</li>
-<li><code>configs/bpe_medium/bpe_medium_50M.toml</code>: BPE preset with 50M-class model (<code>txt</code>)</li>
-<li><code>configs/bpe_rope_flash/bpe_50M_rope_flash.toml</code>: BPE + RoPE + Flash with <code>bin</code> format</li>
-<li>Additional size variants are available in <code>configs/bpe_medium/</code> and <code>configs/bpe_rope_flash/</code> (<code>5M</code> to <code>50M</code>).</li>
-</ul>
-<h2 id="runtime-behavior">Runtime Behavior</h2>
-<ul>
-<li>Loads config via <code>labcore_llm.config.load_config</code>.</li>
-<li>Resolves <code>meta.json</code> from configured processed directory.</li>
-<li>Loads tokenizer from metadata.</li>
-<li>Builds dataset loaders based on <code>training.data_format</code>:</li>
-<li><code>txt</code> or <code>npy</code> path</li>
-<li><code>bin</code> memory-mapped path</li>
-<li>Applies warmup + cosine LR schedule.</li>
-<li>Saves checkpoints and train logs.</li>
-</ul>
-<h2 id="checkpoints-and-logs">Checkpoints and Logs</h2>
-<p>Trainer saves:</p>
-<ul>
-<li><code>checkpoints/ckpt_last.pt</code></li>
+<li><code>checkpoints/ckpt_last.pt</code> (<code>CHECKPOINT</code>)</li>
 <li><code>checkpoints/train_log.json</code></li>
 </ul>
-<p><code>ckpt_last.pt</code> includes:</p>
-<ul>
-<li>model config and model weights</li>
-<li>optimizer state</li>
-<li>trainer config</li>
-<li>latest loss snapshot</li>
-<li>tokenizer metadata</li>
-</ul>
-<h2 id="performance-guidance">Performance Guidance</h2>
-<ul>
-<li>For CPU smoke tests, use <code>configs/base.toml</code> and low <code>--max-iters</code>.</li>
-<li>For 8GB VRAM setups, start with provided 50M presets.</li>
-<li>Keep <code>gradient_accumulation_steps</code> aligned with memory budget.</li>
-</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Native resume-from-checkpoint is not implemented in <code>train.py</code> yet. <code>ckpt_last.pt</code> is for inference/export compatibility and state inspection, not automatic continuation.</p>
+</div>
 <h2 id="common-errors">Common Errors</h2>
-<h3 id="binary-shards-not-found"><code>Binary shards not found</code></h3>
-<p>You selected <code>training.data_format = "bin"</code> without <code>train.bin</code> and <code>val.bin</code>.
-Re-run <code>prepare_data.py</code> with <code>--output-format bin</code>.</p>
-<h3 id="unable-to-infer-vocab_size"><code>Unable to infer vocab_size</code></h3>
-<p>Ensure one source provides vocab size:</p>
 <ul>
-<li><code>model.vocab_size</code> in TOML, or</li>
-<li><code>meta.json</code> contains <code>vocab_size</code>, or</li>
-<li>tokenizer metadata is available.</li>
+<li>Binary shards missing: see <a href="../troubleshooting/#binary-shards-not-found">Binary shards not found</a>.</li>
+<li>Metadata path mismatch: see <a href="../troubleshooting/#meta-path-mismatch">Meta path mismatch</a>.</li>
+<li>Vocab inference failure: see <a href="../troubleshooting/#char-vocab-missing">Char vocab missing</a>.</li>
+<li>CUDA fallback warning: see <a href="../troubleshooting/#cuda-not-detected">CUDA not detected</a>.</li>
 </ul>
-<h2 id="next-step">Next Step</h2>
-<p>Continue with <a href="../inference-and-demo/">Inference and Demo</a>.</p>
+<h2 id="next-related">Next / Related</h2>
+<ul>
+<li><a href="../inference-and-demo/">Inference &amp; Demo</a></li>
+<li><a href="../export-and-deployment/">Export &amp; Deployment</a></li>
+<li><a href="../troubleshooting/">Troubleshooting</a></li>
+</ul>
 
 
 

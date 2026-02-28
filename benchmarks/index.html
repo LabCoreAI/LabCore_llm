@@ -825,10 +825,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#benchmark-template" class="md-nav__link">
+  <a href="#commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Benchmark Template
+        Command(s)
       
     </span>
   </a>
@@ -836,10 +836,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#minimal-example-entry" class="md-nav__link">
+  <a href="#benchmark-table-template" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Minimal Example Entry
+        Benchmark Table Template
       
     </span>
   </a>
@@ -847,10 +847,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#benchmark-tips" class="md-nav__link">
+  <a href="#rtx-4060-reference-entry" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Benchmark Tips
+        RTX 4060 Reference Entry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-add-your-benchmark" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Add Your Benchmark
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related
       
     </span>
   </a>
@@ -987,10 +1009,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#benchmark-template" class="md-nav__link">
+  <a href="#commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Benchmark Template
+        Command(s)
       
     </span>
   </a>
@@ -998,10 +1020,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#minimal-example-entry" class="md-nav__link">
+  <a href="#benchmark-table-template" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Minimal Example Entry
+        Benchmark Table Template
       
     </span>
   </a>
@@ -1009,10 +1031,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#benchmark-tips" class="md-nav__link">
+  <a href="#rtx-4060-reference-entry" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Benchmark Tips
+        RTX 4060 Reference Entry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-add-your-benchmark" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Add Your Benchmark
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related
       
     </span>
   </a>
@@ -1040,12 +1084,18 @@
 
 
 <h1 id="benchmarks">Benchmarks</h1>
-<p>Use this page to track reproducible performance numbers across presets and devices.</p>
-<h2 id="benchmark-template">Benchmark Template</h2>
+<p>Use this page to log reproducible performance results for the same doc preset and path conventions.
+Prerequisite: run with fixed config, tokenizer, and data format before recording numbers.</p>
+<h2 id="commands">Command(s)</h2>
+<p>Reference benchmark launch command:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python<span class="w"> </span>train.py<span class="w"> </span>--config<span class="w"> </span>configs/base.toml<span class="w"> </span>--tokenizer<span class="w"> </span>char<span class="w"> </span>--max-iters<span class="w"> </span><span class="m">5000</span><span class="w"> </span>--device<span class="w"> </span>cuda
+</code></pre></div>
+<h2 id="benchmark-table-template">Benchmark Table Template</h2>
 <table>
 <thead>
 <tr>
 <th>Preset</th>
+<th>Dataset / Tokenizer</th>
 <th>Device</th>
 <th>Batch / Seq / Accum</th>
 <th style="text-align: right;">Throughput (it/s or tok/s)</th>
@@ -1056,20 +1106,23 @@
 <tbody>
 <tr>
 <td><code>configs/base.toml</code></td>
+<td><code>tinyshakespeare / char</code></td>
 <td><code>cpu</code></td>
-<td><code>32 / 128 / 1</code></td>
-<td style="text-align: right;"><code>0.00</code></td>
-<td style="text-align: right;"><code>0.0 GB</code></td>
-<td>placeholder</td>
+<td><code>8 / 512 / 1</code></td>
+<td style="text-align: right;"><code>TBD</code></td>
+<td style="text-align: right;"><code>TBD</code></td>
+<td>template row</td>
 </tr>
 </tbody>
 </table>
-<h2 id="minimal-example-entry">Minimal Example Entry</h2>
-<p>Use one line per run with exact settings:</p>
+<h2 id="rtx-4060-reference-entry">RTX 4060 Reference Entry</h2>
+<p>No validated RTX 4060 measurement is checked into this repository yet.
+Use this row as a fill-in template for your first stable run:</p>
 <table>
 <thead>
 <tr>
 <th>Preset</th>
+<th>Dataset / Tokenizer</th>
 <th>Device</th>
 <th>Batch / Seq / Accum</th>
 <th style="text-align: right;">Throughput (it/s or tok/s)</th>
@@ -1079,20 +1132,32 @@
 </thead>
 <tbody>
 <tr>
-<td><code>configs/bpe_rope_flash/bpe_30M_rope_flash.toml</code></td>
-<td><code>cuda</code></td>
-<td><code>8 / 512 / 8</code></td>
+<td><code>configs/base.toml</code></td>
+<td><code>tinyshakespeare / char</code></td>
+<td><code>RTX 4060</code></td>
+<td><code>8 / 512 / 2</code></td>
 <td style="text-align: right;"><code>TBD</code></td>
 <td style="text-align: right;"><code>TBD</code></td>
-<td>fill after first stable run</td>
+<td>record driver + torch version</td>
 </tr>
 </tbody>
 </table>
-<h2 id="benchmark-tips">Benchmark Tips</h2>
+<h2 id="how-to-add-your-benchmark">How to Add Your Benchmark</h2>
+<ol>
+<li>Run at least one warmup phase before measuring.</li>
+<li>Log exact preset path, overrides, and <code>training.data_format</code>.</li>
+<li>Record hardware (<code>GPU</code>, driver) and software (<code>torch</code>, CUDA version).</li>
+<li>Add one table row per run and avoid mixing metrics from different settings.</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If numbers look unstable, start with the <a href="../inference-and-demo/#stable-generation-settings-debug-mode">Stable generation and debug guidance</a> and verify no fallback to CPU.</p>
+</div>
+<h2 id="related">Related</h2>
 <ul>
-<li>Warm up for a few iterations before recording.</li>
-<li>Keep dataset, tokenizer, and precision consistent between runs.</li>
-<li>Log GPU model, driver, and PyTorch version in notes.</li>
+<li><a href="../training/">Training</a></li>
+<li><a href="../configuration-reference/">Configuration Reference</a></li>
+<li><a href="../operations/">Operations</a></li>
 </ul>
 
 

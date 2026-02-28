@@ -626,10 +626,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#main-command" class="md-nav__link">
+  <a href="#commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Main Command
+        Command(s)
       
     </span>
   </a>
@@ -637,10 +637,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#required-dependencies" class="md-nav__link">
+  <a href="#output-files-artifacts-produced" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Required Dependencies
+        Output Files / Artifacts Produced
       
     </span>
   </a>
@@ -648,10 +648,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#script-behavior" class="md-nav__link">
+  <a href="#dataset-mapping" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Script Behavior
+        Dataset Mapping
       
     </span>
   </a>
@@ -659,10 +659,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#dataset-field-mapping" class="md-nav__link">
+  <a href="#common-errors" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Dataset Field Mapping
+        Common Errors
       
     </span>
   </a>
@@ -670,21 +670,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#practical-tips" class="md-nav__link">
+  <a href="#next-related" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Practical Tips
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-step" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Next Step
+        Next / Related
       
     </span>
   </a>
@@ -1020,10 +1009,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#main-command" class="md-nav__link">
+  <a href="#commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Main Command
+        Command(s)
       
     </span>
   </a>
@@ -1031,10 +1020,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#required-dependencies" class="md-nav__link">
+  <a href="#output-files-artifacts-produced" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Required Dependencies
+        Output Files / Artifacts Produced
       
     </span>
   </a>
@@ -1042,10 +1031,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#script-behavior" class="md-nav__link">
+  <a href="#dataset-mapping" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Script Behavior
+        Dataset Mapping
       
     </span>
   </a>
@@ -1053,10 +1042,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#dataset-field-mapping" class="md-nav__link">
+  <a href="#common-errors" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Dataset Field Mapping
+        Common Errors
       
     </span>
   </a>
@@ -1064,21 +1053,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#practical-tips" class="md-nav__link">
+  <a href="#next-related" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Practical Tips
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-step" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Next Step
+        Next / Related
       
     </span>
   </a>
@@ -1106,8 +1084,9 @@
 
 
 <h1 id="fine-tuning">Fine-Tuning</h1>
-<p>LabCore includes a LoRA instruction fine-tuning script for HF-compatible CausalLM models.</p>
-<h2 id="main-command">Main Command</h2>
+<p>Use this page for LoRA instruction tuning on HF-compatible CausalLM checkpoints.
+Prerequisites: HF + finetune dependencies and an accessible base model.</p>
+<h2 id="commands">Command(s)</h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python<span class="w"> </span>scripts/fine_tune_instruction.py<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span>--model-id<span class="w"> </span>GhostPunishR/labcore-llm-50M<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span>--dataset<span class="w"> </span>yahma/alpaca-cleaned<span class="w"> </span><span class="se">\</span>
@@ -1117,36 +1096,36 @@
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span>--max-samples<span class="w"> </span><span class="m">20000</span><span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span>--epochs<span class="w"> </span><span class="m">1</span>
 </code></pre></div>
-<h2 id="required-dependencies">Required Dependencies</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[torch,hf,finetune]&quot;</span>
+<p>Dependencies:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[torch,hf,finetune]&quot;</span>
 </code></pre></div>
-<p>Or for development + fine-tuning:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[torch,dev,hf,finetune]&quot;</span>
-</code></pre></div>
-<h2 id="script-behavior">Script Behavior</h2>
+<h2 id="output-files-artifacts-produced">Output Files / Artifacts Produced</h2>
 <ul>
-<li>Loads base model and tokenizer from <code>--model-id</code>.</li>
-<li>Auto-picks LoRA target modules (<code>q_proj</code>, <code>k_proj</code>, <code>v_proj</code>, <code>o_proj</code>) when available.</li>
-<li>Normalizes examples to a stable instruction template.</li>
-<li>Tokenizes with fixed max sequence length.</li>
-<li>Trains with HF <code>Trainer</code>.</li>
-<li>Saves LoRA adapter and tokenizer to <code>--output-dir</code>.</li>
+<li><code>outputs/lora_instruction/</code> (LoRA adapter + tokenizer files)</li>
 </ul>
-<h2 id="dataset-field-mapping">Dataset Field Mapping</h2>
-<p>The script supports common naming variants:</p>
+<h2 id="dataset-mapping">Dataset Mapping</h2>
+<p>The script accepts common field aliases:</p>
 <ul>
-<li>instruction: <code>instruction</code> / <code>question</code> / <code>prompt</code></li>
-<li>input: <code>input</code> / <code>context</code></li>
-<li>output: <code>output</code> / <code>response</code> / <code>answer</code></li>
+<li>Instruction: <code>instruction</code>, <code>question</code>, <code>prompt</code></li>
+<li>Input: <code>input</code>, <code>context</code></li>
+<li>Output: <code>output</code>, <code>response</code>, <code>answer</code></li>
 </ul>
-<h2 id="practical-tips">Practical Tips</h2>
+<h2 id="common-errors">Common Errors</h2>
 <ul>
-<li>Start with small <code>--max-samples</code> for validation.</li>
-<li>Tune <code>--batch-size</code> and <code>--max-seq-len</code> based on VRAM.</li>
-<li>Keep dataset quality high; noisy instruction pairs degrade output fast.</li>
+<li>Missing HF dependencies: see <a href="../troubleshooting/#torch-not-installed">Torch not installed</a>.</li>
+<li>OOM during fine-tuning: see <a href="../troubleshooting/#oom-errors">Out of memory</a>.</li>
+<li>Wrong base model/tokenizer expectations: verify config and model compatibility before launching.</li>
 </ul>
-<h2 id="next-step">Next Step</h2>
-<p>Review <a href="../configuration-reference/">Configuration Reference</a> for full tuning controls.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Fine-tuning uses the HF trainer stack and writes to <code>outputs/</code> rather than <code>checkpoints/</code>.</p>
+</div>
+<h2 id="next-related">Next / Related</h2>
+<ul>
+<li><a href="../configuration-reference/">Configuration Reference</a></li>
+<li><a href="../export-and-deployment/">Export &amp; Deployment</a></li>
+<li><a href="../operations/">Operations</a></li>
+</ul>
 
 
 

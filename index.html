@@ -428,6 +428,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#reference-preset-used-across-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Preset Used Across Docs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#quick-install" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -439,21 +450,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#quick-example" class="md-nav__link">
+  <a href="#quick-start-commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick Example
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-you-get" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What You Get
+        Quick Start Commands
       
     </span>
   </a>
@@ -522,10 +522,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#quick-next-steps" class="md-nav__link">
+  <a href="#next-related" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick Next Steps
+        Next / Related
       
     </span>
   </a>
@@ -1052,6 +1052,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#reference-preset-used-across-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Preset Used Across Docs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#quick-install" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1063,21 +1074,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#quick-example" class="md-nav__link">
+  <a href="#quick-start-commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick Example
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-you-get" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What You Get
+        Quick Start Commands
       
     </span>
   </a>
@@ -1146,10 +1146,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#quick-next-steps" class="md-nav__link">
+  <a href="#next-related" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick Next Steps
+        Next / Related
       
     </span>
   </a>
@@ -1177,66 +1177,72 @@
 
 
 <h1 id="labcore-llm">LabCore LLM</h1>
-<p>Practical decoder-only GPT framework for local training, evaluation, and deployment.</p>
+<p>This documentation is the operational guide for running LabCore end to end: data preparation, training, inference, and export.
+English pages in <code>docs/</code> are the source of truth, and French pages in <code>docs/fr/</code> are concise mirrors.</p>
 <p><a href="https://www.python.org/"><img alt="Python" src="https://img.shields.io/badge/Python-3.11+-3776AB?style=flat&amp;logo=python&amp;logoColor=white" /></a>
 <a href="https://pytorch.org/"><img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-2.5+-EE4C2C?style=flat&amp;logo=pytorch&amp;logoColor=white" /></a>
 <a href="https://github.com/LabCoreAI/LabCore_llm/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/github/license/LabCoreAI/LabCore_llm?style=flat&amp;logo=gnu&amp;logoColor=white&amp;color=2EA44F" /></a></p>
-<h2 id="quick-install">Quick Install</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[torch]&quot;</span>
-</code></pre></div>
-<h2 id="quick-example">Quick Example</h2>
-<p>Tiny Shakespeare with the char tokenizer:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python<span class="w"> </span>scripts/prepare_data.py<span class="w"> </span>--dataset<span class="w"> </span>tinyshakespeare<span class="w"> </span>--tokenizer<span class="w"> </span>char<span class="w"> </span>--output-format<span class="w"> </span>txt
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>python<span class="w"> </span>train.py<span class="w"> </span>--config<span class="w"> </span>configs/base.toml<span class="w"> </span>--tokenizer<span class="w"> </span>char<span class="w"> </span>--max-iters<span class="w"> </span><span class="m">200</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>python<span class="w"> </span>generate.py<span class="w"> </span>--checkpoint<span class="w"> </span>checkpoints/ckpt_last.pt<span class="w"> </span>--meta<span class="w"> </span>data/processed/meta.json<span class="w"> </span>--tokenizer<span class="w"> </span>char<span class="w"> </span>--prompt<span class="w"> </span><span class="s2">&quot;To be&quot;</span>
-</code></pre></div>
-<h2 id="what-you-get">What You Get</h2>
+<h2 id="reference-preset-used-across-docs">Reference Preset Used Across Docs</h2>
+<p>All examples are standardized on this reference setup:</p>
 <ul>
-<li>Decoder-only GPT training stack with config-driven workflows.</li>
-<li>Optional RoPE positional encoding.</li>
-<li>Optional FlashAttention/SDPA attention path.</li>
-<li>Memory-mapped binary data pipeline (<code>train.bin</code>/<code>val.bin</code>).</li>
-<li>Hugging Face export workflow.</li>
-<li>GGUF conversion and quantization path.</li>
-<li>LoRA fine-tuning entrypoint for instruction workflows.</li>
+<li>Dataset: <code>tinyshakespeare</code></li>
+<li>Tokenizer: <code>char</code></li>
+<li><code>CONFIG_EXAMPLE = configs/base.toml</code></li>
+<li>Canonical training override: <code>--max-iters 5000</code></li>
+<li><code>CHECKPOINT = checkpoints/ckpt_last.pt</code></li>
+<li><code>META_TXT = data/processed/meta.json</code></li>
+<li><code>META_BIN = data/meta.json</code></li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Keep these values unchanged for your first full run. Most failures come from checkpoint and metadata path mismatches.</p>
+</div>
+<h2 id="quick-install">Quick Install</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[torch,dev]&quot;</span>
+</code></pre></div>
+<p>For Hugging Face export and demo UI:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[torch,hf,demo]&quot;</span>
+</code></pre></div>
+<h2 id="quick-start-commands">Quick Start Commands</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>python<span class="w"> </span>scripts/prepare_data.py<span class="w"> </span>--dataset<span class="w"> </span>tinyshakespeare<span class="w"> </span>--tokenizer<span class="w"> </span>char<span class="w"> </span>--output-format<span class="w"> </span>txt<span class="w"> </span>--output-dir<span class="w"> </span>data/processed
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>python<span class="w"> </span>train.py<span class="w"> </span>--config<span class="w"> </span>configs/base.toml<span class="w"> </span>--tokenizer<span class="w"> </span>char<span class="w"> </span>--max-iters<span class="w"> </span><span class="m">5000</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>python<span class="w"> </span>generate.py<span class="w"> </span>--checkpoint<span class="w"> </span>checkpoints/ckpt_last.pt<span class="w"> </span>--meta<span class="w"> </span>data/processed/meta.json<span class="w"> </span>--tokenizer<span class="w"> </span>char<span class="w"> </span>--prompt<span class="w"> </span><span class="s2">&quot;To be&quot;</span>
+</code></pre></div>
+<p>Expected artifacts:</p>
+<ul>
+<li><code>checkpoints/ckpt_last.pt</code></li>
+<li><code>checkpoints/train_log.json</code></li>
+<li><code>data/processed/meta.json</code></li>
 </ul>
 <h2 id="end-to-end-flow">End-to-End Flow</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Raw text corpus
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  -&gt; scripts/prepare_data.py
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  -&gt; train.py (+ config preset)
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  -&gt; checkpoints/ckpt_last.pt
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  -&gt; generate.py / demo_gradio.py
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  -&gt; scripts/export_hf.py
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>  -&gt; scripts/quantize_gguf.py (optional)
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>  -&gt; scripts/fine_tune_instruction.py (optional)
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>prepare_data.py -&gt; train.py -&gt; generate.py/demo_gradio.py -&gt; export_hf.py -&gt; quantize_gguf.py
 </code></pre></div>
 <h2 id="documentation-map">Documentation Map</h2>
 <h3 id="guides">Guides</h3>
 <ul>
-<li><a href="getting-started/">Getting Started</a>: environment setup and first run.</li>
-<li><a href="data-pipeline/">Data Pipeline</a>: build <code>txt</code> or <code>bin</code> datasets + metadata.</li>
-<li><a href="training/">Training</a>: run training presets and monitor checkpoints.</li>
-<li><a href="inference-and-demo/">Inference &amp; Demo</a>: CLI generation and Gradio workflows.</li>
-<li><a href="fine-tuning/">Fine-Tuning</a>: LoRA instruction-tuning workflow.</li>
-<li><a href="export-and-deployment/">Export &amp; Deployment</a>: HF export and GGUF path.</li>
+<li><a href="getting-started/">Getting Started</a>: environment setup and a reproducible first run.</li>
+<li><a href="data-pipeline/">Data Pipeline</a>: build <code>txt</code> or <code>bin</code> datasets and metadata.</li>
+<li><a href="training/">Training</a>: run training, checkpointing, and format selection.</li>
+<li><a href="inference-and-demo/">Inference &amp; Demo</a>: CLI generation and Gradio demo.</li>
+<li><a href="fine-tuning/">Fine-Tuning</a>: LoRA instruction tuning workflow.</li>
+<li><a href="export-and-deployment/">Export &amp; Deployment</a>: HF export and GGUF conversion.</li>
 </ul>
 <h3 id="reference">Reference</h3>
 <ul>
-<li><a href="configuration-reference/">Configuration</a>: TOML sections, defaults, and examples.</li>
-<li><a href="operations/">Operations</a>: release/security/support operations.</li>
-<li><a href="troubleshooting/">Troubleshooting</a>: common errors and quick fixes.</li>
-<li><a href="benchmarks/">Benchmarks</a>: template for performance tracking.</li>
+<li><a href="configuration-reference/">Configuration</a>: complete TOML key reference.</li>
+<li><a href="operations/">Operations</a>: artifacts, release flow, and operational checks.</li>
+<li><a href="troubleshooting/">Troubleshooting</a>: anchored fixes for common failures.</li>
+<li><a href="benchmarks/">Benchmarks</a>: benchmark template and reporting method.</li>
 </ul>
 <h3 id="development">Development</h3>
 <ul>
-<li><a href="developer-guide/">Developer Guide</a>: local dev workflow, tests, and standards.</li>
+<li><a href="developer-guide/">Developer Guide</a>: contributor workflow and validation commands.</li>
 </ul>
-<h2 id="quick-next-steps">Quick Next Steps</h2>
+<h2 id="next-related">Next / Related</h2>
 <ul>
 <li><a href="getting-started/">Getting Started</a></li>
+<li><a href="data-pipeline/">Data Pipeline</a></li>
 <li><a href="training/">Training</a></li>
-<li><a href="export-and-deployment/">Export &amp; Deployment</a></li>
-<li><a href="operations/">Operations</a> for quality checks, hardware guidance, license, and disclaimer.</li>
 </ul>
 
 

@@ -598,10 +598,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#cli-generation" class="md-nav__link">
+  <a href="#commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CLI Generation
+        Command(s)
       
     </span>
   </a>
@@ -609,10 +609,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#gradio-demo-local-checkpoint" class="md-nav__link">
+  <a href="#stable-generation-settings-debug-mode" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Gradio Demo (Local Checkpoint)
+        Stable Generation Settings (Debug Mode)
       
     </span>
   </a>
@@ -620,10 +620,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#gradio-demo-hf-hub" class="md-nav__link">
+  <a href="#output-files-artifacts-produced" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Gradio Demo (HF Hub)
+        Output Files / Artifacts Produced
       
     </span>
   </a>
@@ -631,10 +631,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#sampling-behavior" class="md-nav__link">
+  <a href="#common-errors" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Sampling Behavior
+        Common Errors
       
     </span>
   </a>
@@ -642,49 +642,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
+  <a href="#next-related" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Troubleshooting
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#missing-tokenizer-metadata-for-char-runs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Missing tokenizer metadata for char runs
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#hf-model-loading-dependencies" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        HF model loading dependencies
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-step" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Next Step
+        Next / Related
       
     </span>
   </a>
@@ -1048,10 +1009,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#cli-generation" class="md-nav__link">
+  <a href="#commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CLI Generation
+        Command(s)
       
     </span>
   </a>
@@ -1059,10 +1020,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#gradio-demo-local-checkpoint" class="md-nav__link">
+  <a href="#stable-generation-settings-debug-mode" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Gradio Demo (Local Checkpoint)
+        Stable Generation Settings (Debug Mode)
       
     </span>
   </a>
@@ -1070,10 +1031,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#gradio-demo-hf-hub" class="md-nav__link">
+  <a href="#output-files-artifacts-produced" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Gradio Demo (HF Hub)
+        Output Files / Artifacts Produced
       
     </span>
   </a>
@@ -1081,10 +1042,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#sampling-behavior" class="md-nav__link">
+  <a href="#common-errors" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Sampling Behavior
+        Common Errors
       
     </span>
   </a>
@@ -1092,49 +1053,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
+  <a href="#next-related" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Troubleshooting
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#missing-tokenizer-metadata-for-char-runs" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Missing tokenizer metadata for char runs
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#hf-model-loading-dependencies" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        HF model loading dependencies
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-step" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Next Step
+        Next / Related
       
     </span>
   </a>
@@ -1162,12 +1084,10 @@
 
 
 <h1 id="inference-and-demo">Inference and Demo</h1>
-<p>LabCore supports two interactive inference paths:</p>
-<ul>
-<li>CLI generation with <code>generate.py</code></li>
-<li>Gradio web UI with <code>demo_gradio.py</code></li>
-</ul>
-<h2 id="cli-generation">CLI Generation</h2>
+<p>Use this page to run deterministic CLI generation and the local Gradio demo.
+Prerequisites: a trained checkpoint (<code>checkpoints/ckpt_last.pt</code>) and matching metadata.</p>
+<h2 id="commands">Command(s)</h2>
+<p>CLI generation (reference paths):</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python<span class="w"> </span>generate.py<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span>--checkpoint<span class="w"> </span>checkpoints/ckpt_last.pt<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span>--meta<span class="w"> </span>data/processed/meta.json<span class="w"> </span><span class="se">\</span>
@@ -1178,19 +1098,7 @@
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span>--top-k<span class="w"> </span><span class="m">40</span><span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span>--device<span class="w"> </span>cpu
 </code></pre></div>
-<p>Key flags:</p>
-<ul>
-<li><code>--checkpoint</code></li>
-<li><code>--meta</code></li>
-<li><code>--config</code> (optional tokenizer fallback)</li>
-<li><code>--tokenizer</code> (<code>char</code> or <code>bpe</code>)</li>
-<li><code>--prompt</code></li>
-<li><code>--max-new-tokens</code></li>
-<li><code>--temperature</code></li>
-<li><code>--top-k</code></li>
-<li><code>--device</code></li>
-</ul>
-<h2 id="gradio-demo-local-checkpoint">Gradio Demo (Local Checkpoint)</h2>
+<p>Gradio demo from local checkpoint:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python<span class="w"> </span>demo_gradio.py<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span>--source<span class="w"> </span><span class="nb">local</span><span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span>--checkpoint<span class="w"> </span>checkpoints/ckpt_last.pt<span class="w"> </span><span class="se">\</span>
@@ -1198,37 +1106,42 @@
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span>--device<span class="w"> </span>cpu<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span>--port<span class="w"> </span><span class="m">7860</span>
 </code></pre></div>
-<h2 id="gradio-demo-hf-hub">Gradio Demo (HF Hub)</h2>
+<p>Gradio demo from Hugging Face:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>python<span class="w"> </span>demo_gradio.py<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span>--source<span class="w"> </span>hf<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span>--repo-id<span class="w"> </span>GhostPunishR/labcore-llm-50M<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span>--device<span class="w"> </span>cpu<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span>--port<span class="w"> </span><span class="m">7860</span>
 </code></pre></div>
-<h2 id="sampling-behavior">Sampling Behavior</h2>
-<p><code>demo_gradio.py</code> supports:</p>
+<h2 id="stable-generation-settings-debug-mode">Stable Generation Settings (Debug Mode)</h2>
+<p>Use conservative sampling when debugging reproducibility:</p>
 <ul>
-<li>temperature scaling</li>
-<li>top-k filtering</li>
-<li>top-p filtering</li>
+<li><code>temperature = 0.2</code> to reduce randomness</li>
+<li><code>top-k = 20</code> (or lower)</li>
+<li><code>max-new-tokens = 80</code> for quick checks</li>
 </ul>
-<p><code>generate.py</code> supports:</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If output quality suddenly drops, first verify that <code>--meta</code> belongs to the same tokenizer/checkpoint run.</p>
+</div>
+<h2 id="output-files-artifacts-produced">Output Files / Artifacts Produced</h2>
 <ul>
-<li>temperature</li>
-<li>top-k</li>
+<li>CLI: generated text in terminal output</li>
+<li>Demo: generated text in Gradio UI</li>
+<li>No new model files unless you explicitly export</li>
 </ul>
-<h2 id="troubleshooting">Troubleshooting</h2>
-<h3 id="missing-tokenizer-metadata-for-char-runs">Missing tokenizer metadata for char runs</h3>
-<p><code>generate.py</code> requires char vocab in <code>meta.json</code>.
-Regenerate data with char tokenizer:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>python<span class="w"> </span>scripts/prepare_data.py<span class="w"> </span>--dataset<span class="w"> </span>tinyshakespeare<span class="w"> </span>--tokenizer<span class="w"> </span>char<span class="w"> </span>--output-format<span class="w"> </span>txt
-</code></pre></div>
-<h3 id="hf-model-loading-dependencies">HF model loading dependencies</h3>
-<p>For remote demo, install:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[hf,demo]&quot;</span>
-</code></pre></div>
-<h2 id="next-step">Next Step</h2>
-<p>Continue with <a href="../export-and-deployment/">Export and Deployment</a>.</p>
+<h2 id="common-errors">Common Errors</h2>
+<ul>
+<li>Char tokenizer metadata missing: see <a href="../troubleshooting/#char-vocab-missing">Char vocab missing</a>.</li>
+<li>Metadata path mismatch (<code>txt</code> vs <code>bin</code>): see <a href="../troubleshooting/#meta-path-mismatch">Meta path mismatch</a>.</li>
+<li>CUDA fallback behavior: see <a href="../troubleshooting/#cuda-not-detected">CUDA not detected</a>.</li>
+</ul>
+<h2 id="next-related">Next / Related</h2>
+<ul>
+<li><a href="../export-and-deployment/">Export &amp; Deployment</a></li>
+<li><a href="../fine-tuning/">Fine-Tuning</a></li>
+<li><a href="../troubleshooting/">Troubleshooting</a></li>
+</ul>
 
 
 

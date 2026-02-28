@@ -514,10 +514,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#prerequis" class="md-nav__link">
+  <a href="#commandes-rapides" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Prerequis
+        Commandes Rapides
       
     </span>
   </a>
@@ -525,10 +525,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
+  <a href="#validation-rapide" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Installation
+        Validation rapide
       
     </span>
   </a>
@@ -536,71 +536,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#smoke-test-rapide" class="md-nav__link">
+  <a href="#voir-aussi" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Smoke Test Rapide
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#notes-device" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Notes Device
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#erreurs-frequentes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Erreurs frequentes
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Erreurs frequentes">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#no-module-named-torch" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        No module named 'torch'
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#probleme-download-dataset" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Probleme download dataset
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#suite" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Suite
+        Voir aussi
       
     </span>
   </a>
@@ -1048,10 +987,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#prerequis" class="md-nav__link">
+  <a href="#commandes-rapides" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Prerequis
+        Commandes Rapides
       
     </span>
   </a>
@@ -1059,10 +998,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
+  <a href="#validation-rapide" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Installation
+        Validation rapide
       
     </span>
   </a>
@@ -1070,71 +1009,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#smoke-test-rapide" class="md-nav__link">
+  <a href="#voir-aussi" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Smoke Test Rapide
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#notes-device" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Notes Device
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#erreurs-frequentes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Erreurs frequentes
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Erreurs frequentes">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#no-module-named-torch" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        No module named 'torch'
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#probleme-download-dataset" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Probleme download dataset
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#suite" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Suite
+        Voir aussi
       
     </span>
   </a>
@@ -1162,55 +1040,27 @@
 
 
 <h1 id="demarrage">Demarrage</h1>
-<p>Cette page couvre le setup de base et le premier run fonctionnel.</p>
-<h2 id="prerequis">Prerequis</h2>
+<p>Cette page FR donne un demarrage rapide et fiable. Utilisez la page EN pour le detail complet.
+Prerequis: Python <code>3.11+</code>, <code>pip</code>, et idealement un GPU CUDA.</p>
+<h2 id="commandes-rapides">Commandes Rapides</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[torch,dev]&quot;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(torch.cuda.is_available()); print(torch.version.cuda)&quot;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>python<span class="w"> </span>scripts/prepare_data.py<span class="w"> </span>--dataset<span class="w"> </span>tinyshakespeare<span class="w"> </span>--tokenizer<span class="w"> </span>char<span class="w"> </span>--output-format<span class="w"> </span>txt<span class="w"> </span>--output-dir<span class="w"> </span>data/processed
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>python<span class="w"> </span>train.py<span class="w"> </span>--config<span class="w"> </span>configs/base.toml<span class="w"> </span>--tokenizer<span class="w"> </span>char<span class="w"> </span>--max-iters<span class="w"> </span><span class="m">5000</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>python<span class="w"> </span>generate.py<span class="w"> </span>--checkpoint<span class="w"> </span>checkpoints/ckpt_last.pt<span class="w"> </span>--meta<span class="w"> </span>data/processed/meta.json<span class="w"> </span>--tokenizer<span class="w"> </span>char<span class="w"> </span>--prompt<span class="w"> </span><span class="s2">&quot;To be&quot;</span>
+</code></pre></div>
+<h2 id="validation-rapide">Validation rapide</h2>
 <ul>
-<li>Python <code>3.11+</code></li>
-<li><code>pip</code></li>
-<li>GPU CUDA optionnel (recommande pour entrainement reel)</li>
+<li><code>checkpoints/ckpt_last.pt</code> existe</li>
+<li><code>data/processed/meta.json</code> existe</li>
+<li>la generation retourne du texte non vide</li>
 </ul>
-<p>Installer PyTorch via le selecteur officiel:</p>
-<p><a href="https://pytorch.org/get-started/locally/">https://pytorch.org/get-started/locally/</a></p>
-<h2 id="installation">Installation</h2>
-<p>Minimal:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
-</code></pre></div>
-<p>Recommande pour dev + training:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[torch,dev]&quot;</span>
-</code></pre></div>
-<p>Extras:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[torch,hf,demo]&quot;</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[gguf]&quot;</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[torch,hf,finetune]&quot;</span>
-</code></pre></div>
-<h2 id="smoke-test-rapide">Smoke Test Rapide</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>python<span class="w"> </span>scripts/prepare_data.py<span class="w"> </span>--dataset<span class="w"> </span>tinyshakespeare<span class="w"> </span>--tokenizer<span class="w"> </span>char<span class="w"> </span>--output-format<span class="w"> </span>txt
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>python<span class="w"> </span>train.py<span class="w"> </span>--config<span class="w"> </span>configs/base.toml<span class="w"> </span>--tokenizer<span class="w"> </span>char<span class="w"> </span>--max-iters<span class="w"> </span><span class="m">200</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>python<span class="w"> </span>generate.py<span class="w"> </span>--checkpoint<span class="w"> </span>checkpoints/ckpt_last.pt<span class="w"> </span>--meta<span class="w"> </span>data/processed/meta.json<span class="w"> </span>--tokenizer<span class="w"> </span>char<span class="w"> </span>--prompt<span class="w"> </span><span class="s2">&quot;To be&quot;</span>
-</code></pre></div>
-<p>Artifacts attendus:</p>
+<h2 id="voir-aussi">Voir aussi</h2>
 <ul>
-<li><code>data/processed/meta.json</code></li>
-<li><code>checkpoints/ckpt_last.pt</code></li>
-<li><code>checkpoints/train_log.json</code></li>
+<li><a href="./">Getting Started (EN)</a></li>
+<li><a href="../data-pipeline/">Data Pipeline (EN)</a></li>
+<li><a href="../troubleshooting/">Troubleshooting (EN)</a></li>
 </ul>
-<h2 id="notes-device">Notes Device</h2>
-<ul>
-<li><code>--device cuda</code> bascule auto sur CPU si CUDA indisponible.</li>
-<li>Pour CPU: commencer avec <code>configs/base.toml</code>.</li>
-</ul>
-<h2 id="erreurs-frequentes">Erreurs frequentes</h2>
-<h3 id="no-module-named-torch"><code>No module named 'torch'</code></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[torch,dev]&quot;</span>
-</code></pre></div>
-<h3 id="probleme-download-dataset">Probleme download dataset</h3>
-<p><code>prepare_data.py</code> utilise <code>datasets</code> pour charger les jeux HF.<br />
-Pour <code>wikitext</code>, installer:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[hf]&quot;</span>
-</code></pre></div>
-<p><code>tinyshakespeare</code> garde un fallback HTTP si <code>datasets</code> est indisponible.</p>
-<h2 id="suite">Suite</h2>
-<p>Voir <a href="../data-pipeline/">Pipeline Data</a>.</p>
 
 
 

@@ -654,10 +654,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#export-checkpoint-to-hf-layout" class="md-nav__link">
+  <a href="#hf-export-vs-gguf-export" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Export Checkpoint to HF Layout
+        HF Export vs GGUF Export
       
     </span>
   </a>
@@ -665,10 +665,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#push-to-hugging-face-hub" class="md-nav__link">
+  <a href="#commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Push to Hugging Face Hub
+        Command(s)
       
     </span>
   </a>
@@ -676,10 +676,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#gguf-conversion-and-quantization" class="md-nav__link">
+  <a href="#output-files-artifacts-produced" class="md-nav__link">
     <span class="md-ellipsis">
       
-        GGUF Conversion and Quantization
+        Output Files / Artifacts Produced
       
     </span>
   </a>
@@ -687,10 +687,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#deployment-checklist" class="md-nav__link">
+  <a href="#common-errors" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Deployment Checklist
+        Common Errors
       
     </span>
   </a>
@@ -698,10 +698,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#next-step" class="md-nav__link">
+  <a href="#next-related" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Next Step
+        Next / Related
       
     </span>
   </a>
@@ -1009,10 +1009,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#export-checkpoint-to-hf-layout" class="md-nav__link">
+  <a href="#hf-export-vs-gguf-export" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Export Checkpoint to HF Layout
+        HF Export vs GGUF Export
       
     </span>
   </a>
@@ -1020,10 +1020,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#push-to-hugging-face-hub" class="md-nav__link">
+  <a href="#commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Push to Hugging Face Hub
+        Command(s)
       
     </span>
   </a>
@@ -1031,10 +1031,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#gguf-conversion-and-quantization" class="md-nav__link">
+  <a href="#output-files-artifacts-produced" class="md-nav__link">
     <span class="md-ellipsis">
       
-        GGUF Conversion and Quantization
+        Output Files / Artifacts Produced
       
     </span>
   </a>
@@ -1042,10 +1042,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#deployment-checklist" class="md-nav__link">
+  <a href="#common-errors" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Deployment Checklist
+        Common Errors
       
     </span>
   </a>
@@ -1053,10 +1053,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#next-step" class="md-nav__link">
+  <a href="#next-related" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Next Step
+        Next / Related
       
     </span>
   </a>
@@ -1084,21 +1084,21 @@
 
 
 <h1 id="export-and-deployment">Export and Deployment</h1>
-<p>This section covers export to HF-compatible artifacts and optional GGUF quantization.</p>
-<h2 id="export-checkpoint-to-hf-layout">Export Checkpoint to HF Layout</h2>
+<p>Use this page to package a local checkpoint for Hugging Face and optional GGUF deployment.
+Prerequisites: a valid checkpoint (<code>checkpoints/ckpt_last.pt</code>) and matching metadata (<code>data/processed/meta.json</code> or <code>data/meta.json</code>).</p>
+<h2 id="hf-export-vs-gguf-export">HF Export vs GGUF Export</h2>
+<ul>
+<li>HF export creates standard model artifacts for Hugging Face workflows.</li>
+<li>GGUF conversion creates quantized files for <code>llama.cpp</code>-style runtimes.</li>
+</ul>
+<h2 id="commands">Command(s)</h2>
+<p>Export local checkpoint to HF layout:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python<span class="w"> </span>scripts/export_hf.py<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span>--checkpoint<span class="w"> </span>checkpoints/ckpt_last.pt<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span>--meta<span class="w"> </span>data/processed/meta.json<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span>--output-dir<span class="w"> </span>outputs/hf_export
 </code></pre></div>
-<p>Generated files:</p>
-<ul>
-<li><code>model.safetensors</code></li>
-<li><code>config.json</code></li>
-<li><code>tokenizer.json</code></li>
-<li><code>README.md</code></li>
-</ul>
-<h2 id="push-to-hugging-face-hub">Push to Hugging Face Hub</h2>
+<p>Push exported folder to HF Hub:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python<span class="w"> </span>scripts/export_hf.py<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span>--checkpoint<span class="w"> </span>checkpoints/ckpt_last.pt<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span>--meta<span class="w"> </span>data/processed/meta.json<span class="w"> </span><span class="se">\</span>
@@ -1106,34 +1106,42 @@
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span>--push<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span>--repo-id<span class="w"> </span>GhostPunishR/labcore-llm-50M
 </code></pre></div>
-<p>Requirements:</p>
-<ul>
-<li><code>huggingface_hub</code></li>
-<li>valid HF authentication (<code>huggingface-cli login</code> or token in env)</li>
-</ul>
-<h2 id="gguf-conversion-and-quantization">GGUF Conversion and Quantization</h2>
-<p>Prepare llama.cpp first, then run:</p>
+<p>Convert HF export to GGUF and quantize:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>python<span class="w"> </span>scripts/quantize_gguf.py<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span>--hf-dir<span class="w"> </span>outputs/hf_export<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span>--llama-cpp-dir<span class="w"> </span>third_party/llama.cpp<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span>--output-dir<span class="w"> </span>outputs/gguf<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span>--quant-type<span class="w"> </span>Q4_K_M
 </code></pre></div>
-<p>Supported quant choices:</p>
+<h2 id="output-files-artifacts-produced">Output Files / Artifacts Produced</h2>
+<p><code>outputs/hf_export/</code>:</p>
 <ul>
-<li><code>Q4_K_M</code></li>
-<li><code>Q5_K_M</code></li>
-<li><code>all</code></li>
+<li><code>model.safetensors</code></li>
+<li><code>config.json</code></li>
+<li><code>tokenizer.json</code></li>
+<li><code>README.md</code></li>
 </ul>
-<h2 id="deployment-checklist">Deployment Checklist</h2>
-<ol>
-<li>Verify <code>generate.py</code> works on exported artifacts.</li>
-<li>Keep <code>config.json</code> and tokenizer metadata in sync with checkpoint.</li>
-<li>Version artifacts by model family and date.</li>
-<li>Publish model card with known limits and intended usage.</li>
-</ol>
-<h2 id="next-step">Next Step</h2>
-<p>Continue with <a href="../fine-tuning/">Fine-Tuning</a>.</p>
+<p><code>outputs/gguf/</code>:</p>
+<ul>
+<li><code>labcore-50m-f16.gguf</code></li>
+<li><code>labcore-50m-q4_k_m.gguf</code> (or <code>q5_k_m</code> / both when <code>--quant-type all</code>)</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>GGUF conversion requires a valid <code>llama.cpp</code> checkout with conversion script and quantizer binary available.</p>
+</div>
+<h2 id="common-errors">Common Errors</h2>
+<ul>
+<li>Metadata mismatch (<code>txt</code> vs <code>bin</code>): see <a href="../troubleshooting/#meta-path-mismatch">Meta path mismatch</a>.</li>
+<li>Missing <code>huggingface_hub</code>/<code>safetensors</code>: see <a href="../troubleshooting/#torch-not-installed">Torch not installed</a>.</li>
+<li>Missing llama.cpp tools: see <a href="../troubleshooting/#windows-path-policy">Windows path and policy issues</a>.</li>
+</ul>
+<h2 id="next-related">Next / Related</h2>
+<ul>
+<li><a href="../fine-tuning/">Fine-Tuning</a></li>
+<li><a href="../operations/">Operations</a></li>
+<li><a href="../troubleshooting/">Troubleshooting</a></li>
+</ul>
 
 
 
