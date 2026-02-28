@@ -1,66 +1,94 @@
 # Troubleshooting
 
-Common setup and runtime issues with quick fixes.
+Use this page for fast diagnosis of common setup, data, and runtime failures.
+All anchors below are referenced from guide pages.
 
-## Installing PyTorch (CPU/CUDA)
+## Setup
 
-Use the official selector for the right command on your OS and CUDA version:
+### Torch not installed {#torch-not-installed}
 
-<https://pytorch.org/get-started/locally/>
+Symptoms: `ModuleNotFoundError: torch`, or scripts fail on import.
 
-Typical pattern:
+Fix:
 
 ```bash
-pip install -e ".[torch]"
+python -m pip install -e ".[torch,dev]"
 ```
 
-## CUDA Not Detected (`torch.cuda.is_available() == False`)
+Use the official selector if you need a specific CUDA build:
+<https://pytorch.org/get-started/locally/>
 
-Check:
+### CUDA not detected {#cuda-not-detected}
 
-- Your installed PyTorch build matches your CUDA runtime/driver.
-- NVIDIA driver is installed and up to date.
-- You are running the same Python/venv where PyTorch was installed.
+Symptoms: `torch.cuda.is_available()` returns `False`, or scripts print CPU fallback warnings.
 
 Quick check:
 
 ```bash
-python -c "import torch; print(torch.__version__, torch.cuda.is_available())"
+python -c "import torch; print(torch.cuda.is_available()); print(torch.version.cuda)"
 ```
 
-## OOM: What to Lower First
+Checks:
 
-When you hit out-of-memory errors, reduce in this order:
+- NVIDIA driver installed and up to date
+- Correct PyTorch build for your CUDA runtime
+- Same Python environment used for install and execution
+
+## Data and Metadata
+
+### Meta path mismatch {#meta-path-mismatch}
+
+Symptoms: generation/training behaves incorrectly or cannot load tokenizer metadata.
+
+Expected mapping:
+
+- `txt` pipeline -> `data/processed/meta.json`
+- `bin` pipeline -> `data/meta.json`
+
+### Binary shards not found {#binary-shards-not-found}
+
+Symptoms: `Binary shards not found` during `training.data_format = "bin"`.
+
+Fix:
+
+```bash
+python scripts/prepare_data.py --dataset tinyshakespeare --tokenizer char --output-format bin --output-dir data/processed
+```
+
+### Char vocab missing {#char-vocab-missing}
+
+Symptoms: `Char tokenizer requires vocab in meta.json`.
+
+Fix:
+
+```bash
+python scripts/prepare_data.py --dataset tinyshakespeare --tokenizer char --output-format txt --output-dir data/processed
+```
+
+Then pass the matching `--meta data/processed/meta.json` to generation/export commands.
+
+## Runtime
+
+### Out of memory {#oom-errors}
+
+Reduce in this order:
 
 1. `training.batch_size`
-2. `model.block_size` (sequence length)
+2. `model.block_size`
 3. `training.gradient_accumulation_steps`
-4. Precision strategy (if you introduce mixed precision in your environment)
+4. Model size / preset complexity
 
-If needed, move to a smaller preset model size.
-
-## `meta.json` Location Confusion
-
-`meta.json` location depends on output format and output directory:
-
-- `txt` pipeline: usually `data/processed/meta.json`
-- `bin` pipeline: usually `data/meta.json`
-
-If `train.py` cannot infer metadata, verify `processed_dir` in your TOML config and the actual output path from `prepare_data.py`.
-
-## FlashAttention Not Available
+### FlashAttention not available {#flashattention-not-available}
 
 LabCore falls back automatically:
 
-- Preferred: FlashAttention kernel (when available)
-- Fallback: PyTorch SDPA
-- Last path: standard causal attention
+- FlashAttention (preferred, if available)
+- PyTorch SDPA fallback
+- Standard causal attention fallback
 
-You can keep `use_flash = true`; runtime fallback handles unsupported environments.
+### Windows path and policy issues {#windows-path-policy}
 
-## Windows Notes
-
-- Use an activated venv before all commands.
-- Prefer quoted paths when directories include spaces.
-- Run commands from the repository root to keep relative paths stable.
-- If execution policy blocks scripts, use direct `python ...` commands.
+- Activate your venv before commands.
+- Run commands from repository root.
+- Quote paths when directories contain spaces.
+- If PowerShell policy blocks scripts, use `python ...` commands directly.

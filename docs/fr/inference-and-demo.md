@@ -1,75 +1,24 @@
-# Inference et Demo
+﻿# Inference et Demo
 
-Deux modes principaux:
+Cette page FR couvre la generation CLI et la demo Gradio avec les chemins standard.
+Utilisez les memes metadata et checkpoint que pour l'entrainement.
 
-- generation CLI (`generate.py`)
-- interface web Gradio (`demo_gradio.py`)
-
-## Generation CLI
+## Commandes Rapides
 
 ```bash
-python generate.py \
-  --checkpoint checkpoints/ckpt_last.pt \
-  --meta data/processed/meta.json \
-  --tokenizer char \
-  --prompt "To be" \
-  --max-new-tokens 200 \
-  --temperature 0.9 \
-  --top-k 40 \
-  --device cpu
+python generate.py --checkpoint checkpoints/ckpt_last.pt --meta data/processed/meta.json --tokenizer char --prompt "To be"
+python demo_gradio.py --source local --checkpoint checkpoints/ckpt_last.pt --meta data/processed/meta.json --device cpu --port 7860
+python demo_gradio.py --source hf --repo-id GhostPunishR/labcore-llm-50M --device cpu --port 7860
 ```
 
-## Demo Gradio locale
+## Reglages stables (debug)
 
-```bash
-python demo_gradio.py \
-  --source local \
-  --checkpoint checkpoints/ckpt_last.pt \
-  --meta data/processed/meta.json \
-  --device cpu \
-  --port 7860
-```
+- `temperature = 0.2`
+- `top-k = 20`
+- `max-new-tokens = 80`
 
-## Demo Gradio depuis HF
+## Voir aussi
 
-```bash
-python demo_gradio.py \
-  --source hf \
-  --repo-id GhostPunishR/labcore-llm-50M \
-  --device cpu \
-  --port 7860
-```
-
-## Sampling
-
-`demo_gradio.py` supporte:
-
-- temperature
-- top-k
-- top-p
-
-`generate.py` supporte:
-
-- temperature
-- top-k
-
-## Depannage
-
-### tokenizer char sans vocab
-
-Regenerer la data char + `meta.json`:
-
-```bash
-python scripts/prepare_data.py --dataset tinyshakespeare --tokenizer char --output-format txt
-```
-
-### dependances HF demo manquantes
-
-```bash
-pip install -e ".[hf,demo]"
-```
-
-## Suite
-
-Voir [Export et Deploiement](export-and-deployment.md).
-
+- [Inference & Demo (EN)](../inference-and-demo.md)
+- [Export & Deployment (EN)](../export-and-deployment.md)
+- [Troubleshooting (EN)](../troubleshooting.md)

@@ -1,58 +1,26 @@
-# Export et Deploiement
+﻿# Export et Deploiement
 
-Cette section couvre l'export HF puis la quantization GGUF.
+Cette page FR resume la sortie HF puis la conversion GGUF.
+Point de depart: `checkpoints/ckpt_last.pt` + metadata correspondante.
 
-## Export HF
-
-```bash
-python scripts/export_hf.py \
-  --checkpoint checkpoints/ckpt_last.pt \
-  --meta data/processed/meta.json \
-  --output-dir outputs/hf_export
-```
-
-Fichiers generes:
-
-- `model.safetensors`
-- `config.json`
-- `tokenizer.json`
-- `README.md`
-
-## Push vers Hugging Face Hub
+## Commandes Rapides
 
 ```bash
-python scripts/export_hf.py \
-  --checkpoint checkpoints/ckpt_last.pt \
-  --meta data/processed/meta.json \
-  --output-dir outputs/hf_export \
-  --push \
-  --repo-id GhostPunishR/labcore-llm-50M
+python scripts/export_hf.py --checkpoint checkpoints/ckpt_last.pt --meta data/processed/meta.json --output-dir outputs/hf_export
+python scripts/export_hf.py --checkpoint checkpoints/ckpt_last.pt --meta data/processed/meta.json --output-dir outputs/hf_export --push --repo-id GhostPunishR/labcore-llm-50M
+python scripts/quantize_gguf.py --hf-dir outputs/hf_export --llama-cpp-dir third_party/llama.cpp --output-dir outputs/gguf --quant-type Q4_K_M
 ```
 
-## Conversion GGUF
+## Artifacts
 
-```bash
-python scripts/quantize_gguf.py \
-  --hf-dir outputs/hf_export \
-  --llama-cpp-dir third_party/llama.cpp \
-  --output-dir outputs/gguf \
-  --quant-type Q4_K_M
-```
+- `outputs/hf_export/model.safetensors`
+- `outputs/hf_export/config.json`
+- `outputs/hf_export/tokenizer.json`
+- `outputs/gguf/labcore-50m-f16.gguf`
+- `outputs/gguf/labcore-50m-q4_k_m.gguf`
 
-Valeurs `--quant-type`:
+## Voir aussi
 
-- `Q4_K_M`
-- `Q5_K_M`
-- `all`
-
-## Checklist de publication
-
-1. valider generation locale
-2. verifier coherence `config.json` + tokenizer
-3. versionner artifacts
-4. publier model card claire
-
-## Suite
-
-Voir [Fine-Tuning](fine-tuning.md).
-
+- [Export & Deployment (EN)](../export-and-deployment.md)
+- [Fine-Tuning (EN)](../fine-tuning.md)
+- [Troubleshooting (EN)](../troubleshooting.md)

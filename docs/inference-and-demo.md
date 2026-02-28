@@ -1,11 +1,11 @@
 # Inference and Demo
 
-LabCore supports two interactive inference paths:
+Use this page to run deterministic CLI generation and the local Gradio demo.
+Prerequisites: a trained checkpoint (`checkpoints/ckpt_last.pt`) and matching metadata.
 
-- CLI generation with `generate.py`
-- Gradio web UI with `demo_gradio.py`
+## Command(s)
 
-## CLI Generation
+CLI generation (reference paths):
 
 ```bash
 python generate.py \
@@ -19,19 +19,7 @@ python generate.py \
   --device cpu
 ```
 
-Key flags:
-
-- `--checkpoint`
-- `--meta`
-- `--config` (optional tokenizer fallback)
-- `--tokenizer` (`char` or `bpe`)
-- `--prompt`
-- `--max-new-tokens`
-- `--temperature`
-- `--top-k`
-- `--device`
-
-## Gradio Demo (Local Checkpoint)
+Gradio demo from local checkpoint:
 
 ```bash
 python demo_gradio.py \
@@ -42,7 +30,7 @@ python demo_gradio.py \
   --port 7860
 ```
 
-## Gradio Demo (HF Hub)
+Gradio demo from Hugging Face:
 
 ```bash
 python demo_gradio.py \
@@ -52,39 +40,31 @@ python demo_gradio.py \
   --port 7860
 ```
 
-## Sampling Behavior
+## Stable Generation Settings (Debug Mode)
 
-`demo_gradio.py` supports:
+Use conservative sampling when debugging reproducibility:
 
-- temperature scaling
-- top-k filtering
-- top-p filtering
+- `temperature = 0.2` to reduce randomness
+- `top-k = 20` (or lower)
+- `max-new-tokens = 80` for quick checks
 
-`generate.py` supports:
+!!! tip
+    If output quality suddenly drops, first verify that `--meta` belongs to the same tokenizer/checkpoint run.
 
-- temperature
-- top-k
+## Output Files / Artifacts Produced
 
-## Troubleshooting
+- CLI: generated text in terminal output
+- Demo: generated text in Gradio UI
+- No new model files unless you explicitly export
 
-### Missing tokenizer metadata for char runs
+## Common Errors
 
-`generate.py` requires char vocab in `meta.json`.
-Regenerate data with char tokenizer:
+- Char tokenizer metadata missing: see [Char vocab missing](troubleshooting.md#char-vocab-missing).
+- Metadata path mismatch (`txt` vs `bin`): see [Meta path mismatch](troubleshooting.md#meta-path-mismatch).
+- CUDA fallback behavior: see [CUDA not detected](troubleshooting.md#cuda-not-detected).
 
-```bash
-python scripts/prepare_data.py --dataset tinyshakespeare --tokenizer char --output-format txt
-```
+## Next / Related
 
-### HF model loading dependencies
-
-For remote demo, install:
-
-```bash
-pip install -e ".[hf,demo]"
-```
-
-## Next Step
-
-Continue with [Export and Deployment](export-and-deployment.md).
-
+- [Export & Deployment](export-and-deployment.md)
+- [Fine-Tuning](fine-tuning.md)
+- [Troubleshooting](troubleshooting.md)

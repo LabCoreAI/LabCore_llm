@@ -1,77 +1,26 @@
-# Demarrage
+﻿# Demarrage
 
-Cette page couvre le setup de base et le premier run fonctionnel.
+Cette page FR donne un demarrage rapide et fiable. Utilisez la page EN pour le detail complet.
+Prerequis: Python `3.11+`, `pip`, et idealement un GPU CUDA.
 
-## Prerequis
-
-- Python `3.11+`
-- `pip`
-- GPU CUDA optionnel (recommande pour entrainement reel)
-
-Installer PyTorch via le selecteur officiel:
-
-<https://pytorch.org/get-started/locally/>
-
-## Installation
-
-Minimal:
+## Commandes Rapides
 
 ```bash
-pip install -e .
-```
-
-Recommande pour dev + training:
-
-```bash
-pip install -e ".[torch,dev]"
-```
-
-Extras:
-
-```bash
-pip install -e ".[torch,hf,demo]"
-pip install -e ".[gguf]"
-pip install -e ".[torch,hf,finetune]"
-```
-
-## Smoke Test Rapide
-
-```bash
-python scripts/prepare_data.py --dataset tinyshakespeare --tokenizer char --output-format txt
-python train.py --config configs/base.toml --tokenizer char --max-iters 200
+python -m pip install -e ".[torch,dev]"
+python -c "import torch; print(torch.cuda.is_available()); print(torch.version.cuda)"
+python scripts/prepare_data.py --dataset tinyshakespeare --tokenizer char --output-format txt --output-dir data/processed
+python train.py --config configs/base.toml --tokenizer char --max-iters 5000
 python generate.py --checkpoint checkpoints/ckpt_last.pt --meta data/processed/meta.json --tokenizer char --prompt "To be"
 ```
 
-Artifacts attendus:
+## Validation rapide
 
-- `data/processed/meta.json`
-- `checkpoints/ckpt_last.pt`
-- `checkpoints/train_log.json`
+- `checkpoints/ckpt_last.pt` existe
+- `data/processed/meta.json` existe
+- la generation retourne du texte non vide
 
-## Notes Device
+## Voir aussi
 
-- `--device cuda` bascule auto sur CPU si CUDA indisponible.
-- Pour CPU: commencer avec `configs/base.toml`.
-
-## Erreurs frequentes
-
-### `No module named 'torch'`
-
-```bash
-pip install -e ".[torch,dev]"
-```
-
-### Probleme download dataset
-
-`prepare_data.py` utilise `datasets` pour charger les jeux HF.  
-Pour `wikitext`, installer:
-
-```bash
-pip install -e ".[hf]"
-```
-
-`tinyshakespeare` garde un fallback HTTP si `datasets` est indisponible.
-
-## Suite
-
-Voir [Pipeline Data](data-pipeline.md).
+- [Getting Started (EN)](../getting-started.md)
+- [Data Pipeline (EN)](../data-pipeline.md)
+- [Troubleshooting (EN)](../troubleshooting.md)

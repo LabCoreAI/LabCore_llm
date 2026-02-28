@@ -1,8 +1,9 @@
 # Fine-Tuning
 
-LabCore includes a LoRA instruction fine-tuning script for HF-compatible CausalLM models.
+Use this page for LoRA instruction tuning on HF-compatible CausalLM checkpoints.
+Prerequisites: HF + finetune dependencies and an accessible base model.
 
-## Main Command
+## Command(s)
 
 ```bash
 python scripts/fine_tune_instruction.py \
@@ -15,41 +16,35 @@ python scripts/fine_tune_instruction.py \
   --epochs 1
 ```
 
-## Required Dependencies
+Dependencies:
 
 ```bash
-pip install -e ".[torch,hf,finetune]"
+python -m pip install -e ".[torch,hf,finetune]"
 ```
 
-Or for development + fine-tuning:
+## Output Files / Artifacts Produced
 
-```bash
-pip install -e ".[torch,dev,hf,finetune]"
-```
+- `outputs/lora_instruction/` (LoRA adapter + tokenizer files)
 
-## Script Behavior
+## Dataset Mapping
 
-- Loads base model and tokenizer from `--model-id`.
-- Auto-picks LoRA target modules (`q_proj`, `k_proj`, `v_proj`, `o_proj`) when available.
-- Normalizes examples to a stable instruction template.
-- Tokenizes with fixed max sequence length.
-- Trains with HF `Trainer`.
-- Saves LoRA adapter and tokenizer to `--output-dir`.
+The script accepts common field aliases:
 
-## Dataset Field Mapping
+- Instruction: `instruction`, `question`, `prompt`
+- Input: `input`, `context`
+- Output: `output`, `response`, `answer`
 
-The script supports common naming variants:
+## Common Errors
 
-- instruction: `instruction` / `question` / `prompt`
-- input: `input` / `context`
-- output: `output` / `response` / `answer`
+- Missing HF dependencies: see [Torch not installed](troubleshooting.md#torch-not-installed).
+- OOM during fine-tuning: see [Out of memory](troubleshooting.md#oom-errors).
+- Wrong base model/tokenizer expectations: verify config and model compatibility before launching.
 
-## Practical Tips
+!!! note
+    Fine-tuning uses the HF trainer stack and writes to `outputs/` rather than `checkpoints/`.
 
-- Start with small `--max-samples` for validation.
-- Tune `--batch-size` and `--max-seq-len` based on VRAM.
-- Keep dataset quality high; noisy instruction pairs degrade output fast.
+## Next / Related
 
-## Next Step
-
-Review [Configuration Reference](configuration-reference.md) for full tuning controls.
+- [Configuration Reference](configuration-reference.md)
+- [Export & Deployment](export-and-deployment.md)
+- [Operations](operations.md)

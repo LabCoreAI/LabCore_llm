@@ -1,11 +1,11 @@
 # Data Pipeline
 
-LabCore supports two dataset output formats:
+Use this page to prepare training data and metadata in a predictable layout.
+Prerequisite: dependencies installed from [Getting Started](getting-started.md).
 
-- `txt` format for text + numpy training flows
-- `bin` format for memory-mapped binary training flows
+## Command(s)
 
-## Main Command
+Reference `txt` pipeline (used by `configs/base.toml`):
 
 ```bash
 python scripts/prepare_data.py \
@@ -17,59 +17,51 @@ python scripts/prepare_data.py \
   --val-ratio 0.1
 ```
 
-## CLI Options
+Alternative `bin` pipeline:
 
-- `--dataset`: `tinyshakespeare` or `wikitext`
-- `--tokenizer`: `char` or `bpe`
-- `--output-format`: `txt` or `bin`
-- `--raw-dir`: cache directory for raw corpus files
-- `--output-dir`: artifact output directory
-- `--val-ratio`: train/validation split ratio
+```bash
+python scripts/prepare_data.py \
+  --dataset tinyshakespeare \
+  --tokenizer char \
+  --output-format bin \
+  --raw-dir data/raw \
+  --output-dir data/processed \
+  --val-ratio 0.1
+```
 
-## Output Layout
+## Output Files / Artifacts Produced
 
-### `txt` format (`output-dir = data/processed`)
+`txt` format (`output-dir = data/processed`):
 
-- `train.txt`
-- `val.txt`
-- `corpus.txt`
-- `train.npy`
-- `val.npy`
-- `meta.json`
+- `data/processed/train.txt`
+- `data/processed/val.txt`
+- `data/processed/corpus.txt`
+- `data/processed/train.npy`
+- `data/processed/val.npy`
+- `data/processed/meta.json` (`META_TXT`)
 
-### `bin` format
-
-If output dir ends with `processed`, binaries are written to parent:
+`bin` format:
 
 - `data/train.bin`
 - `data/val.bin`
-- `data/meta.json`
+- `data/meta.json` (`META_BIN`)
 
-Otherwise binaries are written directly in your `--output-dir`.
+!!! note
+    For `--output-format bin`, if `--output-dir` ends with `processed`, binary files are written to its parent (`data/`).
 
-## `meta.json` Fields
+## Format Selection
 
-- `dataset`
-- `vocab_size`
-- `tokenizer`
-- `dtype`
-- `output_format`
-- Optional file fields:
-  - `train_text_file`, `val_text_file` for `txt`
-  - `train_bin_file`, `val_bin_file` for `bin`
+- Use `txt` when training with `training.data_format = "txt"` and metadata at `data/processed/meta.json`.
+- Use `bin` when training with `training.data_format = "bin"` and metadata at `data/meta.json`.
 
-## Tokenizer Notes
+## Common Errors
 
-- `char`: vocabulary is fitted on full corpus and stored in metadata.
-- `bpe`: uses GPT-2 encoding (`tiktoken`) and stores tokenizer type + encoding name.
+- Missing binary shards: see [Binary shards not found](troubleshooting.md#binary-shards-not-found).
+- Wrong metadata path: see [Meta path mismatch](troubleshooting.md#meta-path-mismatch).
+- Char tokenizer vocab issues: see [Char vocab missing](troubleshooting.md#char-vocab-missing).
 
-## Validation Tips
+## Next / Related
 
-- Confirm token counts printed by `prepare_data.py`.
-- Ensure `meta.json` exists before launching `train.py`.
-- For `bin` runs, keep `training.data_format = "bin"` in config.
-
-## Next Step
-
-Continue with [Training](training.md).
-
+- [Training](training.md)
+- [Inference & Demo](inference-and-demo.md)
+- [Troubleshooting](troubleshooting.md)

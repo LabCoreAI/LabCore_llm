@@ -1,100 +1,62 @@
 # Operations
 
-This page centralizes release flow, security reporting, and runtime troubleshooting.
+Use this page for operational folder hygiene, validation checks, and release/security workflows.
+Prerequisite: project dependencies installed in your active environment.
 
-## Security
+## Artifact Directories
 
-Do not report vulnerabilities in public issues.
-Follow the process in `SECURITY.md`:
+- `data/`: prepared datasets, including `data/meta.json` for `bin` runs.
+- `checkpoints/`: training outputs (`ckpt_last.pt`, `train_log.json`).
+- `outputs/`: exported artifacts (`hf_export/`, `gguf/`, fine-tuning outputs).
+- `runs/`: optional experiment logs or external tracker exports (not auto-created by core scripts).
 
-- Prefer GitHub Security Advisories
-- Share impact, affected components, and reproducible steps
+!!! note
+    The core training scripts write to `checkpoints/` and `outputs/`. Keep those directories versioned in your run notes, but do not commit large artifacts.
 
-## Release Process
+## Command(s)
 
-Reference: `RELEASE.md`
-
-1. Ensure CI is green.
-2. Run local tests.
-3. Bump version in `pyproject.toml`.
-4. Update `CHANGELOG.md`.
-5. Tag release and push tag.
-6. Publish GitHub Release.
-
-## Support Channels
-
-Reference: `SUPPORT.md`
-
-- Usage questions: Discussion/Issue with `support` label
-- Bugs: issue template
-- Features: feature request template
-
-## Quality and Validation
-
-Primary local checks:
+Local quality checks:
 
 ```bash
 python -m pytest -q
 ruff check src scripts tests train.py generate.py demo_gradio.py --select E9,F63,F7,F82
 ```
 
-CI workflows:
-
-- `.github/workflows/ci.yml` (lint + tests)
-- `.github/workflows/docs.yml` (docs build/deploy)
-
-## Hardware Guidance
-
-- CPU-only is fine for smoke tests and very short runs.
-- CUDA GPU is recommended for practical training speed.
-- For ~8 GB VRAM setups, start with the 50M preset families and tune batch/sequence settings as needed.
-
-## Troubleshooting Matrix
-
-### `ModuleNotFoundError: torch`
-
-Install:
+Docs build checks:
 
 ```bash
-pip install -e ".[torch,dev]"
+python -m pip install -r docs/requirements.txt
+python -m mkdocs build
 ```
 
-### `Char tokenizer requires vocab in meta.json`
+## Output Files / Artifacts Produced
 
-Regenerate data with char tokenizer and use matching metadata path.
+- Test and lint logs in terminal output
+- Built docs in `site/` after `mkdocs build`
+- CI pipelines: `.github/workflows/ci.yml` and `.github/workflows/docs.yml`
 
-### `Binary shards not found`
+## Security and Release
 
-Prepare binary dataset:
+Security reporting (see `SECURITY.md`):
 
-```bash
-python scripts/prepare_data.py --dataset wikitext --tokenizer bpe --output-format bin --output-dir data
-```
+- Use GitHub Security Advisories for vulnerabilities
+- Include impact, affected components, and reproduction steps
 
-### CUDA fallback warning
+Release flow (see `RELEASE.md`):
 
-If CUDA is unavailable, scripts fall back to CPU automatically.
+1. Confirm CI is green.
+2. Run local validation commands.
+3. Update version and changelog.
+4. Tag and publish the release.
 
-## Docs Operations
+## Common Errors
 
-Build docs locally:
+- Missing dependencies: see [Torch not installed](troubleshooting.md#torch-not-installed).
+- Metadata and path confusion: see [Meta path mismatch](troubleshooting.md#meta-path-mismatch).
+- CUDA expected but unavailable: see [CUDA not detected](troubleshooting.md#cuda-not-detected).
 
-```bash
-pip install -r docs/requirements.txt
-python -m mkdocs serve
-```
+## Related
 
-Deploy docs via GitHub Actions:
-
-- Push to `master` or `main`
-- `docs.yml` builds and deploys `site/` to `gh-pages`
-
-## License
-
-This project is licensed under GPL-3.0.  
-See [LICENSE](https://github.com/LabCoreAI/LabCore_llm/blob/master/LICENSE).
-
-## Disclaimer
-
-This project is intended for educational and research purposes.
-It is not optimized for large-scale production deployment.
+- [Troubleshooting](troubleshooting.md)
+- [Benchmarks](benchmarks.md)
+- [Developer Guide](developer-guide.md)

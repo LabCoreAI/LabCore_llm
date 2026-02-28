@@ -1,74 +1,59 @@
 # Training
 
-Training is driven by TOML configs plus optional CLI overrides.
+Use this page to launch, monitor, and checkpoint training runs with consistent settings.
+Prerequisites: prepared dataset and metadata from [Data Pipeline](data-pipeline.md).
 
-## Main Command
+## Command(s)
+
+Reference training command:
 
 ```bash
-python train.py --config configs/base.toml --tokenizer char --max-iters 2000
+python train.py --config configs/base.toml --tokenizer char --max-iters 5000
 ```
 
-CLI flags:
+Device override examples:
 
-- `--config`: path to TOML preset
-- `--max-iters`: override training max iterations
+```bash
+python train.py --config configs/base.toml --tokenizer char --max-iters 5000 --device cpu
+python train.py --config configs/base.toml --tokenizer char --max-iters 5000 --device cuda
+```
+
+`train.py` flags:
+
+- `--config`: TOML preset path (`CONFIG_EXAMPLE = configs/base.toml`)
+- `--max-iters`: runtime override for total iterations
 - `--device`: `cpu` or `cuda`
 - `--tokenizer`: `char` or `bpe`
 
-## Presets
+## `data_format` and Metadata Mapping
 
-- `configs/base.toml`: small char baseline (`txt` data format)
-- `configs/bpe_medium/bpe_medium_50M.toml`: BPE preset with 50M-class model (`txt`)
-- `configs/bpe_rope_flash/bpe_50M_rope_flash.toml`: BPE + RoPE + Flash with `bin` format
-- Additional size variants are available in `configs/bpe_medium/` and `configs/bpe_rope_flash/` (`5M` to `50M`).
+| Training mode | Config value | Data artifacts expected | Metadata path |
+|---|---|---|---|
+| Text pipeline | `training.data_format = "txt"` | `data/processed/train.txt` + `data/processed/val.txt` (or `.npy`) | `data/processed/meta.json` (`META_TXT`) |
+| Binary pipeline | `training.data_format = "bin"` | `data/train.bin` + `data/val.bin` | `data/meta.json` (`META_BIN`) |
 
-## Runtime Behavior
+!!! note
+    For binary mode, if `data.processed_dir` points to `data/processed`, `train.py` automatically checks the parent directory (`data/`) for `train.bin` and `val.bin`.
 
-- Loads config via `labcore_llm.config.load_config`.
-- Resolves `meta.json` from configured processed directory.
-- Loads tokenizer from metadata.
-- Builds dataset loaders based on `training.data_format`:
-  - `txt` or `npy` path
-  - `bin` memory-mapped path
-- Applies warmup + cosine LR schedule.
-- Saves checkpoints and train logs.
+## Checkpointing and Resume Behavior
 
-## Checkpoints and Logs
+Produced during training:
 
-Trainer saves:
-
-- `checkpoints/ckpt_last.pt`
+- `checkpoints/ckpt_last.pt` (`CHECKPOINT`)
 - `checkpoints/train_log.json`
 
-`ckpt_last.pt` includes:
-
-- model config and model weights
-- optimizer state
-- trainer config
-- latest loss snapshot
-- tokenizer metadata
-
-## Performance Guidance
-
-- For CPU smoke tests, use `configs/base.toml` and low `--max-iters`.
-- For 8GB VRAM setups, start with provided 50M presets.
-- Keep `gradient_accumulation_steps` aligned with memory budget.
+!!! warning
+    Native resume-from-checkpoint is not implemented in `train.py` yet. `ckpt_last.pt` is for inference/export compatibility and state inspection, not automatic continuation.
 
 ## Common Errors
 
-### `Binary shards not found`
+- Binary shards missing: see [Binary shards not found](troubleshooting.md#binary-shards-not-found).
+- Metadata path mismatch: see [Meta path mismatch](troubleshooting.md#meta-path-mismatch).
+- Vocab inference failure: see [Char vocab missing](troubleshooting.md#char-vocab-missing).
+- CUDA fallback warning: see [CUDA not detected](troubleshooting.md#cuda-not-detected).
 
-You selected `training.data_format = "bin"` without `train.bin` and `val.bin`.
-Re-run `prepare_data.py` with `--output-format bin`.
+## Next / Related
 
-### `Unable to infer vocab_size`
-
-Ensure one source provides vocab size:
-
-- `model.vocab_size` in TOML, or
-- `meta.json` contains `vocab_size`, or
-- tokenizer metadata is available.
-
-## Next Step
-
-Continue with [Inference and Demo](inference-and-demo.md).
+- [Inference & Demo](inference-and-demo.md)
+- [Export & Deployment](export-and-deployment.md)
+- [Troubleshooting](troubleshooting.md)

@@ -1,84 +1,57 @@
 # Getting Started
 
-This page covers environment setup and the shortest path to a successful first run.
+Use this page to get a reproducible first run in about 5 minutes and confirm your environment is healthy.
+Prerequisites: Python `3.11+`, `pip`, and optional CUDA GPU.
 
-## Prerequisites
+## Command(s)
 
-- Python `3.11+`
-- `pip`
-- Optional CUDA GPU for practical training speed
-
-Install PyTorch first from the official selector:
-
-<https://pytorch.org/get-started/locally/>
-
-## Installation Profiles
+Install dependencies:
 
 ```bash
-pip install -e .
+python -m pip install -e ".[torch,dev]"
 ```
 
-Recommended for local training and development:
+Check CUDA visibility:
 
 ```bash
-pip install -e ".[torch,dev]"
+python -c "import torch; print(torch.cuda.is_available()); print(torch.version.cuda)"
 ```
 
-Optional extras:
+Quick Start (reference preset: tinyshakespeare + char + `configs/base.toml`):
 
 ```bash
-pip install -e ".[torch,hf,demo]"
-pip install -e ".[gguf]"
-pip install -e ".[torch,hf,finetune]"
-```
-
-Install all extras:
-
-```bash
-pip install -e ".[all]"
-```
-
-## Quick Smoke Test (Char Pipeline)
-
-```bash
-python scripts/prepare_data.py --dataset tinyshakespeare --tokenizer char --output-format txt
-python train.py --config configs/base.toml --tokenizer char --max-iters 200
+python scripts/prepare_data.py --dataset tinyshakespeare --tokenizer char --output-format txt --output-dir data/processed
+python train.py --config configs/base.toml --tokenizer char --max-iters 5000
 python generate.py --checkpoint checkpoints/ckpt_last.pt --meta data/processed/meta.json --tokenizer char --prompt "To be"
 ```
 
-Expected artifacts:
+!!! tip
+    For a strict 5-minute smoke test, start the training command, wait for the first eval/checkpoint output, then stop and run generation.
+
+## Output Files / Artifacts Produced
 
 - `data/processed/meta.json`
+- `data/processed/train.txt`, `data/processed/val.txt`
 - `checkpoints/ckpt_last.pt`
 - `checkpoints/train_log.json`
 
-## GPU/CPU Device Rules
+## Success Checklist
 
-- `train.py` accepts `--device` and falls back to CPU if CUDA is unavailable.
-- `generate.py` and `demo_gradio.py` have the same fallback behavior.
-- Start with `configs/base.toml` on CPU.
+- Training logs show at least two `train_loss` lines and the value trends down.
+- A checkpoint exists at `checkpoints/ckpt_last.pt`.
+- `generate.py` returns non-empty text from your prompt.
 
-## Common Setup Issues
+## Common Errors
 
-### `ModuleNotFoundError: No module named 'torch'`
+- `ModuleNotFoundError: torch`: see [Torch not installed](troubleshooting.md#torch-not-installed).
+- CUDA expected but disabled: see [CUDA not detected](troubleshooting.md#cuda-not-detected).
+- Metadata mismatch: see [Meta path mismatch](troubleshooting.md#meta-path-mismatch).
 
-Use:
+!!! warning
+    Keep `--checkpoint` and `--meta` aligned with the same run. Mixed files from different runs produce misleading results.
 
-```bash
-pip install -e ".[torch,dev]"
-```
+## Next / Related
 
-### Dataset download errors
-
-`scripts/prepare_data.py` uses `datasets` for HF dataset loading.  
-For `wikitext`, install HF dependencies:
-
-```bash
-pip install -e ".[hf]"
-```
-
-`tinyshakespeare` has an HTTP fallback path if `datasets` is unavailable.
-
-## Next Step
-
-Continue with [Data Pipeline](data-pipeline.md).
+- [Data Pipeline](data-pipeline.md)
+- [Training](training.md)
+- [Troubleshooting](troubleshooting.md)
