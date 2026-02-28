@@ -1,42 +1,72 @@
 # LabCore LLM
 
-LabCore LLM is a modular decoder-only GPT framework for practical local AI workflows:
-data preparation, training, inference, web demo serving, Hugging Face export, GGUF conversion,
-and LoRA fine-tuning.
+LabCore LLM is a modular decoder-only GPT framework designed for engineers who want a clear,
+reproducible training stack without hidden abstractions.
+
+It covers the full lifecycle of a local LLM workflow:
+data preparation, training, inference, web demo serving, Hugging Face export,
+GGUF conversion, and optional LoRA fine-tuning.
 
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.5+-EE4C2C?style=flat&logo=pytorch&logoColor=white)](https://pytorch.org/)
 [![License](https://img.shields.io/github/license/LabCoreAI/LabCore_llm?style=flat&logo=gnu&logoColor=white&color=2EA44F)](LICENSE)
 
-## Framework Positioning
+---
 
-LabCore LLM is designed for engineers who want a clear, reproducible GPT stack without hidden platform abstractions.
-It keeps the workflow explicit from raw corpus to exported artifacts, while staying flexible across CPU, CUDA, and deployment targets.
+## Why LabCore LLM
+
+Most frameworks abstract the training pipeline behind large ecosystems.
+LabCore keeps the stack explicit and inspectable:
+
+- From raw corpus to checkpoints
+- From checkpoints to HF export
+- From HF export to GGUF deployment
+
+Everything remains script-driven and reproducible.
+
+---
 
 ## Core Capabilities
 
-| Domain | Included in LabCore LLM |
+| Domain | Included |
 |---|---|
 | Tokenization | Character tokenizer and GPT-2-compatible BPE (`tiktoken`) |
 | Model | Decoder-only GPT with optional RoPE and Flash/SDPA path |
-| Training | TOML-driven loop, warmup + cosine LR, eval cadence, checkpoints |
-| Data | `txt/npy` and `bin/mmap` pipelines with metadata contracts |
+| Training | TOML-driven loop, warmup + cosine LR, evaluation cadence, checkpoints |
+| Data | `txt/npy` and `bin/mmap` pipelines with explicit metadata contracts |
 | Inference | CLI generation and Gradio interface |
 | Distribution | Hugging Face export (`safetensors`) + optional GGUF quantization |
 | Fine-tuning | LoRA instruction tuning for HF-compatible CausalLM models |
+
+---
+
+## Quick Start
+
+Reference preset: `tinyshakespeare` + `char` + `configs/base.toml`.
+
+```bash
+python -m pip install -e ".[torch,dev]"
+python scripts/prepare_data.py --dataset tinyshakespeare --tokenizer char --output-format txt --output-dir data/processed
+python train.py --config configs/base.toml --tokenizer char --max-iters 5000
+python generate.py --checkpoint checkpoints/ckpt_last.pt --meta data/processed/meta.json --tokenizer char --prompt "To be"
+```
+
+---
 
 ## Preset Families
 
 | Family | Path | Sizes |
 |---|---|---|
-| Base preset | `configs/base.toml` | baseline char config |
-| BPE standard | `configs/bpe_medium/` | `5M`, `10M`, `15M`, `20M`, `30M`, `35M`, `40M`, `45M`, `50M` |
-| BPE RoPE/Flash | `configs/bpe_rope_flash/` | `5M`, `10M`, `15M`, `20M`, `30M`, `35M`, `40M`, `45M`, `50M` |
+| Base preset | `configs/base.toml` | baseline char configuration |
+| BPE standard | `configs/bpe_medium/` | 5M -> 50M parameter range |
+| BPE RoPE/Flash | `configs/bpe_rope_flash/` | 5M -> 50M parameter range |
+
+---
 
 ## End-to-End Flow
 
 ```text
-Raw text corpus
+Raw corpus
   -> scripts/prepare_data.py
   -> train.py (+ config preset)
   -> checkpoints/ckpt_last.pt
@@ -46,45 +76,55 @@ Raw text corpus
   -> scripts/fine_tune_instruction.py (optional)
 ```
 
-## Documentation (Primary Source)
+---
 
-The complete user and operational documentation lives on the MkDocs site:
+## Documentation
 
-- English: <https://labcoreai.github.io/LabCore_llm/>
-- French: <https://labcoreai.github.io/LabCore_llm/fr/>
+The complete user and operational documentation is available on the MkDocs site:
 
-Suggested entry points:
+- English: https://labcoreai.github.io/LabCore_llm/
+- French: https://labcoreai.github.io/LabCore_llm/fr/
 
-- Getting Started: environment and first run
-- Data Pipeline: dataset preparation and `meta.json` behavior
-- Training: presets, runtime behavior, checkpoints
-- Inference & Demo: local/HF generation paths
-- Export & Deployment: HF export and GGUF path
-- Operations: quality checks, hardware guidance, license, citation, disclaimer
+Recommended entry points:
+
+- [Getting Started](docs/getting-started.md)
+- [Data Pipeline](docs/data-pipeline.md)
+- [Training](docs/training.md)
+- [Inference & Demo](docs/inference-and-demo.md)
+- [Export & Deployment](docs/export-and-deployment.md)
+- [Operations](docs/operations.md)
+
+---
 
 ## Repository Layout
 
 ```text
 LabCore_llm/
-|- configs/                  # training preset families
-|- docs/                     # bilingual MkDocs documentation
-|- scripts/                  # data prep/export/quantize/fine-tune utilities
-|- src/labcore_llm/          # framework source package
+|- configs/
+|- docs/
+|- scripts/
+|- src/labcore_llm/
 |- tests/
 |- train.py
 |- generate.py
 |- demo_gradio.py
 ```
 
-## Quality
+---
+
+## Quality Standards
 
 - CI: `.github/workflows/ci.yml` and `.github/workflows/docs.yml`
-- Local standards: tests + lint aligned with CI gates
-- Documentation-first approach: implementation details and runbooks are maintained on the docs site
+- Tests and lint aligned with CI gates
+- Documentation-first approach
+
+---
 
 ## License
 
-This project is licensed under GPL-3.0.
+GPL-3.0
+
+---
 
 ## Disclaimer
 
