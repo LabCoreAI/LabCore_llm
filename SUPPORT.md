@@ -13,7 +13,7 @@
 - Confirm dependencies are installed:
 
 ```bash
-python -m pip install -e ".[dev]"
+python -m pip install -e ".[torch,dev]"
 ```
 
 - Re-run with a clean virtual environment if possible.
