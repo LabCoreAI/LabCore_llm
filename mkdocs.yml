@@ -23,15 +23,6 @@ theme:
       primary: blue grey
       accent: amber
 
-extra:
-  alternate:
-    - name: English
-      link: /
-      lang: en
-    - name: Francais
-      link: /fr/
-      lang: fr
-
 markdown_extensions:
   - admonition
   - attr_list
