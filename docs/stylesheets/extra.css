@@ -1,29 +1,10 @@
-:root {
-  --labcore-neon-cyan: #22d3ee;
-  --labcore-neon-violet: #8b5cf6;
-  --labcore-glow-soft: 0 0 0.35rem rgba(34, 211, 238, 0.45);
-  --labcore-glow-code: 0 0 0.45rem rgba(139, 92, 246, 0.35);
-}
+/* Mobile: allow horizontal scroll for wide content (tables/code) */
+.md-typeset__table { overflow-x: auto; display: block; }
+.md-typeset pre { overflow-x: auto; }
 
-.md-typeset h1,
-.md-typeset h2,
-.md-typeset h3 {
-  text-shadow: var(--labcore-glow-soft);
-}
+/* Slightly stronger typography */
+.md-typeset h1 { font-weight: 700; }
 
-.md-typeset a {
-  color: var(--labcore-neon-cyan);
-}
-
-.md-typeset a:hover {
-  color: #67e8f9;
-  text-shadow: var(--labcore-glow-soft);
-}
-
-.md-typeset code {
-  border: 1px solid rgba(139, 92, 246, 0.35);
-}
-
-.md-typeset pre > code {
-  box-shadow: var(--labcore-glow-code);
+@media (max-width: 600px) {
+  .md-typeset table:not([class]) { font-size: 0.9em; }
 }

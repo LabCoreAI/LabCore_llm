@@ -15,13 +15,25 @@ theme:
     - navigation.tabs
     - navigation.sections
     - navigation.top
+    - navigation.footer
+    - content.action.edit
+    - content.action.view
     - content.code.copy
     - search.suggest
     - search.highlight
   palette:
+    - scheme: default
+      primary: blue grey
+      accent: blue
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
     - scheme: slate
-      primary: deep purple
-      accent: cyan
+      primary: blue grey
+      accent: blue
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
 
 extra_css:
   - stylesheets/extra.css
@@ -56,17 +68,22 @@ plugins:
           name: English
           build: true
         - locale: fr
-          name: Francais
+          name: Français
           build: true
 
 nav:
   - Home: index.md
-  - Getting Started: getting-started.md
-  - Data Pipeline: data-pipeline.md
-  - Training: training.md
-  - Inference and Demo: inference-and-demo.md
-  - Export and Deployment: export-and-deployment.md
-  - Fine-Tuning: fine-tuning.md
-  - Configuration Reference: configuration-reference.md
-  - Developer Guide: developer-guide.md
-  - Operations: operations.md
+  - Guides:
+      - Getting Started: getting-started.md
+      - Data Pipeline: data-pipeline.md
+      - Training: training.md
+      - Inference & Demo: inference-and-demo.md
+      - Fine-Tuning: fine-tuning.md
+      - Export & Deployment: export-and-deployment.md
+  - Reference:
+      - Configuration: configuration-reference.md
+      - Operations: operations.md
+      - Troubleshooting: troubleshooting.md
+      - Benchmarks: benchmarks.md
+  - Development:
+      - Developer Guide: developer-guide.md

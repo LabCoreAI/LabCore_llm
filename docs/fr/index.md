@@ -1,46 +1,35 @@
-# Documentation LabCore LLM
+# LabCore LLM
 
-LabCore LLM est une stack GPT modulaire pour des workflows locaux:
-preparation des donnees, entrainement, generation, demo web, export HF et conversion GGUF.
+Framework GPT decoder-only pragmatique pour l'entraînement, l'inférence et le déploiement en local.
 
-Cette documentation couvre tout le cycle projet, en pratique.
+## Installation rapide
 
-## Ce que le projet apporte
-
-- Tokenization: tokenizer character et tokenizer BPE compatible GPT-2 (`tiktoken`)
-- Model: GPT decoder-only avec option RoPE + Flash attention
-- Training: boucle pilotee par config TOML avec checkpoints et eval
-- Inference: CLI et interface Gradio
-- Deployment: export safetensors/HF + quantization GGUF
-- Fine-tuning: script LoRA pour jeux instruction
-
-## Parcours recommande
-
-1. [Demarrage](getting-started.md)
-2. [Pipeline Data](data-pipeline.md)
-3. [Entrainement](training.md)
-4. [Inference et Demo](inference-and-demo.md)
-5. [Export et Deploiement](export-and-deployment.md)
-
-## Vue architecture
-
-```text
-Corpus brut -> prepare_data.py -> data/processed ou data/*.bin + meta.json
-            -> train.py + config TOML -> checkpoints/ckpt_last.pt
-            -> generate.py / demo_gradio.py
-            -> export_hf.py -> outputs/hf_export
-            -> quantize_gguf.py -> outputs/gguf
+```bash
+pip install -e ".[torch]"
 ```
 
-## Entrees principales
+## Exemple rapide
 
-- `train.py`
-- `generate.py`
-- `demo_gradio.py`
-- `scripts/prepare_data.py`
-- `scripts/export_hf.py`
-- `scripts/quantize_gguf.py`
-- `scripts/fine_tune_instruction.py`
+Tiny Shakespeare avec tokenizer char:
 
-![LabCore Gradio UI](../assets/gradio-demo.svg)
+```bash
+python scripts/prepare_data.py --dataset tinyshakespeare --tokenizer char --output-format txt
+python train.py --config configs/base.toml --tokenizer char --max-iters 200
+python generate.py --checkpoint checkpoints/ckpt_last.pt --meta data/processed/meta.json --tokenizer char --prompt "To be"
+```
 
+## Ce que vous obtenez
+
+- Stack GPT decoder-only pilotée par configuration TOML.
+- RoPE optionnel.
+- Chemin d'attention FlashAttention/SDPA optionnel.
+- Pipeline binaire memory-mapped (`train.bin`/`val.bin`).
+- Export Hugging Face.
+- Conversion GGUF.
+- Point d'entrée LoRA pour l'instruction tuning.
+
+## Prochaines étapes
+
+- [Getting Started](getting-started.md)
+- [Training](training.md)
+- [Export & Deployment](export-and-deployment.md)
