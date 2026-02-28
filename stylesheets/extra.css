@@ -1,10 +1,75 @@
-/* Mobile: allow horizontal scroll for wide content (tables/code) */
-.md-typeset__table { overflow-x: auto; display: block; }
-.md-typeset pre { overflow-x: auto; }
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap');
 
-/* Slightly stronger typography */
-.md-typeset h1 { font-weight: 700; }
+/* Body font */
+body {
+  font-family: 'Sora', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-weight: 400;
+}
+
+/* Headings */
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3 {
+  font-family: 'Space Grotesk', 'Sora', system-ui, -apple-system, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+/* Slightly stronger H1 */
+.md-typeset h1 {
+  letter-spacing: -0.4px;
+}
+
+/* Keep paragraph readability */
+.md-typeset p,
+.md-typeset li {
+  line-height: 1.6;
+}
+
+.md-header__title,
+.md-tabs__link,
+.md-nav__link {
+  font-family: 'Sora', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-weight: 500;
+}
+
+/* LabCoreAI Header Gradient */
+.md-header {
+  background: linear-gradient(
+    90deg,
+    #1D2069 0%,
+    #3046A8 45%,
+    #3C75C8 75%,
+    #6CDEF6 100%
+  );
+}
+
+.md-tabs {
+  background: linear-gradient(
+    90deg,
+    #1D2069 0%,
+    #3046A8 45%,
+    #3C75C8 75%,
+    #6CDEF6 100%
+  );
+}
+
+.md-header__title,
+.md-header__button {
+  color: white;
+}
+
+.md-typeset__table {
+  overflow-x: auto;
+  display: block;
+}
+
+.md-typeset pre {
+  overflow-x: auto;
+}
 
 @media (max-width: 600px) {
-  .md-typeset table:not([class]) { font-size: 0.9em; }
+  .md-typeset table:not([class]) {
+    font-size: 0.9em;
+  }
 }
