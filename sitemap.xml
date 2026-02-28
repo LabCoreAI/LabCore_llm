@@ -8,6 +8,13 @@
         <xhtml:link rel="alternate" hreflang="fr" href="https://labcoreai.github.io/LabCore_llm/fr/"/>
     </url>
     <url>
+        <loc>https://labcoreai.github.io/LabCore_llm/benchmarks/</loc>
+        <lastmod>2026-02-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://labcoreai.github.io/LabCore_llm/benchmarks/"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://labcoreai.github.io/LabCore_llm/fr/benchmarks/"/>
+    </url>
+    <url>
         <loc>https://labcoreai.github.io/LabCore_llm/configuration-reference/</loc>
         <lastmod>2026-02-28</lastmod>
         <changefreq>daily</changefreq>
@@ -71,11 +78,25 @@
         <xhtml:link rel="alternate" hreflang="fr" href="https://labcoreai.github.io/LabCore_llm/fr/training/"/>
     </url>
     <url>
+        <loc>https://labcoreai.github.io/LabCore_llm/troubleshooting/</loc>
+        <lastmod>2026-02-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://labcoreai.github.io/LabCore_llm/troubleshooting/"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://labcoreai.github.io/LabCore_llm/fr/troubleshooting/"/>
+    </url>
+    <url>
         <loc>https://labcoreai.github.io/LabCore_llm/fr/</loc>
         <lastmod>2026-02-28</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="fr" href="https://labcoreai.github.io/LabCore_llm/fr/"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://labcoreai.github.io/LabCore_llm/"/>
+    </url>
+    <url>
+        <loc>https://labcoreai.github.io/LabCore_llm/fr/benchmarks/</loc>
+        <lastmod>2026-02-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://labcoreai.github.io/LabCore_llm/fr/benchmarks/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://labcoreai.github.io/LabCore_llm/benchmarks/"/>
     </url>
     <url>
         <loc>https://labcoreai.github.io/LabCore_llm/fr/configuration-reference/</loc>
@@ -139,5 +160,12 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="fr" href="https://labcoreai.github.io/LabCore_llm/fr/training/"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://labcoreai.github.io/LabCore_llm/training/"/>
+    </url>
+    <url>
+        <loc>https://labcoreai.github.io/LabCore_llm/fr/troubleshooting/</loc>
+        <lastmod>2026-02-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://labcoreai.github.io/LabCore_llm/fr/troubleshooting/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://labcoreai.github.io/LabCore_llm/troubleshooting/"/>
     </url>
 </urlset>

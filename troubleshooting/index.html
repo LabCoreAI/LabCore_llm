@@ -10,19 +10,19 @@
       
       
       
-        <link rel="canonical" href="https://labcoreai.github.io/LabCore_llm/data-pipeline/">
+        <link rel="canonical" href="https://labcoreai.github.io/LabCore_llm/troubleshooting/">
       
       
-        <link rel="prev" href="../getting-started/">
+        <link rel="prev" href="../operations/">
       
       
-        <link rel="next" href="../training/">
+        <link rel="next" href="../benchmarks/">
       
       
         
           <link rel="alternate" href="./" hreflang="en">
         
-          <link rel="alternate" href="../fr/data-pipeline/" hreflang="fr">
+          <link rel="alternate" href="../fr/troubleshooting/" hreflang="fr">
         
       
       
@@ -31,7 +31,7 @@
     
     
       
-        <title>Data Pipeline - LabCore LLM Docs</title>
+        <title>Troubleshooting - LabCore LLM Docs</title>
       
     
     
@@ -84,7 +84,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#data-pipeline" class="md-skip">
+        <a href="#troubleshooting" class="md-skip">
           Skip to content
         </a>
       
@@ -118,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Data Pipeline
+              Troubleshooting
             
           </span>
         </div>
@@ -171,7 +171,7 @@
           </li>
         
           <li class="md-select__item">
-            <a href="../fr/data-pipeline/" hreflang="fr" class="md-select__link">
+            <a href="../fr/troubleshooting/" hreflang="fr" class="md-select__link">
               Français
             </a>
           </li>
@@ -274,12 +274,10 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../getting-started/" class="md-tabs__link">
           
   
@@ -296,10 +294,12 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../configuration-reference/" class="md-tabs__link">
           
   
@@ -408,31 +408,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
             
   
   
@@ -450,7 +445,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -493,37 +488,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Data Pipeline
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../data-pipeline/" class="md-nav__link">
         
   
   
@@ -539,131 +507,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#main-command" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Main Command
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cli-options" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        CLI Options
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#output-layout" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Output Layout
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Output Layout">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#txt-format-output-dir-dataprocessed" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        txt format (output-dir = data/processed)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#bin-format" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        bin format
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#metajson-fields" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        meta.json Fields
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#tokenizer-notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Tokenizer Notes
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#validation-tips" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Validation Tips
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-step" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Next Step
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -792,26 +635,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
             
   
   
@@ -829,7 +677,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -900,10 +748,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../troubleshooting/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -919,6 +794,92 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installing-pytorch-cpucuda" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installing PyTorch (CPU/CUDA)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cuda-not-detected-torchcudais_available-false" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CUDA Not Detected (torch.cuda.is_available() == False)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oom-what-to-lower-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OOM: What to Lower First
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metajson-location-confusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        meta.json Location Confusion
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flashattention-not-available" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FlashAttention Not Available
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1073,10 +1034,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#main-command" class="md-nav__link">
+  <a href="#installing-pytorch-cpucuda" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Main Command
+        Installing PyTorch (CPU/CUDA)
       
     </span>
   </a>
@@ -1084,10 +1045,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cli-options" class="md-nav__link">
+  <a href="#cuda-not-detected-torchcudais_available-false" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CLI Options
+        CUDA Not Detected (torch.cuda.is_available() == False)
       
     </span>
   </a>
@@ -1095,49 +1056,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#output-layout" class="md-nav__link">
+  <a href="#oom-what-to-lower-first" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Output Layout
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Output Layout">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#txt-format-output-dir-dataprocessed" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        txt format (output-dir = data/processed)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#bin-format" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        bin format
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#metajson-fields" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        meta.json Fields
+        OOM: What to Lower First
       
     </span>
   </a>
@@ -1145,10 +1067,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tokenizer-notes" class="md-nav__link">
+  <a href="#metajson-location-confusion" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Tokenizer Notes
+        meta.json Location Confusion
       
     </span>
   </a>
@@ -1156,10 +1078,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#validation-tips" class="md-nav__link">
+  <a href="#flashattention-not-available" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Validation Tips
+        FlashAttention Not Available
       
     </span>
   </a>
@@ -1167,10 +1089,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#next-step" class="md-nav__link">
+  <a href="#windows-notes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Next Step
+        Windows Notes
       
     </span>
   </a>
@@ -1194,7 +1116,7 @@
 
 
   
-    <a href="https://github.com/LabCoreAI/LabCore_llm/edit/master/docs/data-pipeline.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/LabCoreAI/LabCore_llm/edit/master/docs/troubleshooting.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1203,79 +1125,62 @@
     
       
     
-    <a href="https://github.com/LabCoreAI/LabCore_llm/raw/master/docs/data-pipeline.md" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/LabCoreAI/LabCore_llm/raw/master/docs/troubleshooting.md" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
   
 
 
-<h1 id="data-pipeline">Data Pipeline<a class="headerlink" href="#data-pipeline" title="Permanent link">&para;</a></h1>
-<p>LabCore supports two dataset output formats:</p>
-<ul>
-<li><code>txt</code> format for text + numpy training flows</li>
-<li><code>bin</code> format for memory-mapped binary training flows</li>
-</ul>
-<h2 id="main-command">Main Command<a class="headerlink" href="#main-command" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python<span class="w"> </span>scripts/prepare_data.py<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span>--dataset<span class="w"> </span>tinyshakespeare<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span>--tokenizer<span class="w"> </span>char<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span>--output-format<span class="w"> </span>txt<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span>--raw-dir<span class="w"> </span>data/raw<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span>--output-dir<span class="w"> </span>data/processed<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span>--val-ratio<span class="w"> </span><span class="m">0</span>.1
+<h1 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h1>
+<p>Common setup and runtime issues with quick fixes.</p>
+<h2 id="installing-pytorch-cpucuda">Installing PyTorch (CPU/CUDA)<a class="headerlink" href="#installing-pytorch-cpucuda" title="Permanent link">&para;</a></h2>
+<p>Use the official selector for the right command on your OS and CUDA version:</p>
+<p><a href="https://pytorch.org/get-started/locally/">https://pytorch.org/get-started/locally/</a></p>
+<p>Typical pattern:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[torch]&quot;</span>
 </code></pre></div>
-<h2 id="cli-options">CLI Options<a class="headerlink" href="#cli-options" title="Permanent link">&para;</a></h2>
+<h2 id="cuda-not-detected-torchcudais_available-false">CUDA Not Detected (<code>torch.cuda.is_available() == False</code>)<a class="headerlink" href="#cuda-not-detected-torchcudais_available-false" title="Permanent link">&para;</a></h2>
+<p>Check:</p>
 <ul>
-<li><code>--dataset</code>: <code>tinyshakespeare</code> or <code>wikitext</code></li>
-<li><code>--tokenizer</code>: <code>char</code> or <code>bpe</code></li>
-<li><code>--output-format</code>: <code>txt</code> or <code>bin</code></li>
-<li><code>--raw-dir</code>: cache directory for raw corpus files</li>
-<li><code>--output-dir</code>: artifact output directory</li>
-<li><code>--val-ratio</code>: train/validation split ratio</li>
+<li>Your installed PyTorch build matches your CUDA runtime/driver.</li>
+<li>NVIDIA driver is installed and up to date.</li>
+<li>You are running the same Python/venv where PyTorch was installed.</li>
 </ul>
-<h2 id="output-layout">Output Layout<a class="headerlink" href="#output-layout" title="Permanent link">&para;</a></h2>
-<h3 id="txt-format-output-dir-dataprocessed"><code>txt</code> format (<code>output-dir = data/processed</code>)<a class="headerlink" href="#txt-format-output-dir-dataprocessed" title="Permanent link">&para;</a></h3>
+<p>Quick check:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(torch.__version__, torch.cuda.is_available())&quot;</span>
+</code></pre></div>
+<h2 id="oom-what-to-lower-first">OOM: What to Lower First<a class="headerlink" href="#oom-what-to-lower-first" title="Permanent link">&para;</a></h2>
+<p>When you hit out-of-memory errors, reduce in this order:</p>
+<ol>
+<li><code>training.batch_size</code></li>
+<li><code>model.block_size</code> (sequence length)</li>
+<li><code>training.gradient_accumulation_steps</code></li>
+<li>Precision strategy (if you introduce mixed precision in your environment)</li>
+</ol>
+<p>If needed, move to a smaller preset model size.</p>
+<h2 id="metajson-location-confusion"><code>meta.json</code> Location Confusion<a class="headerlink" href="#metajson-location-confusion" title="Permanent link">&para;</a></h2>
+<p><code>meta.json</code> location depends on output format and output directory:</p>
 <ul>
-<li><code>train.txt</code></li>
-<li><code>val.txt</code></li>
-<li><code>corpus.txt</code></li>
-<li><code>train.npy</code></li>
-<li><code>val.npy</code></li>
-<li><code>meta.json</code></li>
+<li><code>txt</code> pipeline: usually <code>data/processed/meta.json</code></li>
+<li><code>bin</code> pipeline: usually <code>data/meta.json</code></li>
 </ul>
-<h3 id="bin-format"><code>bin</code> format<a class="headerlink" href="#bin-format" title="Permanent link">&para;</a></h3>
-<p>If output dir ends with <code>processed</code>, binaries are written to parent:</p>
+<p>If <code>train.py</code> cannot infer metadata, verify <code>processed_dir</code> in your TOML config and the actual output path from <code>prepare_data.py</code>.</p>
+<h2 id="flashattention-not-available">FlashAttention Not Available<a class="headerlink" href="#flashattention-not-available" title="Permanent link">&para;</a></h2>
+<p>LabCore falls back automatically:</p>
 <ul>
-<li><code>data/train.bin</code></li>
-<li><code>data/val.bin</code></li>
-<li><code>data/meta.json</code></li>
+<li>Preferred: FlashAttention kernel (when available)</li>
+<li>Fallback: PyTorch SDPA</li>
+<li>Last path: standard causal attention</li>
 </ul>
-<p>Otherwise binaries are written directly in your <code>--output-dir</code>.</p>
-<h2 id="metajson-fields"><code>meta.json</code> Fields<a class="headerlink" href="#metajson-fields" title="Permanent link">&para;</a></h2>
+<p>You can keep <code>use_flash = true</code>; runtime fallback handles unsupported environments.</p>
+<h2 id="windows-notes">Windows Notes<a class="headerlink" href="#windows-notes" title="Permanent link">&para;</a></h2>
 <ul>
-<li><code>dataset</code></li>
-<li><code>vocab_size</code></li>
-<li><code>tokenizer</code></li>
-<li><code>dtype</code></li>
-<li><code>output_format</code></li>
-<li>Optional file fields:</li>
-<li><code>train_text_file</code>, <code>val_text_file</code> for <code>txt</code></li>
-<li><code>train_bin_file</code>, <code>val_bin_file</code> for <code>bin</code></li>
+<li>Use an activated venv before all commands.</li>
+<li>Prefer quoted paths when directories include spaces.</li>
+<li>Run commands from the repository root to keep relative paths stable.</li>
+<li>If execution policy blocks scripts, use direct <code>python ...</code> commands.</li>
 </ul>
-<h2 id="tokenizer-notes">Tokenizer Notes<a class="headerlink" href="#tokenizer-notes" title="Permanent link">&para;</a></h2>
-<ul>
-<li><code>char</code>: vocabulary is fitted on full corpus and stored in metadata.</li>
-<li><code>bpe</code>: uses GPT-2 encoding (<code>tiktoken</code>) and stores tokenizer type + encoding name.</li>
-</ul>
-<h2 id="validation-tips">Validation Tips<a class="headerlink" href="#validation-tips" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Confirm token counts printed by <code>prepare_data.py</code>.</li>
-<li>Ensure <code>meta.json</code> exists before launching <code>train.py</code>.</li>
-<li>For <code>bin</code> runs, keep <code>training.data_format = "bin"</code> in config.</li>
-</ul>
-<h2 id="next-step">Next Step<a class="headerlink" href="#next-step" title="Permanent link">&para;</a></h2>
-<p>Continue with <a href="../training/">Training</a>.</p>
 
 
 
@@ -1311,7 +1216,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../getting-started/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Getting Started">
+          <a href="../operations/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Operations">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1321,20 +1226,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Getting Started
+                Operations
               </div>
             </div>
           </a>
         
         
           
-          <a href="../training/" class="md-footer__link md-footer__link--next" aria-label="Next: Training">
+          <a href="../benchmarks/" class="md-footer__link md-footer__link--next" aria-label="Next: Benchmarks">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Training
+                Benchmarks
               </div>
             </div>
             <div class="md-footer__button md-icon">
