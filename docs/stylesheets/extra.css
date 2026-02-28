@@ -1,14 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&family=Orbitron:wght@500;600;700&display=swap');
 
+/* Body font */
 body {
-  font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  font-family: 'Sora', system-ui, -apple-system, sans-serif;
+  font-weight: 400;
 }
 
+/* Headings branding */
 .md-typeset h1,
-.md-typeset h2,
-.md-typeset h3 {
-  font-weight: 700;
-  letter-spacing: 0.5px;
+.md-typeset h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+/* Keep h3+ readable */
+.md-typeset h3,
+.md-typeset h4 {
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
 }
 
 /* LabCoreAI Header Gradient */
