@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <url>
+        <loc>https://labcoreai.github.io/LabCore_llm/</loc>
+        <lastmod>2026-02-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://labcoreai.github.io/LabCore_llm/"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://labcoreai.github.io/LabCore_llm/fr/"/>
+    </url>
+    <url>
+        <loc>https://labcoreai.github.io/LabCore_llm/configuration-reference/</loc>
+        <lastmod>2026-02-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://labcoreai.github.io/LabCore_llm/configuration-reference/"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://labcoreai.github.io/LabCore_llm/fr/configuration-reference/"/>
+    </url>
+    <url>
+        <loc>https://labcoreai.github.io/LabCore_llm/data-pipeline/</loc>
+        <lastmod>2026-02-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://labcoreai.github.io/LabCore_llm/data-pipeline/"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://labcoreai.github.io/LabCore_llm/fr/data-pipeline/"/>
+    </url>
+    <url>
+        <loc>https://labcoreai.github.io/LabCore_llm/developer-guide/</loc>
+        <lastmod>2026-02-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://labcoreai.github.io/LabCore_llm/developer-guide/"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://labcoreai.github.io/LabCore_llm/fr/developer-guide/"/>
+    </url>
+    <url>
+        <loc>https://labcoreai.github.io/LabCore_llm/export-and-deployment/</loc>
+        <lastmod>2026-02-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://labcoreai.github.io/LabCore_llm/export-and-deployment/"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://labcoreai.github.io/LabCore_llm/fr/export-and-deployment/"/>
+    </url>
+    <url>
+        <loc>https://labcoreai.github.io/LabCore_llm/fine-tuning/</loc>
+        <lastmod>2026-02-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://labcoreai.github.io/LabCore_llm/fine-tuning/"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://labcoreai.github.io/LabCore_llm/fr/fine-tuning/"/>
+    </url>
+    <url>
+        <loc>https://labcoreai.github.io/LabCore_llm/getting-started/</loc>
+        <lastmod>2026-02-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://labcoreai.github.io/LabCore_llm/getting-started/"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://labcoreai.github.io/LabCore_llm/fr/getting-started/"/>
+    </url>
+    <url>
+        <loc>https://labcoreai.github.io/LabCore_llm/inference-and-demo/</loc>
+        <lastmod>2026-02-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://labcoreai.github.io/LabCore_llm/inference-and-demo/"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://labcoreai.github.io/LabCore_llm/fr/inference-and-demo/"/>
+    </url>
+    <url>
+        <loc>https://labcoreai.github.io/LabCore_llm/operations/</loc>
+        <lastmod>2026-02-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://labcoreai.github.io/LabCore_llm/operations/"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://labcoreai.github.io/LabCore_llm/fr/operations/"/>
+    </url>
+    <url>
+        <loc>https://labcoreai.github.io/LabCore_llm/training/</loc>
+        <lastmod>2026-02-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://labcoreai.github.io/LabCore_llm/training/"/>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://labcoreai.github.io/LabCore_llm/fr/training/"/>
+    </url>
+    <url>
+        <loc>https://labcoreai.github.io/LabCore_llm/fr/</loc>
+        <lastmod>2026-02-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://labcoreai.github.io/LabCore_llm/fr/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://labcoreai.github.io/LabCore_llm/"/>
+    </url>
+    <url>
+        <loc>https://labcoreai.github.io/LabCore_llm/fr/configuration-reference/</loc>
+        <lastmod>2026-02-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://labcoreai.github.io/LabCore_llm/fr/configuration-reference/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://labcoreai.github.io/LabCore_llm/configuration-reference/"/>
+    </url>
+    <url>
+        <loc>https://labcoreai.github.io/LabCore_llm/fr/data-pipeline/</loc>
+        <lastmod>2026-02-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://labcoreai.github.io/LabCore_llm/fr/data-pipeline/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://labcoreai.github.io/LabCore_llm/data-pipeline/"/>
+    </url>
+    <url>
+        <loc>https://labcoreai.github.io/LabCore_llm/fr/developer-guide/</loc>
+        <lastmod>2026-02-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://labcoreai.github.io/LabCore_llm/fr/developer-guide/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://labcoreai.github.io/LabCore_llm/developer-guide/"/>
+    </url>
+    <url>
+        <loc>https://labcoreai.github.io/LabCore_llm/fr/export-and-deployment/</loc>
+        <lastmod>2026-02-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://labcoreai.github.io/LabCore_llm/fr/export-and-deployment/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://labcoreai.github.io/LabCore_llm/export-and-deployment/"/>
+    </url>
+    <url>
+        <loc>https://labcoreai.github.io/LabCore_llm/fr/fine-tuning/</loc>
+        <lastmod>2026-02-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://labcoreai.github.io/LabCore_llm/fr/fine-tuning/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://labcoreai.github.io/LabCore_llm/fine-tuning/"/>
+    </url>
+    <url>
+        <loc>https://labcoreai.github.io/LabCore_llm/fr/getting-started/</loc>
+        <lastmod>2026-02-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://labcoreai.github.io/LabCore_llm/fr/getting-started/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://labcoreai.github.io/LabCore_llm/getting-started/"/>
+    </url>
+    <url>
+        <loc>https://labcoreai.github.io/LabCore_llm/fr/inference-and-demo/</loc>
+        <lastmod>2026-02-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://labcoreai.github.io/LabCore_llm/fr/inference-and-demo/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://labcoreai.github.io/LabCore_llm/inference-and-demo/"/>
+    </url>
+    <url>
+        <loc>https://labcoreai.github.io/LabCore_llm/fr/operations/</loc>
+        <lastmod>2026-02-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://labcoreai.github.io/LabCore_llm/fr/operations/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://labcoreai.github.io/LabCore_llm/operations/"/>
+    </url>
+    <url>
+        <loc>https://labcoreai.github.io/LabCore_llm/fr/training/</loc>
+        <lastmod>2026-02-28</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="fr" href="https://labcoreai.github.io/LabCore_llm/fr/training/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://labcoreai.github.io/LabCore_llm/training/"/>
+    </url>
+</urlset>
