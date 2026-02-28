@@ -6,7 +6,7 @@ Welcome to the public docs for LabCore LLM.
 
 - Gradio demo script: [demo_gradio.py](../demo_gradio.py)
 - Hugging Face model target: [GhostPunishR/labcore-llm-50M](https://huggingface.co/GhostPunishR/labcore-llm-50M)
-- GGUF outputs folder: [`outputs/gguf/`](../outputs/gguf/)
+- GGUF outputs folder: `outputs/gguf/` (created after export/quantization)
 
 ## Gradio Screenshot
 

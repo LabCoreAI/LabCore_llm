@@ -1,9 +1,8 @@
 # LabCore LLM
-
-![PyTorch](https://img.shields.io/badge/PyTorch-2.2%2B-EE4C2C)
-![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB)
-![License](https://img.shields.io/badge/License-GPL--3.0-2EA44F)
-![Hugging%20Face](https://img.shields.io/badge/Hugging%20Face-Ready-FFD21E)
+[![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.2+-EE4C2C?style=flat&logo=pytorch&logoColor=white)](https://pytorch.org/)
+[![HuggingFace](https://img.shields.io/badge/HuggingFace-Ready-FFD21E?style=flat&logo=huggingface)](https://huggingface.co/GhostPunishR)
+[![License](https://img.shields.io/github/license/LabCoreAI/LabCore_llm?style=flat&logo=gnu&logoColor=white&color=2EA44F)](LICENSE)
 
 LabCore LLM is a modular GPT training stack built for practical local workflows:
 data preparation, training, generation, web demo, Hugging Face export, and GGUF conversion.
@@ -228,7 +227,7 @@ python -m pytest -q
 
 ## License
 
-This project is licensed under GPL-3.0-or-later.
+This project is licensed under GPL-3.0.
 
 ---
 
@@ -239,7 +238,14 @@ This project is licensed under GPL-3.0-or-later.
   title = {LabCore LLM},
   author = {GhostPunishR and contributors},
   year = {2026},
-  url = {https://github.com/GhostPunishR/LabCore_llm},
+  url = {https://github.com/LabCoreAI/LabCore_llm},
   license = {GPL-3.0}
 }
 ```
+
+---
+
+## Disclaimer
+
+This project is intended for educational and research purposes.  
+It is not optimized for large-scale production deployment.
