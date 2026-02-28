@@ -3,7 +3,7 @@ dataset = "tinyshakespeare"
 processed_dir = "data/processed"
 
 [model]
-block_size = 128
+block_size = 512
 n_layer = 6
 n_head = 8
 n_embd = 256
@@ -13,8 +13,8 @@ use_rope = false
 use_flash = false
 
 [training]
-batch_size = 32
-max_iters = 2000
+batch_size = 8
+max_iters = 5000
 eval_interval = 200
 eval_iters = 50
 log_interval = 20
@@ -27,5 +27,5 @@ data_format = "txt"
 
 [generation]
 max_new_tokens = 200
-temperature = 0.9
-top_k = 40
+temperature = 0.6
+top_k = 50
