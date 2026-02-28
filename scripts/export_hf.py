@@ -38,12 +38,13 @@ def main() -> None:
     model.eval()
 
     try:
-        from safetensors.torch import save_file
+        from safetensors.torch import save_model
     except ImportError as exc:
         raise RuntimeError("Install safetensors to export HF weights: pip install safetensors") from exc
 
     model_path = output_dir / "model.safetensors"
-    save_file(model.state_dict(), str(model_path))
+    # GPT ties lm_head and token embedding weights; save_model handles shared tensors.
+    save_model(model, str(model_path))
 
     config_payload = {
         "architectures": ["GPT"],
