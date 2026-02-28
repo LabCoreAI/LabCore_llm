@@ -23,17 +23,11 @@ theme:
     - search.highlight
   palette:
     - scheme: default
-      primary: blue grey
-      accent: blue
-      toggle:
-        icon: material/weather-night
-        name: Switch to dark mode
+      primary: indigo
+      accent: cyan
     - scheme: slate
-      primary: blue grey
-      accent: blue
-      toggle:
-        icon: material/weather-sunny
-        name: Switch to light mode
+      primary: deep purple
+      accent: cyan
 
 extra_css:
   - stylesheets/extra.css
