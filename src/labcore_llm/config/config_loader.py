@@ -21,5 +21,8 @@ def load_config(path: str | Path) -> dict:
 
     training_cfg = cfg.setdefault("training", {})
     training_cfg.setdefault("data_format", "txt")
+    training_cfg.setdefault("grad_accum_steps", training_cfg.get("gradient_accumulation_steps", 1))
+    training_cfg.setdefault("gradient_accumulation_steps", training_cfg["grad_accum_steps"])
+    training_cfg.setdefault("precision", "fp32")
 
     return cfg

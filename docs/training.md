@@ -25,6 +25,27 @@ python train.py --config configs/base.toml --tokenizer char --max-iters 5000 --d
 - `--device`: `cpu` or `cuda`
 - `--tokenizer`: `char` or `bpe`
 
+## Precision and Gradient Accumulation
+
+Configure these in `[training]`:
+
+- `grad_accum_steps`: gradient accumulation factor (default `1`)
+- `precision`: `fp32` (default), `fp16`, or `bf16`
+
+`effective_batch_size = batch_size * grad_accum_steps`
+
+Mixed precision is enabled only when `device = "cuda"` and `precision != "fp32"`.
+On CPU, training falls back to `fp32`.
+
+RTX 4060 example:
+
+```toml
+[training]
+batch_size = 8
+grad_accum_steps = 4
+precision = "fp16"
+```
+
 ## `data_format` and Metadata Mapping
 
 | Training mode | Config value | Data artifacts expected | Metadata path |

@@ -105,6 +105,7 @@ def main() -> None:
     )
 
     max_iters = args.max_iters if args.max_iters is not None else train_cfg.get("max_iters", 2000)
+    grad_accum_steps = train_cfg.get("grad_accum_steps", train_cfg.get("gradient_accumulation_steps", 1))
     trainer_config = TrainerConfig(
         batch_size=train_cfg.get("batch_size", 32),
         block_size=gpt_config.block_size,
@@ -115,7 +116,7 @@ def main() -> None:
         learning_rate=optimizer_cfg.get("learning_rate", train_cfg.get("learning_rate", 3e-4)),
         weight_decay=optimizer_cfg.get("weight_decay", train_cfg.get("weight_decay", 0.01)),
         grad_clip=optimizer_cfg.get("grad_clip", train_cfg.get("grad_clip", 1.0)),
-        gradient_accumulation_steps=train_cfg.get("gradient_accumulation_steps", 1),
+        gradient_accumulation_steps=grad_accum_steps,
         warmup_iters=train_cfg.get("warmup_iters", 0),
         lr_decay_iters=train_cfg.get("lr_decay_iters", max_iters),
         min_lr=train_cfg.get("min_lr", 3e-5),
@@ -127,6 +128,7 @@ def main() -> None:
         meta_path=meta_path.as_posix(),
         device=requested_device,
         checkpoint_dir=train_cfg.get("checkpoint_dir", "checkpoints"),
+        precision=train_cfg.get("precision", "fp32"),
     )
 
     trainer = Trainer(

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import math
+from contextlib import nullcontext
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any
@@ -33,6 +34,17 @@ class ArrayDataset(Dataset):
         return x, y
 
 
+def determine_autocast_dtype(precision: str) -> torch.dtype | None:
+    dtype_map: dict[str, torch.dtype | None] = {
+        "fp32": None,
+        "fp16": torch.float16,
+        "bf16": torch.bfloat16,
+    }
+    if precision not in dtype_map:
+        raise ValueError(f"Unsupported precision value: {precision!r}")
+    return dtype_map[precision]
+
+
 @dataclass
 class TrainerConfig:
     batch_size: int = 32
@@ -56,6 +68,15 @@ class TrainerConfig:
     meta_path: str = "data/processed/meta.json"
     device: str = "cpu"
     checkpoint_dir: str = "checkpoints"
+    precision: str = "fp32"
+
+    def __post_init__(self) -> None:
+        if self.gradient_accumulation_steps < 1:
+            raise ValueError("gradient_accumulation_steps must be >= 1.")
+
+        self.precision = self.precision.lower()
+        if self.precision not in {"fp32", "fp16", "bf16"}:
+            raise ValueError("precision must be one of: fp32, fp16, bf16.")
 
 
 class Trainer:
@@ -73,6 +94,20 @@ class Trainer:
         self.tokenizer = tokenizer
         self.config = config
         self.device = torch.device(config.device)
+        if self.device.type == "cuda" and not torch.cuda.is_available():
+            print("Warning: CUDA requested but unavailable, falling back to CPU.")
+            self.device = torch.device("cpu")
+
+        self.model = self.model.to(self.device)
+        self.grad_accum_steps = self.config.gradient_accumulation_steps
+        self.precision = self._resolve_precision(self.config.precision)
+        self.autocast_dtype = determine_autocast_dtype(self.precision)
+        self.autocast_enabled = self.device.type == "cuda" and self.autocast_dtype is not None
+        self.use_grad_scaler = self.autocast_enabled and self.precision == "fp16"
+        self.scaler = torch.amp.GradScaler("cuda", enabled=self.use_grad_scaler)
+        self.config.device = self.device.type
+        self.config.precision = self.precision
+
         self.checkpoint_dir = Path(config.checkpoint_dir)
         self.checkpoint_dir.mkdir(parents=True, exist_ok=True)
         self.meta_path = Path(config.meta_path)
@@ -81,6 +116,25 @@ class Trainer:
         self.val_loader = self._build_loader(val_data)
         self._train_iter = iter(self.train_loader)
         self._val_iter = iter(self.val_loader)
+
+    def _resolve_precision(self, requested_precision: str) -> str:
+        if self.device.type != "cuda":
+            if requested_precision != "fp32":
+                print(f"Warning: precision={requested_precision} requested on {self.device.type}; using fp32.")
+            return "fp32"
+
+        if requested_precision == "bf16":
+            bf16_supported = getattr(torch.cuda, "is_bf16_supported", None)
+            if callable(bf16_supported) and not bf16_supported():
+                print("Warning: bf16 not supported on this GPU, falling back to fp16.")
+                return "fp16"
+
+        return requested_precision
+
+    def _autocast_context(self):
+        if not self.autocast_enabled or self.autocast_dtype is None:
+            return nullcontext()
+        return torch.autocast(device_type=self.device.type, dtype=self.autocast_dtype)
 
     def _build_loader(self, data: np.ndarray | str | Path) -> DataLoader:
         if self.config.data_format == "bin":
@@ -143,7 +197,8 @@ class Trainer:
             losses = torch.zeros(self.config.eval_iters)
             for k in range(self.config.eval_iters):
                 xb, yb = self._next_batch(split)
-                _, loss = self.model(xb, yb)
+                with self._autocast_context():
+                    _, loss = self.model(xb, yb)
                 losses[k] = loss.item()
             out[split] = losses.mean().item()
         self.model.train()
@@ -187,25 +242,46 @@ class Trainer:
 
     def train(self) -> None:
         self.model.train()
+        effective_batch_size = self.config.batch_size * self.grad_accum_steps
+        print(
+            "training setup: "
+            f"batch_size={self.config.batch_size} "
+            f"grad_accum_steps={self.grad_accum_steps} "
+            f"effective_batch_size={effective_batch_size}"
+        )
+        print(f"Precision: {self.precision} | Autocast enabled: {self.autocast_enabled}")
+
+        self.optimizer.zero_grad(set_to_none=True)
         for step in range(self.config.max_iters):
             lr = self._get_lr(step)
             for group in self.optimizer.param_groups:
                 group["lr"] = lr
 
-            self.optimizer.zero_grad(set_to_none=True)
             loss_value = 0.0
-            for _ in range(self.config.gradient_accumulation_steps):
+            for _ in range(self.grad_accum_steps):
                 xb, yb = self._next_batch("train")
-                _, loss = self.model(xb, yb)
-                (loss / self.config.gradient_accumulation_steps).backward()
-                loss_value += loss.item()
+                with self._autocast_context():
+                    _, loss = self.model(xb, yb)
+                    loss_value += loss.item()
+                    scaled_loss = loss / self.grad_accum_steps
+                if self.use_grad_scaler:
+                    self.scaler.scale(scaled_loss).backward()
+                else:
+                    scaled_loss.backward()
 
             if self.config.grad_clip > 0:
+                if self.use_grad_scaler:
+                    self.scaler.unscale_(self.optimizer)
                 torch.nn.utils.clip_grad_norm_(self.model.parameters(), self.config.grad_clip)
-            self.optimizer.step()
+            if self.use_grad_scaler:
+                self.scaler.step(self.optimizer)
+                self.scaler.update()
+            else:
+                self.optimizer.step()
+            self.optimizer.zero_grad(set_to_none=True)
 
             if step % self.config.log_interval == 0:
-                avg_loss = loss_value / self.config.gradient_accumulation_steps
+                avg_loss = loss_value / self.grad_accum_steps
                 print(f"step {step}: train_loss={avg_loss:.4f} lr={lr:.6f}")
 
             should_eval = step % self.config.eval_interval == 0 or step == self.config.max_iters - 1
