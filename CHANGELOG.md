@@ -1,46 +1,65 @@
 # Changelog
 
-All notable changes to this project are documented in this file.
-
-The format is based on Keep a Changelog, and this project follows semantic versioning.
-
-## [Unreleased]
+## [0.2.1] - 2026-03-01
 
 ### Added
-- Structured bilingual documentation site (English/French) with grouped navigation (`Guides`, `Reference`, `Development`).
-- Dedicated troubleshooting and benchmark pages in EN/FR (`docs/*` and `docs/fr/*`).
-- Additional model preset scales for both preset families:
+- Nucleus sampling (`top_p`) and repetition penalty controls were added to generation:
+  - model runtime (`labcore_llm.model.gpt`)
+  - CLI/config usage (`generate.py`, `configs/base.toml`)
+  - automated coverage (`tests/test_generation_sampling.py`)
+- Generation reproducibility controls were added:
+  - `generation.seed`
+  - `generation.deterministic`
+  - deterministic setup helper (`configure_generation_reproducibility` in `generate.py`)
+- Training improvements were added:
+  - gradient accumulation support (`grad_accum_steps`, alias `gradient_accumulation_steps`)
+  - mixed precision modes (`fp16`, `bf16`, `fp32`) with autocast and scaler handling in `Trainer`
+  - dedicated training tests for accumulation and precision behavior
+- Preset coverage was expanded in both model families:
   - `configs/bpe_medium/`: `5M`, `10M`, `15M`, `20M`, `30M`, `35M`, `40M`, `45M`, `50M`
   - `configs/bpe_rope_flash/`: `5M`, `10M`, `15M`, `20M`, `30M`, `35M`, `40M`, `45M`, `50M`
+- Documentation platform was expanded:
+  - bilingual MkDocs site (EN/FR)
+  - grouped navigation (`Guides`, `Reference`, `Development`)
+  - dedicated Troubleshooting and Benchmarks pages in both languages
 
 ### Changed
-- README refocused as a presentation page; procedural tutorials moved to MkDocs.
-- Documentation aligned with runtime behavior and dependency profiles:
-  - HF demo profile documented as `.[torch,hf,demo]`
-  - fine-tuning profile documented as `.[torch,hf,finetune]`
-- `scripts/prepare_data.py` dependency guidance updated to point to `.[hf]` for `datasets`.
-- MkDocs UX cleaned for production use:
+- Config loading behavior was tightened:
+  - explicit defaults for `generation.top_p`, `generation.repetition_penalty`, `generation.seed`, `generation.deterministic`
+  - validation for generation seed and deterministic flags
+  - null seed sentinel handling in TOML parsing
+- Base configuration (`configs/base.toml`) was updated to reflect new training and generation controls.
+- README was repositioned as a high-level project entry page; operational tutorials are now centered in MkDocs.
+- Documentation and dependency guidance were aligned with runtime profiles:
+  - demo stack: `.[torch,hf,demo]`
+  - fine-tuning stack: `.[torch,hf,finetune]`
+  - data-prep guidance for datasets dependency (`.[hf]`)
+- MkDocs UX was refined for production usage:
   - removed page edit/view actions
   - removed heading permanent-link anchors
-  - improved navigation structure and mobile readability
-
-### Removed
-- `CITATION.cff` removed.
-- Citation sections removed from README and docs operations pages.
+  - improved navigation and mobile readability
 
 ### Fixed
-- French navigation labels and language switch consistency.
-- Heading hierarchy cleanup (`docs/developer-guide.md`) for cleaner table of contents behavior.
+- HF export reliability with tied GPT weights (`scripts/export_hf.py`, safetensors save path).
+- CI test collection reliability by installing torch in CI test environment.
+- Test import-path reliability for root-level scripts (`tests/conftest.py` now adds repo root and `src`).
+- Base preset regressions corrected (`configs/base.toml`).
+- French navigation labels and language switch consistency in docs.
+- Heading hierarchy cleanup (`docs/developer-guide.md`) for cleaner table-of-contents behavior.
+
+### Removed
+- `CITATION.cff` was removed.
+- Citation sections were removed from README and docs operations pages.
 
 ## [0.2.0] - 2026-02-27
 
 ### Added
-- Core decoder-only GPT framework with char and BPE tokenization paths.
-- Data preparation pipeline for `txt/npy` and `bin` outputs with `meta.json`.
-- CLI workflows for training (`train.py`) and generation (`generate.py`).
-- Gradio demo for local checkpoints and Hugging Face models (`demo_gradio.py`).
-- Export pipeline to Hugging Face format (`scripts/export_hf.py`).
-- GGUF conversion/quantization helper (`scripts/quantize_gguf.py`).
-- Instruction fine-tuning entrypoint with LoRA (`scripts/fine_tune_instruction.py`).
-- Packaging and optional dependency profiles in `pyproject.toml` (`torch`, `dev`, `hf`, `demo`, `gguf`, `finetune`, `all`).
-- CI workflows for code quality/tests and docs deployment (`.github/workflows/ci.yml`, `.github/workflows/docs.yml`).
+- Initial public project baseline shipped across the full repository:
+  - decoder-only GPT core (`src/labcore_llm/model`) with char and BPE tokenization paths
+  - data pipeline (`scripts/prepare_data.py`) with metadata contract (`meta.json`) and txt/bin outputs
+  - training and inference CLIs (`train.py`, `generate.py`)
+  - local/HF Gradio demo (`demo_gradio.py`)
+  - HF export flow (`scripts/export_hf.py`) and optional GGUF conversion (`scripts/quantize_gguf.py`)
+  - optional LoRA instruction fine-tuning entrypoint (`scripts/fine_tune_instruction.py`)
+  - package structure and optional dependency profiles in `pyproject.toml`
+  - baseline automated testing and CI/docs workflows
