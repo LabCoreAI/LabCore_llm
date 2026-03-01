@@ -158,7 +158,7 @@
         
           <li class="md-select__item">
             <a href="../fr/inference-and-demo/" hreflang="fr" class="md-select__link">
-              Français
+              Francais
             </a>
           </li>
         
@@ -642,6 +642,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#kv-cache-streaming-and-chat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KV Cache, Streaming, and Chat
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1081,6 +1092,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#kv-cache-streaming-and-chat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KV Cache, Streaming, and Chat
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1186,6 +1208,8 @@ Prerequisites: a trained checkpoint (<code>checkpoints/ckpt_last.pt</code>) and 
 <li><code>top_k</code>: keeps only the <code>k</code> most likely tokens.</li>
 <li><code>top_p</code>: nucleus sampling cutoff (<code>1.0</code> disables it).</li>
 <li><code>repetition_penalty</code>: penalizes already generated tokens (<code>1.0</code> disables it).</li>
+<li><code>use_kv_cache</code>: enables KV cache during decoding.</li>
+<li><code>stream</code>: enables token-by-token output streaming.</li>
 </ul>
 <p><code>top_p</code> and <code>repetition_penalty</code> are read from <code>[generation]</code> when using <code>generate.py --config ...</code>.</p>
 <p>RTX 4060 stable example:</p>
@@ -1194,6 +1218,10 @@ Prerequisites: a trained checkpoint (<code>checkpoints/ckpt_last.pt</code>) and 
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">top_k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">50</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">top_p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.9</span>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">repetition_penalty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.1</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="n">use_kv_cache</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="n">stream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="n">system_prompt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;You are LabCore LLM.&quot;</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="n">max_history_turns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span>
 </code></pre></div>
 <h3 id="reproducible-generation">Reproducible Generation</h3>
 <ul>
@@ -1205,8 +1233,28 @@ Prerequisites: a trained checkpoint (<code>checkpoints/ckpt_last.pt</code>) and 
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">top_k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">50</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">top_p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.9</span>
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">repetition_penalty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.1</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">seed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1337</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">deterministic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">use_kv_cache</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">stream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="n">system_prompt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;You are LabCore LLM.&quot;</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="n">max_history_turns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="n">seed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1337</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="n">deterministic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</code></pre></div>
+<h3 id="kv-cache-streaming-and-chat">KV Cache, Streaming, and Chat</h3>
+<ul>
+<li>KV cache speeds up generation by reusing past attention keys/values instead of recomputing the whole context.</li>
+<li>Streaming updates the demo output incrementally as each token is sampled.</li>
+<li>Multi-turn chat builds prompts with simple text markers:</li>
+<li><code>&lt;|system|&gt;</code></li>
+<li><code>&lt;|user|&gt;</code></li>
+<li><code>&lt;|assistant|&gt;</code></li>
+<li><code>max_history_turns</code> keeps only the latest turns to bound prompt length.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">[generation]</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">use_kv_cache</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">stream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">system_prompt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;You are LabCore LLM.&quot;</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">max_history_turns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span>
 </code></pre></div>
 <h2 id="output-files-artifacts-produced">Output Files / Artifacts Produced</h2>
 <ul>

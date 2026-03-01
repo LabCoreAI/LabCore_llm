@@ -31,7 +31,7 @@
     
     
       
-        <title>Dépannage - LabCore LLM Docs</title>
+        <title>Depannage - LabCore LLM Docs</title>
       
     
     
@@ -84,7 +84,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#depannage" class="md-skip">
+        <a href="#troubleshooting" class="md-skip">
           Aller au contenu
         </a>
       
@@ -118,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Dépannage
+              Depannage
             
           </span>
         </div>
@@ -158,7 +158,7 @@
         
           <li class="md-select__item">
             <a href="./" hreflang="fr" class="md-select__link">
-              Français
+              Francais
             </a>
           </li>
         
@@ -290,7 +290,7 @@
           
   
   
-  Référence
+  Reference
 
         </a>
       </li>
@@ -310,7 +310,7 @@
           
   
   
-  Développement
+  Developpement
 
         </a>
       </li>
@@ -456,7 +456,7 @@
   <span class="md-ellipsis">
     
   
-    Démarrage
+    Demarrage
   
 
     
@@ -484,7 +484,7 @@
   <span class="md-ellipsis">
     
   
-    Pipeline de données
+    Pipeline de donnees
   
 
     
@@ -512,7 +512,7 @@
   <span class="md-ellipsis">
     
   
-    Entraînement
+    Entrainement
   
 
     
@@ -540,7 +540,7 @@
   <span class="md-ellipsis">
     
   
-    Inférence et démo
+    Inference et demo
   
 
     
@@ -596,7 +596,7 @@
   <span class="md-ellipsis">
     
   
-    Export et déploiement
+    Export et deploiement
   
 
     
@@ -652,7 +652,7 @@
   <span class="md-ellipsis">
     
   
-    Référence
+    Reference
   
 
     
@@ -668,7 +668,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Référence
+    Reference
   
 
           </label>
@@ -716,7 +716,7 @@
   <span class="md-ellipsis">
     
   
-    Opérations
+    Operations
   
 
     
@@ -753,7 +753,7 @@
   <span class="md-ellipsis">
     
   
-    Dépannage
+    Depannage
   
 
     
@@ -771,7 +771,7 @@
   <span class="md-ellipsis">
     
   
-    Dépannage
+    Depannage
   
 
     
@@ -797,68 +797,141 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#installation-pytorch-cpucuda" class="md-nav__link">
+  <a href="#setup" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Installation PyTorch (CPU/CUDA)
+        Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#torch-not-installed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Torch not installed
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#cuda-non-detecte-torchcudais_available-false" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#cuda-not-detected" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CUDA Non Détecté (torch.cuda.is_available() == False)
+        CUDA not detected
       
     </span>
   </a>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
-  <a href="#oom-quoi-reduire-en-premier" class="md-nav__link">
+  <a href="#data-and-metadata" class="md-nav__link">
     <span class="md-ellipsis">
       
-        OOM: Quoi Réduire en Premier
+        Data and Metadata
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data and Metadata">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#meta-path-mismatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Meta path mismatch
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#emplacement-de-metajson" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#binary-shards-not-found" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Emplacement de meta.json
+        Binary shards not found
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#flashattention-non-disponible" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#char-vocab-missing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        FlashAttention Non Disponible
+        Char vocab missing
       
     </span>
   </a>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
-  <a href="#notes-windows" class="md-nav__link">
+  <a href="#runtime" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Notes Windows
+        Runtime
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Runtime">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#oom-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of memory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flashattention-not-available" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FlashAttention not available
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windows-path-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows path and policy issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -936,7 +1009,7 @@
   <span class="md-ellipsis">
     
   
-    Développement
+    Developpement
   
 
     
@@ -952,7 +1025,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Développement
+    Developpement
   
 
           </label>
@@ -972,7 +1045,7 @@
   <span class="md-ellipsis">
     
   
-    Guide développeur
+    Guide developpeur
   
 
     
@@ -1020,68 +1093,141 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#installation-pytorch-cpucuda" class="md-nav__link">
+  <a href="#setup" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Installation PyTorch (CPU/CUDA)
+        Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#torch-not-installed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Torch not installed
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#cuda-non-detecte-torchcudais_available-false" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#cuda-not-detected" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CUDA Non Détecté (torch.cuda.is_available() == False)
+        CUDA not detected
       
     </span>
   </a>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
-  <a href="#oom-quoi-reduire-en-premier" class="md-nav__link">
+  <a href="#data-and-metadata" class="md-nav__link">
     <span class="md-ellipsis">
       
-        OOM: Quoi Réduire en Premier
+        Data and Metadata
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data and Metadata">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#meta-path-mismatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Meta path mismatch
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#emplacement-de-metajson" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#binary-shards-not-found" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Emplacement de meta.json
+        Binary shards not found
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#flashattention-non-disponible" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#char-vocab-missing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        FlashAttention Non Disponible
+        Char vocab missing
       
     </span>
   </a>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
-  <a href="#notes-windows" class="md-nav__link">
+  <a href="#runtime" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Notes Windows
+        Runtime
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Runtime">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#oom-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of memory
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flashattention-not-available" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FlashAttention not available
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windows-path-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows path and policy issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1105,54 +1251,69 @@
   
 
 
-<h1 id="depannage">Dépannage</h1>
-<p>Problèmes fréquents de setup/runtime avec correctifs rapides.</p>
-<h2 id="installation-pytorch-cpucuda">Installation PyTorch (CPU/CUDA)</h2>
-<p>Utilisez le sélecteur officiel selon OS + version CUDA :</p>
-<p><a href="https://pytorch.org/get-started/locally/">https://pytorch.org/get-started/locally/</a></p>
-<p>Commande type :</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[torch]&quot;</span>
+<h1 id="troubleshooting">Troubleshooting</h1>
+<p>Utilisez cette page pour diagnostiquer rapidement les erreurs frequentes de setup, donnees et runtime.
+Toutes les ancres ci-dessous sont referencees depuis les pages guides.</p>
+<h2 id="setup">Setup</h2>
+<h3 id="torch-not-installed">Torch not installed</h3>
+<p>Symptomes: <code>ModuleNotFoundError: torch</code>, ou echec des scripts a l'import.</p>
+<p>Correctif:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[torch,dev]&quot;</span>
 </code></pre></div>
-<h2 id="cuda-non-detecte-torchcudais_available-false">CUDA Non Détecté (<code>torch.cuda.is_available() == False</code>)</h2>
-<p>Vérifiez :</p>
+<p>Utilisez le selecteur officiel si vous avez besoin d'un build CUDA specifique:
+<a href="https://pytorch.org/get-started/locally/">https://pytorch.org/get-started/locally/</a></p>
+<h3 id="cuda-not-detected">CUDA not detected</h3>
+<p>Symptomes: <code>torch.cuda.is_available()</code> retourne <code>False</code>, ou fallback CPU dans les scripts.</p>
+<p>Verification rapide:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(torch.cuda.is_available()); print(torch.version.cuda)&quot;</span>
+</code></pre></div>
+<p>Points a verifier:</p>
 <ul>
-<li>Build PyTorch compatible avec votre runtime/driver CUDA.</li>
-<li>Driver NVIDIA installé et à jour.</li>
-<li>Même venv/Python utilisé pour installer et exécuter PyTorch.</li>
+<li>Driver NVIDIA installe et a jour</li>
+<li>Build PyTorch compatible avec votre runtime CUDA</li>
+<li>Meme environnement Python utilise pour l'installation et l'execution</li>
 </ul>
-<p>Vérification rapide :</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(torch.__version__, torch.cuda.is_available())&quot;</span>
+<h2 id="data-and-metadata">Data and Metadata</h2>
+<h3 id="meta-path-mismatch">Meta path mismatch</h3>
+<p>Symptomes: generation/entrainement incorrects ou impossibles a charger via metadata tokenizer.</p>
+<p>Mapping attendu:</p>
+<ul>
+<li>Pipeline <code>txt</code> -&gt; <code>data/processed/meta.json</code></li>
+<li>Pipeline <code>bin</code> -&gt; <code>data/meta.json</code></li>
+</ul>
+<h3 id="binary-shards-not-found">Binary shards not found</h3>
+<p>Symptomes: <code>Binary shards not found</code> avec <code>training.data_format = "bin"</code>.</p>
+<p>Correctif:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>python<span class="w"> </span>scripts/prepare_data.py<span class="w"> </span>--dataset<span class="w"> </span>tinyshakespeare<span class="w"> </span>--tokenizer<span class="w"> </span>char<span class="w"> </span>--output-format<span class="w"> </span>bin<span class="w"> </span>--output-dir<span class="w"> </span>data/processed
 </code></pre></div>
-<h2 id="oom-quoi-reduire-en-premier">OOM: Quoi Réduire en Premier</h2>
-<p>En cas d'erreur mémoire, réduire dans cet ordre :</p>
+<h3 id="char-vocab-missing">Char vocab missing</h3>
+<p>Symptomes: <code>Char tokenizer requires vocab in meta.json</code>.</p>
+<p>Correctif:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>python<span class="w"> </span>scripts/prepare_data.py<span class="w"> </span>--dataset<span class="w"> </span>tinyshakespeare<span class="w"> </span>--tokenizer<span class="w"> </span>char<span class="w"> </span>--output-format<span class="w"> </span>txt<span class="w"> </span>--output-dir<span class="w"> </span>data/processed
+</code></pre></div>
+<p>Puis passez le <code>--meta data/processed/meta.json</code> correspondant aux commandes generation/export.</p>
+<h2 id="runtime">Runtime</h2>
+<h3 id="oom-errors">Out of memory</h3>
+<p>Reduire dans cet ordre:</p>
 <ol>
 <li><code>training.batch_size</code></li>
-<li><code>model.block_size</code> (longueur de séquence)</li>
+<li><code>model.block_size</code></li>
 <li><code>training.gradient_accumulation_steps</code></li>
-<li>Stratégie de précision (si vous ajoutez mixed precision)</li>
+<li>Taille modele / complexite preset</li>
 </ol>
-<p>Si nécessaire, utiliser un preset de taille plus petite.</p>
-<h2 id="emplacement-de-metajson">Emplacement de <code>meta.json</code></h2>
-<p>L'emplacement dépend du format de sortie :</p>
+<h3 id="flashattention-not-available">FlashAttention not available</h3>
+<p>LabCore applique des fallbacks automatiques:</p>
 <ul>
-<li>Pipeline <code>txt</code>: généralement <code>data/processed/meta.json</code></li>
-<li>Pipeline <code>bin</code>: généralement <code>data/meta.json</code></li>
+<li>FlashAttention (priorite, si disponible)</li>
+<li>Fallback SDPA PyTorch</li>
+<li>Fallback attention causale standard</li>
 </ul>
-<p>Si <code>train.py</code> ne trouve pas la metadata, vérifier <code>processed_dir</code> dans le TOML et le dossier de sortie réel de <code>prepare_data.py</code>.</p>
-<h2 id="flashattention-non-disponible">FlashAttention Non Disponible</h2>
-<p>LabCore applique un fallback automatiquement :</p>
+<h3 id="windows-path-policy">Windows path and policy issues</h3>
 <ul>
-<li>Priorité: kernel FlashAttention (si dispo)</li>
-<li>Fallback: PyTorch SDPA</li>
-<li>Dernier chemin: attention causale standard</li>
-</ul>
-<p>Vous pouvez garder <code>use_flash = true</code>, le fallback gère les environnements non supportés.</p>
-<h2 id="notes-windows">Notes Windows</h2>
-<ul>
-<li>Activer le venv avant les commandes.</li>
-<li>Citer les chemins si espaces.</li>
-<li>Exécuter depuis la racine du repo pour conserver les chemins relatifs.</li>
-<li>Si execution policy bloque les scripts, utiliser <code>python ...</code> directement.</li>
+<li>Activez le venv avant les commandes.</li>
+<li>Lancez les commandes depuis la racine du repo.</li>
+<li>Citez les chemins si des espaces sont presents.</li>
+<li>Si la policy PowerShell bloque les scripts, utilisez les commandes <code>python ...</code> directement.</li>
 </ul>
 
 
@@ -1189,7 +1350,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Pied de page" >
         
           
-          <a href="../operations/" class="md-footer__link md-footer__link--prev" aria-label="Précédent: Opérations">
+          <a href="../operations/" class="md-footer__link md-footer__link--prev" aria-label="Précédent: Operations">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1199,7 +1360,7 @@
                 Précédent
               </span>
               <div class="md-ellipsis">
-                Opérations
+                Operations
               </div>
             </div>
           </a>
