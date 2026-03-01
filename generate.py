@@ -5,14 +5,13 @@ from __future__ import annotations
 
 import argparse
 import json
-import random
 from pathlib import Path
 
-import numpy as np
 import torch
 
 from labcore_llm import GPT, GPTConfig, load_config
 from labcore_llm.tokenizer import BPETokenizer, CharTokenizer
+from labcore_llm.utils import configure_generation_reproducibility
 
 
 def load_meta(meta_path: Path) -> dict:
@@ -39,23 +38,6 @@ def load_tokenizer(meta: dict, tokenizer_name: str):
     if tok_cfg.get("type") == "char" and "vocab" in tok_cfg:
         return CharTokenizer.from_dict(tok_cfg)
     raise ValueError("Char tokenizer requires vocab in meta.json. Run prepare_data.py with --tokenizer char.")
-
-
-def configure_generation_reproducibility(seed: int | None, deterministic: bool) -> None:
-    if seed is not None:
-        random.seed(seed)
-        np.random.seed(seed)
-        torch.manual_seed(seed)
-        if torch.cuda.is_available():
-            torch.cuda.manual_seed_all(seed)
-        print(f"Generation seed: {seed}")
-
-    if deterministic:
-        torch.use_deterministic_algorithms(True, warn_only=True)
-        if hasattr(torch.backends, "cudnn"):
-            torch.backends.cudnn.deterministic = True
-            torch.backends.cudnn.benchmark = False
-        print("Deterministic mode: enabled")
 
 
 def main() -> None:
@@ -102,6 +84,7 @@ def main() -> None:
             top_k=args.top_k,
             top_p=generation_cfg.get("top_p", 1.0),
             repetition_penalty=generation_cfg.get("repetition_penalty", 1.0),
+            use_kv_cache=generation_cfg.get("use_kv_cache", True),
         )
     print(tokenizer.decode(y[0].tolist()))
 

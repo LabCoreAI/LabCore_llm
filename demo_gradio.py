@@ -5,11 +5,12 @@ from __future__ import annotations
 
 import argparse
 import json
+from collections.abc import Iterator
 from pathlib import Path
 
 import torch
 
-from labcore_llm import GPT, GPTConfig
+from labcore_llm import GPT, GPTConfig, load_config
 from labcore_llm.tokenizer import BPETokenizer, CharTokenizer
 
 
@@ -76,45 +77,37 @@ def load_hf_model(repo_id: str, repo_revision: str, device: str):
     return model, tokenizer
 
 
-def top_p_filter(logits: torch.Tensor, top_p: float) -> torch.Tensor:
-    if top_p >= 1.0:
-        return logits
-    sorted_logits, sorted_indices = torch.sort(logits, descending=True)
-    probs = torch.softmax(sorted_logits, dim=-1)
-    cumulative = torch.cumsum(probs, dim=-1)
-    remove_mask = cumulative > top_p
-    remove_mask[..., 1:] = remove_mask[..., :-1].clone()
-    remove_mask[..., 0] = False
-    sorted_logits[remove_mask] = float("-inf")
-    filtered = torch.full_like(logits, float("-inf"))
-    filtered.scatter_(dim=-1, index=sorted_indices, src=sorted_logits)
-    return filtered
+def load_generation_defaults(config_path: str | None) -> dict:
+    if not config_path:
+        return {}
+    path = Path(config_path)
+    if not path.exists():
+        return {}
+    try:
+        return load_config(path).get("generation", {})
+    except Exception as exc:  # pragma: no cover - demo fallback path
+        print(f"Warning: failed to load config defaults from {path}: {exc}")
+        return {}
 
 
-def generate_text(
-    model: GPT,
-    tokenizer,
-    prompt: str,
-    max_new_tokens: int,
-    temperature: float,
-    top_k: int,
-    top_p: float,
-    device: str,
-) -> str:
-    input_ids = tokenizer.encode(prompt)
-    x = torch.tensor([input_ids], dtype=torch.long, device=device)
-    with torch.no_grad():
-        for _ in range(max_new_tokens):
-            logits, _ = model(x[:, -model.config.block_size :])
-            logits = logits[:, -1, :] / max(temperature, 1e-6)
-            if top_k > 0:
-                top_values, _ = torch.topk(logits, min(top_k, logits.size(-1)))
-                logits[logits < top_values[:, [-1]]] = float("-inf")
-            logits = top_p_filter(logits, top_p=top_p)
-            probs = torch.softmax(logits, dim=-1)
-            next_id = torch.multinomial(probs, num_samples=1)
-            x = torch.cat((x, next_id), dim=1)
-    return tokenizer.decode(x[0].tolist())
+def _clamp(value: float, minimum: float, maximum: float) -> float:
+    return max(minimum, min(maximum, value))
+
+
+def _build_chat_prompt(system_prompt: str, history: list[tuple[str, str]], user_prompt: str, max_history_turns: int) -> str:
+    if max_history_turns > 0:
+        turns = history[-max_history_turns:]
+    else:
+        turns = []
+
+    parts: list[str] = []
+    cleaned_system = system_prompt.strip()
+    if cleaned_system:
+        parts.append(f"<|system|>\n{cleaned_system}\n")
+    for user_msg, assistant_msg in turns:
+        parts.append(f"<|user|>\n{user_msg}\n<|assistant|>\n{assistant_msg}\n")
+    parts.append(f"<|user|>\n{user_prompt}\n<|assistant|>\n")
+    return "".join(parts)
 
 
 def main() -> None:
@@ -124,6 +117,7 @@ def main() -> None:
     parser.add_argument("--meta", default="data/processed/meta.json")
     parser.add_argument("--repo-id", default="GhostPunishR/labcore-llm-50M")
     parser.add_argument("--repo-revision", default="main")
+    parser.add_argument("--config", default="configs/base.toml")
     parser.add_argument("--device", default="cpu")
     parser.add_argument("--port", type=int, default=7860)
     args = parser.parse_args()
@@ -143,35 +137,188 @@ def main() -> None:
     else:
         model, tokenizer = load_local_model(Path(args.checkpoint), Path(args.meta), device=device)
 
-    def _infer(prompt: str, temperature: float, top_k: int, top_p: float, max_new_tokens: int) -> str:
-        return generate_text(
-            model=model,
-            tokenizer=tokenizer,
-            prompt=prompt,
+    generation_defaults = load_generation_defaults(args.config)
+    default_temperature = float(_clamp(float(generation_defaults.get("temperature", 0.9)), 0.1, 2.0))
+    default_top_k = int(_clamp(float(generation_defaults.get("top_k", 40)), 0.0, 200.0))
+    default_top_p = float(_clamp(float(generation_defaults.get("top_p", 0.95)), 0.1, 1.0))
+    default_rep_penalty = float(_clamp(float(generation_defaults.get("repetition_penalty", 1.0)), 1.0, 2.0))
+    default_max_new_tokens = int(_clamp(float(generation_defaults.get("max_new_tokens", 160)), 8.0, 512.0))
+    default_use_kv_cache = bool(generation_defaults.get("use_kv_cache", True))
+    default_stream = bool(generation_defaults.get("stream", True))
+    default_system_prompt = str(generation_defaults.get("system_prompt", ""))
+    default_max_history_turns = int(_clamp(float(generation_defaults.get("max_history_turns", 6)), 0.0, 20.0))
+
+    supports_kv_cache = args.source == "local" and hasattr(model, "forward_with_kv")
+    source_note = "KV cache unsupported for current source." if not supports_kv_cache else "KV cache available."
+    base_status = f"Source: {args.source} | Device: {device} | {source_note}"
+
+    def _status_text(stream_enabled: bool, kv_requested: bool) -> str:
+        kv_active = kv_requested and supports_kv_cache
+        if kv_requested and not supports_kv_cache:
+            kv_state = "off (unsupported)"
+        else:
+            kv_state = "on" if kv_active else "off"
+        return f"{base_status} | Stream: {'on' if stream_enabled else 'off'} | KV cache: {kv_state}"
+
+    def _chat_infer(
+        user_prompt: str,
+        history: list[tuple[str, str]] | None,
+        temperature: float,
+        top_k: int,
+        top_p: float,
+        repetition_penalty: float,
+        max_new_tokens: int,
+        use_kv_cache: bool,
+        stream: bool,
+        system_prompt: str,
+        max_history_turns: int,
+    ) -> Iterator[tuple[str, list[tuple[str, str]], list[tuple[str, str]], str]]:
+        user_prompt = user_prompt.strip()
+        history = list(history or [])
+        max_history_turns = max(0, int(max_history_turns))
+        trimmed_history = history[-max_history_turns:] if max_history_turns > 0 else []
+        status_text = _status_text(stream_enabled=bool(stream), kv_requested=bool(use_kv_cache))
+
+        if not user_prompt:
+            yield "", history, history, status_text
+            return
+
+        full_prompt = _build_chat_prompt(
+            system_prompt=system_prompt,
+            history=trimmed_history,
+            user_prompt=user_prompt,
+            max_history_turns=max_history_turns,
+        )
+        prompt_ids = tokenizer.encode(full_prompt)
+        x = torch.tensor([prompt_ids], dtype=torch.long, device=device)
+
+        use_kv_cache_effective = bool(use_kv_cache and supports_kv_cache)
+        assistant_text = ""
+        if stream:
+            stream_iter = model.generate(
+                x,
+                max_new_tokens=max_new_tokens,
+                temperature=temperature,
+                top_k=top_k,
+                top_p=top_p,
+                repetition_penalty=repetition_penalty,
+                use_kv_cache=use_kv_cache_effective,
+                stream=True,
+            )
+            for token_id in stream_iter:
+                assistant_text += tokenizer.decode([token_id])
+                updated_history = trimmed_history + [(user_prompt, assistant_text)]
+                yield "", updated_history, updated_history, status_text
+            if not assistant_text:
+                updated_history = trimmed_history + [(user_prompt, assistant_text)]
+                yield "", updated_history, updated_history, status_text
+            return
+
+        output = model.generate(
+            x,
             max_new_tokens=max_new_tokens,
             temperature=temperature,
             top_k=top_k,
             top_p=top_p,
-            device=device,
+            repetition_penalty=repetition_penalty,
+            use_kv_cache=use_kv_cache_effective,
+            stream=False,
         )
+        if not isinstance(output, torch.Tensor):  # pragma: no cover - defensive guard
+            raise TypeError("Expected tensor output when stream=False.")
+        new_token_ids = output[0].tolist()[len(prompt_ids) :]
+        assistant_text = tokenizer.decode(new_token_ids)
+        updated_history = trimmed_history + [(user_prompt, assistant_text)]
+        yield "", updated_history, updated_history, status_text
+
+    def _clear_chat() -> tuple[str, list[tuple[str, str]], list[tuple[str, str]], str]:
+        return "", [], [], base_status
 
     with gr.Blocks(title="LabCore LLM Demo") as demo:
-        gr.Markdown("# LabCore LLM - 50M RoPE/Flash Demo")
-        prompt = gr.Textbox(label="Prompt", lines=5, value="In the beginning")
-        with gr.Row():
-            temperature = gr.Slider(label="Temperature", minimum=0.1, maximum=2.0, value=0.9, step=0.05)
-            top_k = gr.Slider(label="Top-k", minimum=0, maximum=200, value=40, step=1)
-            top_p = gr.Slider(label="Top-p", minimum=0.1, maximum=1.0, value=0.95, step=0.01)
-        max_new_tokens = gr.Slider(label="Max new tokens", minimum=8, maximum=512, value=160, step=8)
-        generate_btn = gr.Button("Generate")
-        output = gr.Textbox(label="Generated text", lines=14)
-        generate_btn.click(
-            fn=_infer,
-            inputs=[prompt, temperature, top_k, top_p, max_new_tokens],
-            outputs=[output],
+        gr.Markdown("# LabCore LLM Demo")
+        gr.Markdown(
+            "Minimal chat with optional KV cache and streaming. "
+            "History uses raw text markers: `<|system|>`, `<|user|>`, `<|assistant|>`."
         )
 
-    demo.launch(server_port=args.port)
+        chatbot = gr.Chatbot(label="Chat", height=420, type="tuples")
+        prompt = gr.Textbox(label="Your message", lines=4, placeholder="Ask something...")
+        with gr.Row():
+            send_btn = gr.Button("Send", variant="primary")
+            clear_btn = gr.Button("Clear")
+
+        with gr.Accordion("Generation settings", open=True):
+            with gr.Row():
+                temperature = gr.Slider(label="Temperature", minimum=0.1, maximum=2.0, value=default_temperature, step=0.05)
+                top_k = gr.Slider(label="Top-k", minimum=0, maximum=200, value=default_top_k, step=1)
+                top_p = gr.Slider(label="Top-p", minimum=0.1, maximum=1.0, value=default_top_p, step=0.01)
+            with gr.Row():
+                repetition_penalty = gr.Slider(
+                    label="Repetition penalty",
+                    minimum=1.0,
+                    maximum=2.0,
+                    value=default_rep_penalty,
+                    step=0.01,
+                )
+                max_new_tokens = gr.Slider(
+                    label="Max new tokens",
+                    minimum=8,
+                    maximum=512,
+                    value=default_max_new_tokens,
+                    step=8,
+                )
+            with gr.Row():
+                use_kv_cache = gr.Checkbox(label="Use KV cache", value=default_use_kv_cache)
+                stream = gr.Checkbox(label="Stream output", value=default_stream)
+            system_prompt = gr.Textbox(label="System prompt", lines=3, value=default_system_prompt)
+            max_history_turns = gr.Slider(
+                label="Max history turns",
+                minimum=0,
+                maximum=20,
+                value=default_max_history_turns,
+                step=1,
+            )
+
+        status = gr.Markdown(value=base_status)
+        history_state = gr.State([])
+
+        send_btn.click(
+            fn=_chat_infer,
+            inputs=[
+                prompt,
+                history_state,
+                temperature,
+                top_k,
+                top_p,
+                repetition_penalty,
+                max_new_tokens,
+                use_kv_cache,
+                stream,
+                system_prompt,
+                max_history_turns,
+            ],
+            outputs=[prompt, chatbot, history_state, status],
+        )
+        prompt.submit(
+            fn=_chat_infer,
+            inputs=[
+                prompt,
+                history_state,
+                temperature,
+                top_k,
+                top_p,
+                repetition_penalty,
+                max_new_tokens,
+                use_kv_cache,
+                stream,
+                system_prompt,
+                max_history_turns,
+            ],
+            outputs=[prompt, chatbot, history_state, status],
+        )
+        clear_btn.click(fn=_clear_chat, outputs=[prompt, chatbot, history_state, status])
+
+    demo.queue().launch(server_port=args.port)
 
 
 if __name__ == "__main__":

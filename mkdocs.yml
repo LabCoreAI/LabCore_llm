@@ -3,6 +3,7 @@ site_description: Bilingual technical documentation for LabCore LLM
 site_url: https://labcoreai.github.io/LabCore_llm/
 repo_url: https://github.com/LabCoreAI/LabCore_llm
 repo_name: LabCoreAI/LabCore_llm
+edit_uri: edit/master/docs/
 docs_dir: docs
 site_dir: site
 
@@ -56,24 +57,24 @@ plugins:
           name: English
           build: true
         - locale: fr
-          name: Français
+          name: Francais
           build: true
           nav_translations:
             Home: Accueil
             Guides: Guides
-            Getting Started: Démarrage
-            Data Pipeline: Pipeline de données
-            Training: Entraînement
-            Inference & Demo: Inférence et démo
+            Getting Started: Demarrage
+            Data Pipeline: Pipeline de donnees
+            Training: Entrainement
+            Inference & Demo: Inference et demo
             Fine-Tuning: Ajustement fin
-            Export & Deployment: Export et déploiement
-            Reference: Référence
+            Export & Deployment: Export et deploiement
+            Reference: Reference
             Configuration: Configuration
-            Operations: Opérations
-            Troubleshooting: Dépannage
+            Operations: Operations
+            Troubleshooting: Depannage
             Benchmarks: Performances
-            Development: Développement
-            Developer Guide: Guide développeur
+            Development: Developpement
+            Developer Guide: Guide developpeur
 
 nav:
   - Home: index.md

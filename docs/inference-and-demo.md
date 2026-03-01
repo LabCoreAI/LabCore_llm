@@ -57,6 +57,8 @@ Use conservative sampling when debugging reproducibility:
 - `top_k`: keeps only the `k` most likely tokens.
 - `top_p`: nucleus sampling cutoff (`1.0` disables it).
 - `repetition_penalty`: penalizes already generated tokens (`1.0` disables it).
+- `use_kv_cache`: enables KV cache during decoding.
+- `stream`: enables token-by-token output streaming.
 
 `top_p` and `repetition_penalty` are read from `[generation]` when using `generate.py --config ...`.
 
@@ -68,6 +70,10 @@ temperature = 0.6
 top_k = 50
 top_p = 0.9
 repetition_penalty = 1.1
+use_kv_cache = true
+stream = true
+system_prompt = "You are LabCore LLM."
+max_history_turns = 6
 ```
 
 ### Reproducible Generation
@@ -81,8 +87,30 @@ temperature = 0.6
 top_k = 50
 top_p = 0.9
 repetition_penalty = 1.1
+use_kv_cache = true
+stream = true
+system_prompt = "You are LabCore LLM."
+max_history_turns = 6
 seed = 1337
 deterministic = true
+```
+
+### KV Cache, Streaming, and Chat
+
+- KV cache speeds up generation by reusing past attention keys/values instead of recomputing the whole context.
+- Streaming updates the demo output incrementally as each token is sampled.
+- Multi-turn chat builds prompts with simple text markers:
+  - `<|system|>`
+  - `<|user|>`
+  - `<|assistant|>`
+- `max_history_turns` keeps only the latest turns to bound prompt length.
+
+```toml
+[generation]
+use_kv_cache = true
+stream = true
+system_prompt = "You are LabCore LLM."
+max_history_turns = 6
 ```
 
 ## Output Files / Artifacts Produced

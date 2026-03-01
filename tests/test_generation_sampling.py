@@ -68,6 +68,97 @@ def test_generate_repetition_penalty_one_matches_baseline():
     assert torch.equal(y_baseline, y_penalty)
 
 
+def test_kv_cache_equivalence():
+    model = _build_model()
+    x = torch.tensor([[1, 2, 3, 4]], dtype=torch.long)
+
+    torch.manual_seed(31415)
+    y_no_cache = model.generate(
+        x.clone(),
+        max_new_tokens=8,
+        temperature=0.9,
+        top_k=12,
+        top_p=0.9,
+        repetition_penalty=1.1,
+        use_kv_cache=False,
+    )
+    torch.manual_seed(31415)
+    y_with_cache = model.generate(
+        x.clone(),
+        max_new_tokens=8,
+        temperature=0.9,
+        top_k=12,
+        top_p=0.9,
+        repetition_penalty=1.1,
+        use_kv_cache=True,
+    )
+
+    assert isinstance(y_no_cache, torch.Tensor)
+    assert isinstance(y_with_cache, torch.Tensor)
+    assert torch.equal(y_no_cache, y_with_cache)
+
+
+def test_streaming_matches_non_stream():
+    model = _build_model()
+    x = torch.tensor([[1, 2, 3, 4]], dtype=torch.long)
+
+    torch.manual_seed(4242)
+    y_non_stream = model.generate(
+        x.clone(),
+        max_new_tokens=8,
+        temperature=0.9,
+        top_k=12,
+        top_p=0.9,
+        repetition_penalty=1.1,
+        use_kv_cache=True,
+        stream=False,
+    )
+    torch.manual_seed(4242)
+    streamed_tokens = list(
+        model.generate(
+            x.clone(),
+            max_new_tokens=8,
+            temperature=0.9,
+            top_k=12,
+            top_p=0.9,
+            repetition_penalty=1.1,
+            use_kv_cache=True,
+            stream=True,
+        )
+    )
+
+    assert isinstance(y_non_stream, torch.Tensor)
+    assert streamed_tokens == y_non_stream[0].tolist()[x.size(1) :]
+
+
+def test_cache_truncation():
+    cfg = GPTConfig(
+        vocab_size=32,
+        block_size=8,
+        n_layer=2,
+        n_head=2,
+        n_embd=32,
+        dropout=0.0,
+    )
+    model = GPT(cfg)
+    model.eval()
+
+    prompt = torch.randint(0, cfg.vocab_size, (1, cfg.block_size + 4), dtype=torch.long)
+    y = model.generate(prompt.clone(), max_new_tokens=4, use_kv_cache=True)
+    assert isinstance(y, torch.Tensor)
+    assert y.shape == (1, prompt.size(1) + 4)
+
+    logits, past_kv = model.forward_with_kv(prompt[:, -cfg.block_size :], past_kv=None)
+    assert logits.shape[1] == cfg.block_size
+    for _ in range(cfg.block_size + 3):
+        next_token = torch.randint(0, cfg.vocab_size, (1, 1), dtype=torch.long)
+        logits, past_kv = model.forward_with_kv(next_token, past_kv=past_kv)
+
+    for k_cache, v_cache in past_kv:
+        assert k_cache.size(2) <= cfg.block_size
+        assert v_cache.size(2) <= cfg.block_size
+
+
 def test_repetition_penalty_reduces_repeated_token_probability():
     logits = torch.tensor([[4.0, 1.0, 0.5]], dtype=torch.float32)
     generated_tokens = torch.tensor([[0, 0, 2]], dtype=torch.long)

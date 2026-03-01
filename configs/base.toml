@@ -29,6 +29,10 @@ precision = "fp32"
 device = "cuda"
 checkpoint_dir = "checkpoints"
 data_format = "txt"
+early_stopping = false
+early_stopping_patience = 5
+early_stopping_min_delta = 0.0
+save_best = true
 
 [generation]
 max_new_tokens = 200
@@ -36,5 +40,9 @@ temperature = 0.6
 top_k = 50
 top_p = 1.0
 repetition_penalty = 1.0
+use_kv_cache = true
+stream = true
+system_prompt = ""
+max_history_turns = 6
 seed = null
 deterministic = false

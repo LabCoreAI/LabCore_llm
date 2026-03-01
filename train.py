@@ -132,6 +132,10 @@ def main() -> None:
         device=requested_device,
         checkpoint_dir=train_cfg.get("checkpoint_dir", "checkpoints"),
         precision=train_cfg.get("precision", "fp32"),
+        early_stopping=train_cfg.get("early_stopping", False),
+        early_stopping_patience=train_cfg.get("early_stopping_patience", 5),
+        early_stopping_min_delta=train_cfg.get("early_stopping_min_delta", 0.0),
+        save_best=train_cfg.get("save_best", True),
     )
 
     trainer = Trainer(

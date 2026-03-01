@@ -1,8 +1,9 @@
 # Fine-Tuning
 
-Le projet inclut un script LoRA pour fine-tuning instruction de modeles CausalLM compatibles HF.
+Utilisez cette page pour du LoRA instruction tuning sur checkpoints CausalLM compatibles HF.
+Prerequis: dependances HF + finetune et modele de base accessible.
 
-## Commande principale
+## Command(s)
 
 ```bash
 python scripts/fine_tune_instruction.py \
@@ -15,39 +16,35 @@ python scripts/fine_tune_instruction.py \
   --epochs 1
 ```
 
-## Dependances
+Dependances:
 
 ```bash
-pip install -e ".[torch,hf,finetune]"
+python -m pip install -e ".[torch,hf,finetune]"
 ```
 
-Ou:
+## Output Files / Artifacts Produced
 
-```bash
-pip install -e ".[torch,dev,hf,finetune]"
-```
+- `outputs/lora_instruction/` (adapter LoRA + fichiers tokenizer)
 
-## Ce que fait le script
+## Dataset Mapping
 
-- charge model/tokenizer base
-- detecte modules cibles LoRA
-- normalise les exemples instruction
-- tokenize avec taille sequence fixe
-- entraine via HF `Trainer`
-- sauvegarde adapter + tokenizer
+Le script accepte plusieurs alias de champs:
 
-## Mapping des champs dataset
+- Instruction: `instruction`, `question`, `prompt`
+- Input: `input`, `context`
+- Output: `output`, `response`, `answer`
 
-- instruction: `instruction` / `question` / `prompt`
-- input: `input` / `context`
-- output: `output` / `response` / `answer`
+## Common Errors
 
-## Conseils
+- Dependances HF manquantes: voir [Torch not installed](troubleshooting.md#torch-not-installed).
+- OOM en fine-tuning: voir [Out of memory](troubleshooting.md#oom-errors).
+- Incompatibilite modele/tokenizer de base: verifier config et compatibilite modele avant lancement.
 
-- commencer avec peu de samples
-- ajuster `batch-size` et `max-seq-len` selon VRAM
-- privilegier un dataset propre et homogene
+!!! note
+    Le fine-tuning utilise la stack HF Trainer et ecrit dans `outputs/` plutot que `checkpoints/`.
 
-## Suite
+## Next / Related
 
-Voir [Reference Config](configuration-reference.md).
+- [Configuration Reference](configuration-reference.md)
+- [Export & Deployment](export-and-deployment.md)
+- [Operations](operations.md)

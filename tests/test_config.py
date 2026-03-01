@@ -24,8 +24,16 @@ def test_load_config_training_defaults(tmp_path):
     assert config["training"]["grad_accum_steps"] == 1
     assert config["training"]["gradient_accumulation_steps"] == 1
     assert config["training"]["precision"] == "fp32"
+    assert config["training"]["early_stopping"] is False
+    assert config["training"]["early_stopping_patience"] == 5
+    assert config["training"]["early_stopping_min_delta"] == 0.0
+    assert config["training"]["save_best"] is True
     assert config["generation"]["top_p"] == 1.0
     assert config["generation"]["repetition_penalty"] == 1.0
+    assert config["generation"]["use_kv_cache"] is True
+    assert config["generation"]["stream"] is True
+    assert config["generation"]["system_prompt"] == ""
+    assert config["generation"]["max_history_turns"] == 6
     assert config["generation"]["seed"] is None
     assert config["generation"]["deterministic"] is False
 

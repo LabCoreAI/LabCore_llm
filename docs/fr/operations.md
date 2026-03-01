@@ -1,96 +1,62 @@
 # Operations
 
-Page centralisant release, securite et depannage.
+Utilisez cette page pour l'hygiene des dossiers operationnels, les checks de validation et les workflows release/securite.
+Prerequis: dependances du projet installees dans l'environnement actif.
 
-## Securite
+## Artifact Directories
 
-Ne pas publier les vuln dans les issues publiques.
-Suivre `SECURITY.md`:
+- `data/`: datasets prepares, incluant `data/meta.json` pour runs `bin`.
+- `checkpoints/`: sorties entrainement (`ckpt_last.pt`, `train_log.json`, `ckpt_best.pt` si active).
+- `outputs/`: artifacts exportes (`hf_export/`, `gguf/`, sorties fine-tuning).
+- `runs/`: logs d'experience optionnels ou exports trackers externes (pas auto-cree par les scripts core).
 
-- GitHub Security Advisories en priorite
-- details impact + composants + reproduction
+!!! note
+    Les scripts core ecrivent surtout dans `checkpoints/` et `outputs/`. Gardez ces dossiers dans vos notes de run, mais ne committez pas de gros artifacts.
 
-## Process release
+## Command(s)
 
-Reference: `RELEASE.md`
-
-1. CI verte
-2. tests locaux ok
-3. bump version dans `pyproject.toml`
-4. update `CHANGELOG.md`
-5. tag release
-6. publier GitHub Release
-
-## Support
-
-Reference: `SUPPORT.md`
-
-- usage: discussion/issue label `support`
-- bug: template bug
-- feature: template feature request
-
-## Qualite et validation
-
-Checks locaux principaux:
+Checks qualite locaux:
 
 ```bash
 python -m pytest -q
 ruff check src scripts tests train.py generate.py demo_gradio.py --select E9,F63,F7,F82
 ```
 
-Workflows CI:
-
-- `.github/workflows/ci.yml` (lint + tests)
-- `.github/workflows/docs.yml` (build/deploy docs)
-
-## Guidance hardware
-
-- CPU-only: suffisant pour smoke tests et runs courts.
-- GPU CUDA recommande pour un entrainement pratique.
-- Pour ~8 GB VRAM, commencer avec les familles 50M puis ajuster batch/sequence.
-
-## Depannage rapide
-
-### `No module named 'torch'`
+Checks build docs:
 
 ```bash
-pip install -e ".[torch,dev]"
+python -m pip install -r docs/requirements.txt
+python -m mkdocs build
 ```
 
-### `Char tokenizer requires vocab in meta.json`
+## Output Files / Artifacts Produced
 
-Regenerer metadata avec tokenizer char.
+- Logs tests/lint dans le terminal
+- Site docs dans `site/` apres `mkdocs build`
+- Pipelines CI: `.github/workflows/ci.yml` et `.github/workflows/docs.yml`
 
-### `Binary shards not found`
+## Security and Release
 
-```bash
-python scripts/prepare_data.py --dataset wikitext --tokenizer bpe --output-format bin --output-dir data
-```
+Signalement securite (voir `SECURITY.md`):
 
-### Warning CUDA fallback
+- Utiliser GitHub Security Advisories pour les vulnerabilites
+- Inclure impact, composants affectes et etapes de reproduction
 
-Les scripts basculent auto CPU si CUDA indisponible.
+Flux release (voir `RELEASE.md`):
 
-## Operations docs
+1. Verifier que la CI est verte.
+2. Lancer les validations locales.
+3. Mettre a jour la version et le changelog.
+4. Tagger et publier la release.
 
-Build local:
+## Common Errors
 
-```bash
-pip install -r docs/requirements.txt
-python -m mkdocs serve
-```
+- Dependances manquantes: voir [Torch not installed](troubleshooting.md#torch-not-installed).
+- Confusion metadata/path: voir [Meta path mismatch](troubleshooting.md#meta-path-mismatch).
+- CUDA attendu mais indisponible: voir [CUDA not detected](troubleshooting.md#cuda-not-detected).
 
-Deploiement:
+## Related
 
-- push sur `master`/`main`
-- workflow docs construit `site/` puis deploy sur `gh-pages`
-
-## License
-
-Le projet est sous GPL-3.0.  
-Voir [LICENSE](https://github.com/LabCoreAI/LabCore_llm/blob/master/LICENSE).
-
-## Disclaimer
-
-Projet destine a l'education et la recherche.
-Non optimise pour un deploiement production a grande echelle.
+- [Troubleshooting](troubleshooting.md)
+- [Benchmarks](benchmarks.md)
+- [Developer Guide](developer-guide.md)

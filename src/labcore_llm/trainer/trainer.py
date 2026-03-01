@@ -72,6 +72,10 @@ class TrainerConfig:
     device: str = "cpu"
     checkpoint_dir: str = "checkpoints"
     precision: str = "fp32"
+    early_stopping: bool = False
+    early_stopping_patience: int = 5
+    early_stopping_min_delta: float = 0.0
+    save_best: bool = True
 
     def __post_init__(self) -> None:
         if self.gradient_accumulation_steps < 1:
@@ -80,6 +84,17 @@ class TrainerConfig:
         self.precision = self.precision.lower()
         if self.precision not in {"fp32", "fp16", "bf16"}:
             raise ValueError("precision must be one of: fp32, fp16, bf16.")
+        if not isinstance(self.early_stopping, bool):
+            raise ValueError("early_stopping must be a boolean.")
+        if not isinstance(self.early_stopping_patience, int) or isinstance(self.early_stopping_patience, bool):
+            raise ValueError("early_stopping_patience must be an integer.")
+        if self.early_stopping_patience < 1:
+            raise ValueError("early_stopping_patience must be >= 1.")
+        if not isinstance(self.early_stopping_min_delta, (int, float)) or self.early_stopping_min_delta < 0:
+            raise ValueError("early_stopping_min_delta must be a float >= 0.")
+        self.early_stopping_min_delta = float(self.early_stopping_min_delta)
+        if not isinstance(self.save_best, bool):
+            raise ValueError("save_best must be a boolean.")
 
 
 class Trainer:
@@ -220,8 +235,8 @@ class Trainer:
             "vocab": getattr(self.tokenizer, "vocab", []),
         }
 
-    def save_checkpoint(self, step: int, losses: dict[str, float] | None = None) -> Path:
-        ckpt_path = self.checkpoint_dir / "ckpt_last.pt"
+    def save_checkpoint(self, step: int, losses: dict[str, float] | None = None, filename: str = "ckpt_last.pt") -> Path:
+        ckpt_path = self.checkpoint_dir / filename
         if losses is None:
             losses = {}
         payload = {
@@ -246,6 +261,8 @@ class Trainer:
     def train(self) -> None:
         self.model.train()
         effective_batch_size = self.config.batch_size * self.grad_accum_steps
+        best_val_loss = float("inf")
+        patience_counter = 0
         print(
             "training setup: "
             f"batch_size={self.config.batch_size} "
@@ -297,6 +314,22 @@ class Trainer:
                     f"eval step {step}: train={losses['train']:.4f} val={losses['val']:.4f} "
                     f"checkpoint={ckpt.as_posix()}"
                 )
+
+                current_val_loss = float(losses["val"])
+                improved = current_val_loss < (best_val_loss - self.config.early_stopping_min_delta)
+                if improved:
+                    best_val_loss = current_val_loss
+                    patience_counter = 0
+                    if self.config.save_best:
+                        best_ckpt = self.save_checkpoint(step, losses, filename="ckpt_best.pt")
+                        print(f"New best model (val_loss={current_val_loss:.4f}) saved to {best_ckpt.as_posix()}")
+                else:
+                    patience_counter += 1
+
+                if self.config.early_stopping and patience_counter >= self.config.early_stopping_patience:
+                    print("Early stopping triggered.")
+                    print(f"Early stopping at iter {step}")
+                    break
             elif should_save:
                 ckpt = self.save_checkpoint(step)
                 print(f"checkpoint step {step}: checkpoint={ckpt.as_posix()}")

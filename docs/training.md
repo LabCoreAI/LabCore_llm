@@ -46,6 +46,21 @@ grad_accum_steps = 4
 precision = "fp16"
 ```
 
+### Best Checkpoint & Early Stopping
+
+- `save_best` saves `checkpoints/ckpt_best.pt` whenever validation loss improves by at least `early_stopping_min_delta`.
+- `early_stopping` is disabled by default.
+- `early_stopping_patience` counts evaluation rounds without sufficient validation improvement.
+- `early_stopping_min_delta` defines the minimum improvement threshold on `val_loss`.
+
+```toml
+[training]
+early_stopping = true
+early_stopping_patience = 3
+early_stopping_min_delta = 0.001
+save_best = true
+```
+
 ## `data_format` and Metadata Mapping
 
 | Training mode | Config value | Data artifacts expected | Metadata path |
@@ -61,6 +76,7 @@ precision = "fp16"
 Produced during training:
 
 - `checkpoints/ckpt_last.pt` (`CHECKPOINT`)
+- `checkpoints/ckpt_best.pt` (when `save_best = true`)
 - `checkpoints/train_log.json`
 
 !!! warning

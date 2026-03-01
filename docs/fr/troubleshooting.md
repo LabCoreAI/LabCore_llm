@@ -1,66 +1,94 @@
-# Dépannage
+# Troubleshooting
 
-Problèmes fréquents de setup/runtime avec correctifs rapides.
+Utilisez cette page pour diagnostiquer rapidement les erreurs frequentes de setup, donnees et runtime.
+Toutes les ancres ci-dessous sont referencees depuis les pages guides.
 
-## Installation PyTorch (CPU/CUDA)
+## Setup
 
-Utilisez le sélecteur officiel selon OS + version CUDA :
+### Torch not installed {#torch-not-installed}
 
+Symptomes: `ModuleNotFoundError: torch`, ou echec des scripts a l'import.
+
+Correctif:
+
+```bash
+python -m pip install -e ".[torch,dev]"
+```
+
+Utilisez le selecteur officiel si vous avez besoin d'un build CUDA specifique:
 <https://pytorch.org/get-started/locally/>
 
-Commande type :
+### CUDA not detected {#cuda-not-detected}
+
+Symptomes: `torch.cuda.is_available()` retourne `False`, ou fallback CPU dans les scripts.
+
+Verification rapide:
 
 ```bash
-pip install -e ".[torch]"
+python -c "import torch; print(torch.cuda.is_available()); print(torch.version.cuda)"
 ```
 
-## CUDA Non Détecté (`torch.cuda.is_available() == False`)
+Points a verifier:
 
-Vérifiez :
+- Driver NVIDIA installe et a jour
+- Build PyTorch compatible avec votre runtime CUDA
+- Meme environnement Python utilise pour l'installation et l'execution
 
-- Build PyTorch compatible avec votre runtime/driver CUDA.
-- Driver NVIDIA installé et à jour.
-- Même venv/Python utilisé pour installer et exécuter PyTorch.
+## Data and Metadata
 
-Vérification rapide :
+### Meta path mismatch {#meta-path-mismatch}
+
+Symptomes: generation/entrainement incorrects ou impossibles a charger via metadata tokenizer.
+
+Mapping attendu:
+
+- Pipeline `txt` -> `data/processed/meta.json`
+- Pipeline `bin` -> `data/meta.json`
+
+### Binary shards not found {#binary-shards-not-found}
+
+Symptomes: `Binary shards not found` avec `training.data_format = "bin"`.
+
+Correctif:
 
 ```bash
-python -c "import torch; print(torch.__version__, torch.cuda.is_available())"
+python scripts/prepare_data.py --dataset tinyshakespeare --tokenizer char --output-format bin --output-dir data/processed
 ```
 
-## OOM: Quoi Réduire en Premier
+### Char vocab missing {#char-vocab-missing}
 
-En cas d'erreur mémoire, réduire dans cet ordre :
+Symptomes: `Char tokenizer requires vocab in meta.json`.
+
+Correctif:
+
+```bash
+python scripts/prepare_data.py --dataset tinyshakespeare --tokenizer char --output-format txt --output-dir data/processed
+```
+
+Puis passez le `--meta data/processed/meta.json` correspondant aux commandes generation/export.
+
+## Runtime
+
+### Out of memory {#oom-errors}
+
+Reduire dans cet ordre:
 
 1. `training.batch_size`
-2. `model.block_size` (longueur de séquence)
+2. `model.block_size`
 3. `training.gradient_accumulation_steps`
-4. Stratégie de précision (si vous ajoutez mixed precision)
+4. Taille modele / complexite preset
 
-Si nécessaire, utiliser un preset de taille plus petite.
+### FlashAttention not available {#flashattention-not-available}
 
-## Emplacement de `meta.json`
+LabCore applique des fallbacks automatiques:
 
-L'emplacement dépend du format de sortie :
+- FlashAttention (priorite, si disponible)
+- Fallback SDPA PyTorch
+- Fallback attention causale standard
 
-- Pipeline `txt`: généralement `data/processed/meta.json`
-- Pipeline `bin`: généralement `data/meta.json`
+### Windows path and policy issues {#windows-path-policy}
 
-Si `train.py` ne trouve pas la metadata, vérifier `processed_dir` dans le TOML et le dossier de sortie réel de `prepare_data.py`.
-
-## FlashAttention Non Disponible
-
-LabCore applique un fallback automatiquement :
-
-- Priorité: kernel FlashAttention (si dispo)
-- Fallback: PyTorch SDPA
-- Dernier chemin: attention causale standard
-
-Vous pouvez garder `use_flash = true`, le fallback gère les environnements non supportés.
-
-## Notes Windows
-
-- Activer le venv avant les commandes.
-- Citer les chemins si espaces.
-- Exécuter depuis la racine du repo pour conserver les chemins relatifs.
-- Si execution policy bloque les scripts, utiliser `python ...` directement.
+- Activez le venv avant les commandes.
+- Lancez les commandes depuis la racine du repo.
+- Citez les chemins si des espaces sont presents.
+- Si la policy PowerShell bloque les scripts, utilisez les commandes `python ...` directement.

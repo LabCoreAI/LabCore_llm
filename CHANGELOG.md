@@ -1,5 +1,55 @@
 # Changelog
 
+## [0.2.2] - 2026-03-02
+
+### Added
+- Inference runtime was extended with incremental KV-cache support:
+  - per-layer `past_key_values` flow in attention and GPT forward path
+  - cache truncation (sliding window) aligned with `block_size`
+  - generation toggle `use_kv_cache` with backward-compatible fallback path
+- Streaming generation support was added:
+  - `GPT.generate(..., stream=True)` yields token IDs incrementally
+  - non-stream path remains unchanged in behavior and return type
+- Gradio demo capabilities were expanded:
+  - token-by-token streaming output
+  - minimal multi-turn chat prompt building (`<|system|>`, `<|user|>`, `<|assistant|>`)
+  - configurable `system_prompt` and bounded history (`max_history_turns`)
+  - generation controls in UI (`KV cache`, `stream`, sampling sliders)
+- Reproducible inference benchmark tooling was added:
+  - new script `scripts/benchmark_infer.py` (local + HF sources)
+  - throughput reporting (`tokens/s` mean/min/max), CUDA VRAM peak, JSON + Markdown outputs
+  - configurable warmup/iters/token counts for quick runs
+- Shared reproducibility utility was introduced:
+  - `src/labcore_llm/utils/repro.py` (`configure_generation_reproducibility`)
+  - reused by generation and benchmark flows
+- Training loop controls were extended:
+  - best checkpoint saving (`ckpt_best.pt`) with `save_best`
+  - optional early stopping on validation loss
+  - `early_stopping_patience` and `early_stopping_min_delta`
+
+### Changed
+- Configuration defaults were expanded and validated:
+  - `generation.use_kv_cache`, `generation.stream`, `generation.system_prompt`, `generation.max_history_turns`
+  - `training.early_stopping`, `training.early_stopping_patience`, `training.early_stopping_min_delta`, `training.save_best`
+- Training checkpoint writing was generalized to support both `ckpt_last.pt` and `ckpt_best.pt` with the same payload schema.
+- `train.py` and `generate.py` now read and apply the new config controls without introducing new CLI flags.
+- MkDocs configuration was aligned with current bilingual docs:
+  - explicit `edit_uri`
+  - refreshed FR navigation labels and nav consistency
+
+### Fixed
+- Generation parity and reproducibility coverage for new inference paths:
+  - KV-cache vs non-cache equivalence
+  - stream vs non-stream equivalence
+  - cache truncation stability
+- Training behavior coverage for new stopping/checkpoint logic:
+  - best-checkpoint creation
+  - early-stopping trigger and default non-trigger behavior
+- French documentation parity with English across all guide/reference/development pages.
+
+### Removed
+- Legacy short-form FR documentation stubs were replaced by full-structure parity pages.
+
 ## [0.2.1] - 2026-03-01
 
 ### Added

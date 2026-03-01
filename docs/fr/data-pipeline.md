@@ -1,11 +1,11 @@
-# Pipeline Data
+# Data Pipeline
 
-LabCore gere deux formats de sortie:
+Utilisez cette page pour preparer les donnees et metadata avec une structure de sortie previsible.
+Prerequis: dependances installees depuis [Getting Started](getting-started.md).
 
-- `txt` pour flux texte + numpy
-- `bin` pour flux binaire memmap
+## Command(s)
 
-## Commande Principale
+Pipeline `txt` de reference (utilise par `configs/base.toml`):
 
 ```bash
 python scripts/prepare_data.py \
@@ -17,55 +17,51 @@ python scripts/prepare_data.py \
   --val-ratio 0.1
 ```
 
-## Options CLI
+Pipeline `bin` alternatif:
 
-- `--dataset`: `tinyshakespeare` ou `wikitext`
-- `--tokenizer`: `char` ou `bpe`
-- `--output-format`: `txt` ou `bin`
-- `--raw-dir`: cache corpus brut
-- `--output-dir`: dossier de sortie
-- `--val-ratio`: ratio validation
+```bash
+python scripts/prepare_data.py \
+  --dataset tinyshakespeare \
+  --tokenizer char \
+  --output-format bin \
+  --raw-dir data/raw \
+  --output-dir data/processed \
+  --val-ratio 0.1
+```
 
-## Arborescence de sortie
+## Output Files / Artifacts Produced
 
-### Format `txt`
+Format `txt` (`output-dir = data/processed`):
 
-- `train.txt`
-- `val.txt`
-- `corpus.txt`
-- `train.npy`
-- `val.npy`
-- `meta.json`
+- `data/processed/train.txt`
+- `data/processed/val.txt`
+- `data/processed/corpus.txt`
+- `data/processed/train.npy`
+- `data/processed/val.npy`
+- `data/processed/meta.json` (`META_TXT`)
 
-### Format `bin`
-
-Si `output-dir` finit par `processed`, les binaires partent dans le parent:
+Format `bin`:
 
 - `data/train.bin`
 - `data/val.bin`
-- `data/meta.json`
+- `data/meta.json` (`META_BIN`)
 
-## Champs `meta.json`
+!!! note
+    Avec `--output-format bin`, si `--output-dir` se termine par `processed`, les fichiers binaires sont ecrits dans le parent (`data/`).
 
-- `dataset`
-- `vocab_size`
-- `tokenizer`
-- `dtype`
-- `output_format`
-- champs de fichiers texte ou bin selon format
+## Format Selection
 
-## Notes tokenizer
+- Utilisez `txt` avec `training.data_format = "txt"` et metadata `data/processed/meta.json`.
+- Utilisez `bin` avec `training.data_format = "bin"` et metadata `data/meta.json`.
 
-- `char`: vocab appris sur tout le corpus.
-- `bpe`: encodeur GPT-2 via `tiktoken`.
+## Common Errors
 
-## Bonnes pratiques
+- Binaries manquants: voir [Binary shards not found](troubleshooting.md#binary-shards-not-found).
+- Mauvais chemin metadata: voir [Meta path mismatch](troubleshooting.md#meta-path-mismatch).
+- Probleme de vocab char: voir [Char vocab missing](troubleshooting.md#char-vocab-missing).
 
-- verifier les compteurs de tokens affiches
-- verifier presence de `meta.json`
-- aligner `training.data_format` avec les artifacts generes
+## Next / Related
 
-## Suite
-
-Voir [Entrainement](training.md).
-
+- [Training](training.md)
+- [Inference & Demo](inference-and-demo.md)
+- [Troubleshooting](troubleshooting.md)

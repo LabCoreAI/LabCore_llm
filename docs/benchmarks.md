@@ -1,43 +1,76 @@
 # Benchmarks
 
-Use this page to log reproducible performance results for the same doc preset and path conventions.
-Prerequisite: run with fixed config, tokenizer, and data format before recording numbers.
+Use the inference benchmark script to measure reproducible `tokens/s` and peak VRAM.
+The script supports both local checkpoints and Hugging Face repos and can export JSON + Markdown outputs.
 
-## Command(s)
-
-Reference benchmark launch command:
+## Inference Benchmark Script
 
 ```bash
-python train.py --config configs/base.toml --tokenizer char --max-iters 5000 --device cuda
+python scripts/benchmark_infer.py --help
 ```
 
-## Benchmark Table Template
+Default runtime is intentionally short (warmup + 3 measured runs).
 
-| Preset | Dataset / Tokenizer | Device | Batch / Seq / Accum | Throughput (it/s or tok/s) | Max VRAM | Notes |
-|---|---|---|---|---:|---:|---|
-| `configs/base.toml` | `tinyshakespeare / char` | `cpu` | `8 / 512 / 1` | `TBD` | `TBD` | template row |
+### Local Example
 
-## RTX 4060 Reference Entry
+```bash
+python scripts/benchmark_infer.py \
+  --source local \
+  --checkpoint checkpoints/ckpt_last.pt \
+  --meta data/processed/meta.json \
+  --tokenizer char \
+  --config configs/base.toml \
+  --device cpu \
+  --json-out outputs/bench_infer.json \
+  --md-out outputs/bench_infer.md
+```
 
-No validated RTX 4060 measurement is checked into this repository yet.
-Use this row as a fill-in template for your first stable run:
+### Hugging Face Example
 
-| Preset | Dataset / Tokenizer | Device | Batch / Seq / Accum | Throughput (it/s or tok/s) | Max VRAM | Notes |
-|---|---|---|---|---:|---:|---|
-| `configs/base.toml` | `tinyshakespeare / char` | `RTX 4060` | `8 / 512 / 2` | `TBD` | `TBD` | record driver + torch version |
+```bash
+python scripts/benchmark_infer.py \
+  --source hf \
+  --repo-id LabCoreAI/<id> \
+  --config configs/base.toml \
+  --device cuda \
+  --json-out outputs/bench_infer_hf.json \
+  --md-out outputs/bench_infer_hf.md
+```
 
-## How to Add Your Benchmark
+## What Is Measured
 
-1. Run at least one warmup phase before measuring.
-2. Log exact preset path, overrides, and `training.data_format`.
-3. Record hardware (`GPU`, driver) and software (`torch`, CUDA version).
-4. Add one table row per run and avoid mixing metrics from different settings.
+- Warmup generation (`--warmup-tokens`, not counted in final throughput).
+- Measured generation (`--gen-tokens`) repeated `--iters` times.
+- Throughput summary: `mean`, `min`, `max` tokens/sec.
+- Peak VRAM (`torch.cuda.max_memory_allocated`) when CUDA is used.
 
-!!! tip
-    If numbers look unstable, start with the [Stable generation and debug guidance](inference-and-demo.md#stable-generation-settings-debug-mode) and verify no fallback to CPU.
+Reproducibility settings are read from `[generation]` when `--config` is provided:
 
-## Related
+- `seed`
+- `deterministic`
+- sampling settings (`temperature`, `top_k`, `top_p`, `repetition_penalty`)
+- `use_kv_cache` (unless overridden by CLI flag)
 
-- [Training](training.md)
-- [Configuration Reference](configuration-reference.md)
-- [Operations](operations.md)
+## JSON Output Schema (Summary)
+
+```json
+{
+  "timestamp": "...",
+  "commit": "...",
+  "platform": {"os": "...", "python": "..."},
+  "torch": {"version": "...", "cuda": "..."},
+  "device": {"type": "cpu|cuda", "name": "..."},
+  "model": {"source": "local|hf", "params_m": 0.0, "block_size": 0, "n_layer": 0, "n_head": 0, "n_embd": 0},
+  "generation": {"prompt": "...", "gen_tokens": 256, "temperature": 0.9, "top_k": 40, "top_p": 1.0, "repetition_penalty": 1.0, "use_kv_cache": true},
+  "results": {"iters": 3, "tokens_per_sec": {"mean": 0.0, "min": 0.0, "max": 0.0}, "vram_peak_mib": null}
+}
+```
+
+## Community Results
+
+Paste the generated Markdown row (from `--md-out` or terminal output) into this table.
+Attach the JSON output in the PR description if available.
+
+| Device | Source | Model size (params M) | KV-cache | gen_tokens | mean tok/s | peak VRAM MiB |
+|---|---|---:|---|---:|---:|---:|
+| _your result_ | _local/hf_ | _0.000_ | _on/off_ | _256_ | _0.00_ | _N/A or value_ |
