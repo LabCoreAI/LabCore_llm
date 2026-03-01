@@ -581,6 +581,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#precision-and-gradient-accumulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precision and Gradient Accumulation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#data_format-and-metadata-mapping" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1020,6 +1031,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#precision-and-gradient-accumulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Precision and Gradient Accumulation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#data_format-and-metadata-mapping" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1101,6 +1123,21 @@ Prerequisites: prepared dataset and metadata from <a href="../data-pipeline/">Da
 <li><code>--device</code>: <code>cpu</code> or <code>cuda</code></li>
 <li><code>--tokenizer</code>: <code>char</code> or <code>bpe</code></li>
 </ul>
+<h2 id="precision-and-gradient-accumulation">Precision and Gradient Accumulation</h2>
+<p>Configure these in <code>[training]</code>:</p>
+<ul>
+<li><code>grad_accum_steps</code>: gradient accumulation factor (default <code>1</code>)</li>
+<li><code>precision</code>: <code>fp32</code> (default), <code>fp16</code>, or <code>bf16</code></li>
+</ul>
+<p><code>effective_batch_size = batch_size * grad_accum_steps</code></p>
+<p>Mixed precision is enabled only when <code>device = "cuda"</code> and <code>precision != "fp32"</code>.
+On CPU, training falls back to <code>fp32</code>.</p>
+<p>RTX 4060 example:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">[training]</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">batch_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">grad_accum_steps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">precision</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;fp16&quot;</span>
+</code></pre></div>
 <h2 id="data_format-and-metadata-mapping"><code>data_format</code> and Metadata Mapping</h2>
 <table>
 <thead>

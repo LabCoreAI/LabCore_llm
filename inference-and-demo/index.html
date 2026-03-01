@@ -617,6 +617,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Stable Generation Settings (Debug Mode)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sampling-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sampling Controls
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1028,6 +1045,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Stable Generation Settings (Debug Mode)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sampling-controls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sampling Controls
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1124,6 +1158,21 @@ Prerequisites: a trained checkpoint (<code>checkpoints/ckpt_last.pt</code>) and 
 <p class="admonition-title">Tip</p>
 <p>If output quality suddenly drops, first verify that <code>--meta</code> belongs to the same tokenizer/checkpoint run.</p>
 </div>
+<h3 id="sampling-controls">Sampling Controls</h3>
+<ul>
+<li><code>temperature</code>: scales logits before sampling.</li>
+<li><code>top_k</code>: keeps only the <code>k</code> most likely tokens.</li>
+<li><code>top_p</code>: nucleus sampling cutoff (<code>1.0</code> disables it).</li>
+<li><code>repetition_penalty</code>: penalizes already generated tokens (<code>1.0</code> disables it).</li>
+</ul>
+<p><code>top_p</code> and <code>repetition_penalty</code> are read from <code>[generation]</code> when using <code>generate.py --config ...</code>.</p>
+<p>RTX 4060 stable example:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">[generation]</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">temperature</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.6</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">top_k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">50</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">top_p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.9</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">repetition_penalty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.1</span>
+</code></pre></div>
 <h2 id="output-files-artifacts-produced">Output Files / Artifacts Produced</h2>
 <ul>
 <li>CLI: generated text in terminal output</li>
