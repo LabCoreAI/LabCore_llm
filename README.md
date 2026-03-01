@@ -142,3 +142,7 @@ GPL-3.0
 
 This project is intended for educational and research purposes.
 It is not optimized for large-scale production deployment.
+
+---
+
+Copyright (C) 2026 LabCoreAI

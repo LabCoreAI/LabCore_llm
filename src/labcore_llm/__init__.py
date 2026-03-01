@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: GPL-3.0-only
+# Copyright (C) 2026 LabCoreAI
+
 from .config import load_config
 from .model import GPT, GPTConfig
 from .trainer import Trainer, TrainerConfig

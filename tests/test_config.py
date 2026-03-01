@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: GPL-3.0-only
+# Copyright (C) 2026 LabCoreAI
+
 from pathlib import Path
 
 from labcore_llm.config import load_config
