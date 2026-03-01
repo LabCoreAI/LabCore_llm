@@ -57,24 +57,24 @@ plugins:
           name: English
           build: true
         - locale: fr
-          name: Francais
+          name: Français
           build: true
           nav_translations:
             Home: Accueil
             Guides: Guides
-            Getting Started: Demarrage
-            Data Pipeline: Pipeline de donnees
-            Training: Entrainement
-            Inference & Demo: Inference et demo
+            Getting Started: Démarrage
+            Data Pipeline: Pipeline de données
+            Training: Entraînement
+            Inference & Demo: Inférence et démo
             Fine-Tuning: Ajustement fin
-            Export & Deployment: Export et deploiement
-            Reference: Reference
+            Export & Deployment: Export et déploiement
+            Reference: Référence
             Configuration: Configuration
-            Operations: Operations
-            Troubleshooting: Depannage
+            Operations: Opérations
+            Troubleshooting: Dépannage
             Benchmarks: Performances
-            Development: Developpement
-            Developer Guide: Guide developpeur
+            Development: Développement
+            Developer Guide: Guide développeur
 
 nav:
   - Home: index.md

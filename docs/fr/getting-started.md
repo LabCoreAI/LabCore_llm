@@ -1,23 +1,23 @@
-# Getting Started
+﻿# Démarrage
 
-Utilisez cette page pour un premier run reproductible en environ 5 minutes et verifier que l'environnement est sain.
-Prerequis: Python `3.11+`, `pip`, et GPU CUDA optionnel.
+Utilisez cette page pour un premier run reproductible en environ 5 minutes et vérifier que l'environnement est sain.
+Prérequis: Python `3.11+`, `pip` et GPU CUDA optionnel.
 
-## Command(s)
+## Commandes
 
-Installer les dependances:
+Installer les dépendances:
 
 ```bash
 python -m pip install -e ".[torch,dev]"
 ```
 
-Verifier CUDA:
+Vérifier CUDA:
 
 ```bash
 python -c "import torch; print(torch.cuda.is_available()); print(torch.version.cuda)"
 ```
 
-Demarrage rapide (preset de reference: tinyshakespeare + char + `configs/base.toml`):
+Démarrage rapide (preset de référence: tinyshakespeare + char + `configs/base.toml`):
 
 ```bash
 python scripts/prepare_data.py --dataset tinyshakespeare --tokenizer char --output-format txt --output-dir data/processed
@@ -26,32 +26,32 @@ python generate.py --checkpoint checkpoints/ckpt_last.pt --meta data/processed/m
 ```
 
 !!! tip
-    Pour un smoke test strict de 5 minutes, lancez l'entrainement, attendez le premier eval/checkpoint, puis stoppez et lancez la generation.
+    Pour un smoke test strict de 5 minutes, lancez l'entraînement, attendez la première évaluation/checkpoint, puis stoppez et lancez la génération.
 
-## Output Files / Artifacts Produced
+## Fichiers de sortie / artefacts produits
 
 - `data/processed/meta.json`
 - `data/processed/train.txt`, `data/processed/val.txt`
 - `checkpoints/ckpt_last.pt`
 - `checkpoints/train_log.json`
 
-## Success Checklist
+## Checklist de succès
 
-- Les logs affichent au moins deux lignes `train_loss` et une tendance a la baisse.
+- Les logs affichent au moins deux lignes `train_loss` et une tendance à la baisse.
 - Un checkpoint existe dans `checkpoints/ckpt_last.pt`.
 - `generate.py` retourne un texte non vide.
 
-## Common Errors
+## Erreurs fréquentes
 
 - `ModuleNotFoundError: torch`: voir [Torch not installed](troubleshooting.md#torch-not-installed).
 - CUDA attendu mais indisponible: voir [CUDA not detected](troubleshooting.md#cuda-not-detected).
-- Mauvais metadata path: voir [Meta path mismatch](troubleshooting.md#meta-path-mismatch).
+- Mauvais chemin de métadonnées: voir [Meta path mismatch](troubleshooting.md#meta-path-mismatch).
 
 !!! warning
-    Gardez `--checkpoint` et `--meta` alignes sur le meme run. Melanger des fichiers de runs differents donne des resultats trompeurs.
+    Gardez `--checkpoint` et `--meta` alignés sur le même run. Mélanger des fichiers de runs différents donne des résultats trompeurs.
 
-## Next / Related
+## Suite / liens
 
-- [Data Pipeline](data-pipeline.md)
-- [Training](training.md)
-- [Troubleshooting](troubleshooting.md)
+- [Pipeline de données](data-pipeline.md)
+- [Entraînement](training.md)
+- [Dépannage](troubleshooting.md)

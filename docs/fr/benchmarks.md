@@ -1,17 +1,17 @@
-# Benchmarks
+﻿# Performances
 
-Utilisez le script de benchmark inference pour mesurer de maniere reproductible les `tokens/s` et le pic VRAM.
-Le script supporte les checkpoints locaux et les repos Hugging Face, avec export JSON + Markdown.
+Utilisez le script de benchmark d'inférence pour mesurer de manière reproductible les `tokens/s` et le pic de VRAM.
+Le script prend en charge les checkpoints locaux et les dépôts Hugging Face, avec export JSON et Markdown.
 
-## Inference Benchmark Script
+## Script de benchmark d'inférence
 
 ```bash
 python scripts/benchmark_infer.py --help
 ```
 
-Le runtime par defaut reste court (warmup + 3 runs mesures).
+Le runtime par défaut reste court (warmup + 3 exécutions mesurées).
 
-### Local Example
+### Exemple local
 
 ```bash
 python scripts/benchmark_infer.py \
@@ -25,7 +25,7 @@ python scripts/benchmark_infer.py \
   --md-out outputs/bench_infer.md
 ```
 
-### Hugging Face Example
+### Exemple Hugging Face
 
 ```bash
 python scripts/benchmark_infer.py \
@@ -37,21 +37,21 @@ python scripts/benchmark_infer.py \
   --md-out outputs/bench_infer_hf.md
 ```
 
-## What Is Measured
+## Mesures effectuées
 
-- Generation de warmup (`--warmup-tokens`, non comptee dans le throughput final).
-- Generation mesuree (`--gen-tokens`) repetee `--iters` fois.
-- Resume throughput: `mean`, `min`, `max` tokens/sec.
-- VRAM peak (`torch.cuda.max_memory_allocated`) en execution CUDA.
+- Génération de warmup (`--warmup-tokens`, non comptée dans le débit final).
+- Génération mesurée (`--gen-tokens`) répétée `--iters` fois.
+- Résumé du débit: `mean`, `min`, `max` tokens/sec.
+- Pic de VRAM (`torch.cuda.max_memory_allocated`) en exécution CUDA.
 
-Les reglages de reproductibilite sont lus dans `[generation]` quand `--config` est fourni:
+Les réglages de reproductibilité sont lus dans `[generation]` quand `--config` est fourni:
 
-- `seed`
+- `seed` (graine d'initialisation)
 - `deterministic`
-- reglages sampling (`temperature`, `top_k`, `top_p`, `repetition_penalty`)
-- `use_kv_cache` (sauf override via flags CLI)
+- réglages de sampling (`temperature`, `top_k`, `top_p`, `repetition_penalty`)
+- `use_kv_cache` (sauf surcharge via flags CLI)
 
-## JSON Output Schema (Summary)
+## Schéma de sortie JSON (résumé)
 
 ```json
 {
@@ -66,11 +66,11 @@ Les reglages de reproductibilite sont lus dans `[generation]` quand `--config` e
 }
 ```
 
-## Community Results
+## Résultats communauté
 
-Collez la ligne Markdown generee (via `--md-out` ou sortie terminal) dans ce tableau.
+Collez la ligne Markdown générée (via `--md-out` ou la sortie terminal) dans ce tableau.
 Ajoutez le JSON dans la description de PR si disponible.
 
-| Device | Source | Model size (params M) | KV-cache | gen_tokens | mean tok/s | peak VRAM MiB |
+| Périphérique | Source | Taille du modèle (params M) | KV-cache | gen_tokens | mean tok/s | pic VRAM MiB |
 |---|---|---:|---|---:|---:|---:|
-| _your result_ | _local/hf_ | _0.000_ | _on/off_ | _256_ | _0.00_ | _N/A or value_ |
+| _votre résultat_ | _local/hf_ | _0.000_ | _on/off_ | _256_ | _0.00_ | _N/A ou valeur_ |

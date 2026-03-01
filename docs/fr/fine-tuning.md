@@ -1,9 +1,9 @@
-# Fine-Tuning
+﻿# Ajustement fin
 
-Utilisez cette page pour du LoRA instruction tuning sur checkpoints CausalLM compatibles HF.
-Prerequis: dependances HF + finetune et modele de base accessible.
+Utilisez cette page pour du LoRA instruction tuning sur des checkpoints CausalLM compatibles HF.
+Prérequis: dépendances HF + finetune et modèle de base accessible.
 
-## Command(s)
+## Commandes
 
 ```bash
 python scripts/fine_tune_instruction.py \
@@ -16,17 +16,17 @@ python scripts/fine_tune_instruction.py \
   --epochs 1
 ```
 
-Dependances:
+Dépendances:
 
 ```bash
 python -m pip install -e ".[torch,hf,finetune]"
 ```
 
-## Output Files / Artifacts Produced
+## Fichiers de sortie / artefacts produits
 
 - `outputs/lora_instruction/` (adapter LoRA + fichiers tokenizer)
 
-## Dataset Mapping
+## Mapping du dataset
 
 Le script accepte plusieurs alias de champs:
 
@@ -34,17 +34,17 @@ Le script accepte plusieurs alias de champs:
 - Input: `input`, `context`
 - Output: `output`, `response`, `answer`
 
-## Common Errors
+## Erreurs fréquentes
 
-- Dependances HF manquantes: voir [Torch not installed](troubleshooting.md#torch-not-installed).
+- Dépendances HF manquantes: voir [Torch not installed](troubleshooting.md#torch-not-installed).
 - OOM en fine-tuning: voir [Out of memory](troubleshooting.md#oom-errors).
-- Incompatibilite modele/tokenizer de base: verifier config et compatibilite modele avant lancement.
+- Incompatibilité modèle/tokenizer de base: vérifier la config et la compatibilité modèle avant lancement.
 
 !!! note
-    Le fine-tuning utilise la stack HF Trainer et ecrit dans `outputs/` plutot que `checkpoints/`.
+    Le fine-tuning utilise la stack HF Trainer et écrit dans `outputs/` plutôt que dans `checkpoints/`.
 
-## Next / Related
+## Suite / liens
 
-- [Configuration Reference](configuration-reference.md)
-- [Export & Deployment](export-and-deployment.md)
-- [Operations](operations.md)
+- [Référence de configuration](configuration-reference.md)
+- [Export et déploiement](export-and-deployment.md)
+- [Opérations](operations.md)

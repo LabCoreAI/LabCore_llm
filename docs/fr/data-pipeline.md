@@ -1,11 +1,11 @@
-# Data Pipeline
+﻿# Pipeline de données
 
-Utilisez cette page pour preparer les donnees et metadata avec une structure de sortie previsible.
-Prerequis: dependances installees depuis [Getting Started](getting-started.md).
+Utilisez cette page pour préparer les données et les métadonnées avec une structure de sortie prévisible.
+Prérequis: dépendances installées depuis [Démarrage](getting-started.md).
 
-## Command(s)
+## Commandes
 
-Pipeline `txt` de reference (utilise par `configs/base.toml`):
+Pipeline `txt` de référence (utilisé par `configs/base.toml`):
 
 ```bash
 python scripts/prepare_data.py \
@@ -29,7 +29,7 @@ python scripts/prepare_data.py \
   --val-ratio 0.1
 ```
 
-## Output Files / Artifacts Produced
+## Fichiers de sortie / artefacts produits
 
 Format `txt` (`output-dir = data/processed`):
 
@@ -47,21 +47,21 @@ Format `bin`:
 - `data/meta.json` (`META_BIN`)
 
 !!! note
-    Avec `--output-format bin`, si `--output-dir` se termine par `processed`, les fichiers binaires sont ecrits dans le parent (`data/`).
+    Avec `--output-format bin`, si `--output-dir` se termine par `processed`, les fichiers binaires sont écrits dans le parent (`data/`).
 
-## Format Selection
+## Sélection du format
 
-- Utilisez `txt` avec `training.data_format = "txt"` et metadata `data/processed/meta.json`.
-- Utilisez `bin` avec `training.data_format = "bin"` et metadata `data/meta.json`.
+- Utilisez `txt` avec `training.data_format = "txt"` et la métadonnée `data/processed/meta.json`.
+- Utilisez `bin` avec `training.data_format = "bin"` et la métadonnée `data/meta.json`.
 
-## Common Errors
+## Erreurs fréquentes
 
-- Binaries manquants: voir [Binary shards not found](troubleshooting.md#binary-shards-not-found).
-- Mauvais chemin metadata: voir [Meta path mismatch](troubleshooting.md#meta-path-mismatch).
-- Probleme de vocab char: voir [Char vocab missing](troubleshooting.md#char-vocab-missing).
+- Binaires manquants: voir [Binary shards not found](troubleshooting.md#binary-shards-not-found).
+- Mauvais chemin de métadonnées: voir [Meta path mismatch](troubleshooting.md#meta-path-mismatch).
+- Problème de vocabulaire char: voir [Char vocab missing](troubleshooting.md#char-vocab-missing).
 
-## Next / Related
+## Suite / liens
 
-- [Training](training.md)
-- [Inference & Demo](inference-and-demo.md)
-- [Troubleshooting](troubleshooting.md)
+- [Entraînement](training.md)
+- [Inférence et démo](inference-and-demo.md)
+- [Dépannage](troubleshooting.md)

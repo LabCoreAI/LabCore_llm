@@ -1,8 +1,8 @@
-# Developer Guide
+﻿# Guide développeur
 
 Cette page cible les contributeurs qui travaillent sur le code du projet.
 
-## Repository Map
+## Structure du dépôt
 
 ```text
 src/labcore_llm/
@@ -17,7 +17,7 @@ configs/       # presets TOML
 tests/         # tests unitaires
 ```
 
-## Local Dev Environment
+## Environnement de développement local
 
 ```bash
 python -m venv .venv
@@ -27,7 +27,7 @@ python -m pip install --upgrade pip
 python -m pip install -e ".[torch,dev]"
 ```
 
-## Validation Commands
+## Commandes de validation
 
 Lancer les tests:
 
@@ -35,26 +35,26 @@ Lancer les tests:
 python -m pytest -q
 ```
 
-Lancer le lint aligne sur la CI:
+Lancer le lint aligné sur la CI:
 
 ```bash
 ruff check src scripts tests train.py generate.py demo_gradio.py --select E9,F63,F7,F82
 ```
 
-## CI Workflows
+## Workflows CI
 
 - `.github/workflows/ci.yml`: lint + tests
-- `.github/workflows/docs.yml`: build et deploiement MkDocs
+- `.github/workflows/docs.yml`: build et déploiement MkDocs
 
-## Contribution Quality Bar
+## Niveau de qualité des contributions
 
-- Gardez les commits focalises et atomiques.
-- Mettez a jour la doc lors des changements de comportement/CLI.
-- Ajoutez des tests pour corrections de bugs et nouvelles logiques.
-- Ne commitez pas de gros artifacts data/model.
+- Gardez les commits focalisés et atomiques.
+- Mettez à jour la documentation lors des changements de comportement/CLI.
+- Ajoutez des tests pour les corrections de bugs et les nouvelles logiques.
+- Ne commitez pas de gros artefacts de données/modèles.
 
-## Packaging Notes
+## Notes de packaging
 
-- Le projet utilise un layout `src/` avec setuptools.
-- Les groupes de dependances optionnelles sont dans `pyproject.toml`.
-- Les scripts d'entree sont des fichiers Python, pas des wrappers console-script.
+- Le projet utilise une structure `src/` avec setuptools.
+- Les groupes de dépendances optionnelles sont dans `pyproject.toml`.
+- Les scripts d'entrée sont des fichiers Python, pas des wrappers console-script.

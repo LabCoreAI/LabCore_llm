@@ -1,11 +1,11 @@
-# Inference and Demo
+﻿# Inférence et démo
 
-Utilisez cette page pour lancer une generation CLI deterministe et la demo Gradio locale.
-Prerequis: checkpoint entraine (`checkpoints/ckpt_last.pt`) et metadata correspondante.
+Utilisez cette page pour lancer une génération CLI déterministe et la démo Gradio locale.
+Prérequis: checkpoint entraîné (`checkpoints/ckpt_last.pt`) et métadonnées correspondantes.
 
-## Command(s)
+## Commandes
 
-Generation CLI (chemins de reference):
+Génération CLI (chemins de référence):
 
 ```bash
 python generate.py \
@@ -19,7 +19,7 @@ python generate.py \
   --device cpu
 ```
 
-Demo Gradio depuis checkpoint local:
+Démo Gradio depuis checkpoint local:
 
 ```bash
 python demo_gradio.py \
@@ -30,7 +30,7 @@ python demo_gradio.py \
   --port 7860
 ```
 
-Demo Gradio depuis Hugging Face:
+Démo Gradio depuis Hugging Face:
 
 ```bash
 python demo_gradio.py \
@@ -40,24 +40,24 @@ python demo_gradio.py \
   --port 7860
 ```
 
-## Stable Generation Settings (Debug Mode)
+## Réglages de génération stables (mode debug)
 
-Utilisez un sampling conservateur pour deboguer la reproductibilite:
+Utilisez un sampling conservateur pour déboguer la reproductibilité:
 
-- `temperature = 0.2` pour reduire l'aleatoire
+- `temperature = 0.2` pour réduire l'aléatoire
 - `top-k = 20` (ou moins)
 - `max-new-tokens = 80` pour des checks rapides
 
 !!! tip
-    Si la qualite chute brutalement, verifiez d'abord que `--meta` correspond au meme run tokenizer/checkpoint.
+    Si la qualité chute brutalement, vérifiez d'abord que `--meta` correspond au même run tokenizer/checkpoint.
 
-### Sampling Controls
+### Contrôles de sampling
 
-- `temperature`: met a l'echelle les logits avant sampling.
+- `temperature`: met à l'échelle les logits avant sampling.
 - `top_k`: conserve uniquement les `k` tokens les plus probables.
-- `top_p`: cutoff nucleus sampling (`1.0` le desactive).
-- `repetition_penalty`: penalise les tokens deja generes (`1.0` le desactive).
-- `use_kv_cache`: active le KV-cache pendant le decodage.
+- `top_p`: seuil nucleus sampling (`1.0` le désactive).
+- `repetition_penalty`: pénalise les tokens déjà générés (`1.0` le désactive).
+- `use_kv_cache`: active le KV-cache pendant le décodage.
 - `stream`: active le streaming token-by-token.
 
 `top_p` et `repetition_penalty` sont lus depuis `[generation]` avec `generate.py --config ...`.
@@ -76,10 +76,10 @@ system_prompt = "You are LabCore LLM."
 max_history_turns = 6
 ```
 
-### Reproducible Generation
+### Génération reproductible
 
-- `seed`: fige les RNG Python/NumPy/Torch pour un sampling reproductible.
-- `deterministic`: active les algorithmes deterministes PyTorch (`warn_only=True`) et les reglages cuDNN deterministes.
+- `seed` (graine d'initialisation): fige les RNG Python/NumPy/Torch pour un sampling reproductible.
+- `deterministic`: active les algorithmes déterministes PyTorch (`warn_only=True`) et les réglages cuDNN déterministes.
 
 ```toml
 [generation]
@@ -95,15 +95,15 @@ seed = 1337
 deterministic = true
 ```
 
-### KV Cache, Streaming, and Chat
+### KV-cache, streaming et chat
 
-- Le KV-cache accelere la generation en reutilisant les key/value attention passees au lieu de recalculer tout le contexte.
-- Le streaming met a jour la sortie demo incrementale token par token.
+- Le KV-cache accélère la génération en réutilisant les key/value attention passées, au lieu de recalculer tout le contexte.
+- Le streaming met à jour la sortie de démo de manière incrémentale, token par token.
 - Le chat multi-tour construit un prompt avec des marqueurs texte simples:
   - `<|system|>`
   - `<|user|>`
   - `<|assistant|>`
-- `max_history_turns` conserve seulement les tours les plus recents pour borner la longueur du prompt.
+- `max_history_turns` conserve seulement les tours les plus récents pour borner la longueur du prompt.
 
 ```toml
 [generation]
@@ -113,20 +113,20 @@ system_prompt = "You are LabCore LLM."
 max_history_turns = 6
 ```
 
-## Output Files / Artifacts Produced
+## Fichiers de sortie / artefacts produits
 
-- CLI: texte genere dans le terminal
-- Demo: texte genere dans l'UI Gradio
-- Aucun nouveau fichier modele sauf export explicite
+- CLI: texte généré dans le terminal
+- Démo: texte généré dans l'interface Gradio
+- Aucun nouveau fichier modèle, sauf export explicite
 
-## Common Errors
+## Erreurs fréquentes
 
-- Metadata tokenizer char manquante: voir [Char vocab missing](troubleshooting.md#char-vocab-missing).
-- Mauvais mapping metadata (`txt` vs `bin`): voir [Meta path mismatch](troubleshooting.md#meta-path-mismatch).
+- Métadonnées tokenizer char manquantes: voir [Char vocab missing](troubleshooting.md#char-vocab-missing).
+- Mauvais mapping des métadonnées (`txt` vs `bin`): voir [Meta path mismatch](troubleshooting.md#meta-path-mismatch).
 - Fallback CUDA: voir [CUDA not detected](troubleshooting.md#cuda-not-detected).
 
-## Next / Related
+## Suite / liens
 
-- [Export & Deployment](export-and-deployment.md)
-- [Fine-Tuning](fine-tuning.md)
-- [Troubleshooting](troubleshooting.md)
+- [Export et déploiement](export-and-deployment.md)
+- [Ajustement fin](fine-tuning.md)
+- [Dépannage](troubleshooting.md)

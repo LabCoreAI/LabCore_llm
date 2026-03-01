@@ -1,14 +1,14 @@
-# Export and Deployment
+﻿# Export et déploiement
 
 Utilisez cette page pour packager un checkpoint local vers Hugging Face puis, optionnellement, vers GGUF.
-Prerequis: checkpoint valide (`checkpoints/ckpt_last.pt`) et metadata correspondante (`data/processed/meta.json` ou `data/meta.json`).
+Prérequis: checkpoint valide (`checkpoints/ckpt_last.pt`) et métadonnées correspondantes (`data/processed/meta.json` ou `data/meta.json`).
 
-## HF Export vs GGUF Export
+## Export HF vs export GGUF
 
-- L'export HF cree des artifacts standards pour les workflows Hugging Face.
-- La conversion GGUF cree des fichiers quantifies pour runtimes `llama.cpp`.
+- L'export HF crée des artefacts standards pour les workflows Hugging Face.
+- La conversion GGUF crée des fichiers quantifiés pour les runtimes `llama.cpp`.
 
-## Command(s)
+## Commandes
 
 Exporter un checkpoint local au format HF:
 
@@ -19,7 +19,7 @@ python scripts/export_hf.py \
   --output-dir outputs/hf_export
 ```
 
-Pousser le dossier exporte vers HF Hub:
+Pousser le dossier exporté vers HF Hub:
 
 ```bash
 python scripts/export_hf.py \
@@ -40,7 +40,7 @@ python scripts/quantize_gguf.py \
   --quant-type Q4_K_M
 ```
 
-## Output Files / Artifacts Produced
+## Fichiers de sortie / artefacts produits
 
 `outputs/hf_export/`:
 
@@ -57,14 +57,14 @@ python scripts/quantize_gguf.py \
 !!! warning
     La conversion GGUF exige un checkout `llama.cpp` valide avec script de conversion et binaire de quantization disponibles.
 
-## Common Errors
+## Erreurs fréquentes
 
-- Mauvais metadata mapping (`txt` vs `bin`): voir [Meta path mismatch](troubleshooting.md#meta-path-mismatch).
-- Dependances `huggingface_hub`/`safetensors` manquantes: voir [Torch not installed](troubleshooting.md#torch-not-installed).
-- Outils llama.cpp manquants: voir [Windows path and policy issues](troubleshooting.md#windows-path-policy).
+- Mauvais mapping des métadonnées (`txt` vs `bin`): voir [Meta path mismatch](troubleshooting.md#meta-path-mismatch).
+- Dépendances `huggingface_hub`/`safetensors` manquantes: voir [Torch not installed](troubleshooting.md#torch-not-installed).
+- Outils `llama.cpp` manquants: voir [Windows path and policy issues](troubleshooting.md#windows-path-policy).
 
-## Next / Related
+## Suite / liens
 
-- [Fine-Tuning](fine-tuning.md)
-- [Operations](operations.md)
-- [Troubleshooting](troubleshooting.md)
+- [Ajustement fin](fine-tuning.md)
+- [Opérations](operations.md)
+- [Dépannage](troubleshooting.md)
