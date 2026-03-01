@@ -7,6 +7,8 @@ It covers the full lifecycle of a local LLM workflow:
 data preparation, training, inference, web demo serving, Hugging Face export,
 GGUF conversion, and optional LoRA fine-tuning.
 
+[![CI](https://github.com/LabCoreAI/LabCore_llm/actions/workflows/ci.yml/badge.svg)](https://github.com/LabCoreAI/LabCore_llm/actions/workflows/ci.yml)
+[![Docs](https://github.com/LabCoreAI/LabCore_llm/actions/workflows/docs.yml/badge.svg)](https://github.com/LabCoreAI/LabCore_llm/actions/workflows/docs.yml)
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.5+-EE4C2C?style=flat&logo=pytorch&logoColor=white)](https://pytorch.org/)
 [![License](https://img.shields.io/badge/License-GPLv3-2EA44F?style=flat&logo=gnu&logoColor=white)](LICENSE)
@@ -37,6 +39,14 @@ Everything remains script-driven and reproducible.
 | Inference | CLI generation and Gradio interface |
 | Distribution | Hugging Face export (`safetensors`) + optional GGUF quantization |
 | Fine-tuning | LoRA instruction tuning for HF-compatible CausalLM models |
+
+---
+
+## Prerequisites
+
+- Python `3.11+`
+- `pip`
+- CUDA-capable GPU (optional, for faster training/inference)
 
 ---
 
@@ -134,7 +144,8 @@ LabCore_llm/
 
 ## License
 
-GPL-3.0
+GPL-3.0-only
+Copyright (C) 2026 LabCoreAI
 
 ---
 
@@ -142,7 +153,3 @@ GPL-3.0
 
 This project is intended for educational and research purposes.
 It is not optimized for large-scale production deployment.
-
----
-
-Copyright (C) 2026 LabCoreAI
