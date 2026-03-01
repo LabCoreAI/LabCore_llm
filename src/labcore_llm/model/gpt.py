@@ -166,6 +166,44 @@ class Block(nn.Module):
         return x
 
 
+def apply_top_p_filter(logits: torch.Tensor, top_p: float) -> torch.Tensor:
+    if top_p == 1.0:
+        return logits
+    if top_p <= 0.0 or top_p > 1.0:
+        raise ValueError("top_p must be in the interval (0, 1].")
+
+    sorted_logits, sorted_indices = torch.sort(logits, descending=True, dim=-1)
+    sorted_probs = F.softmax(sorted_logits, dim=-1)
+    cumulative_probs = torch.cumsum(sorted_probs, dim=-1)
+
+    sorted_remove_mask = cumulative_probs > top_p
+    sorted_remove_mask[..., 1:] = sorted_remove_mask[..., :-1].clone()
+    sorted_remove_mask[..., 0] = False
+    sorted_logits = sorted_logits.masked_fill(sorted_remove_mask, float("-inf"))
+
+    filtered_logits = torch.full_like(logits, float("-inf"))
+    filtered_logits.scatter_(dim=-1, index=sorted_indices, src=sorted_logits)
+    return filtered_logits
+
+
+def apply_repetition_penalty(
+    logits: torch.Tensor,
+    generated_tokens: torch.Tensor,
+    repetition_penalty: float,
+) -> torch.Tensor:
+    if repetition_penalty == 1.0 or generated_tokens.numel() == 0:
+        return logits
+    if repetition_penalty <= 0.0:
+        raise ValueError("repetition_penalty must be > 0.")
+
+    for batch_idx in range(logits.size(0)):
+        repeated_tokens = torch.unique(generated_tokens[batch_idx])
+        if repeated_tokens.numel() == 0:
+            continue
+        logits[batch_idx, repeated_tokens] = logits[batch_idx, repeated_tokens] / repetition_penalty
+    return logits
+
+
 class GPT(nn.Module):
     def __init__(self, config: GPTConfig) -> None:
         super().__init__()
@@ -221,15 +259,26 @@ class GPT(nn.Module):
         max_new_tokens: int,
         temperature: float = 1.0,
         top_k: int | None = None,
+        top_p: float = 1.0,
+        repetition_penalty: float = 1.0,
     ) -> torch.Tensor:
+        prompt_len = idx.size(1)
         for _ in range(max_new_tokens):
             idx_cond = idx[:, -self.config.block_size :]
             logits, _ = self(idx_cond)
             logits = logits[:, -1, :] / max(temperature, 1e-6)
 
-            if top_k is not None:
+            generated_tokens = idx[:, prompt_len:]
+            logits = apply_repetition_penalty(
+                logits,
+                generated_tokens=generated_tokens,
+                repetition_penalty=repetition_penalty,
+            )
+
+            if top_k is not None and top_k > 0:
                 top_values, _ = torch.topk(logits, min(top_k, logits.size(-1)))
                 logits[logits < top_values[:, [-1]]] = float("-inf")
+            logits = apply_top_p_filter(logits, top_p=top_p)
 
             probs = F.softmax(logits, dim=-1)
             idx_next = torch.multinomial(probs, num_samples=1)

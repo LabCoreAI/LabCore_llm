@@ -24,6 +24,8 @@ def test_load_config_training_defaults(tmp_path):
     assert config["training"]["grad_accum_steps"] == 1
     assert config["training"]["gradient_accumulation_steps"] == 1
     assert config["training"]["precision"] == "fp32"
+    assert config["generation"]["top_p"] == 1.0
+    assert config["generation"]["repetition_penalty"] == 1.0
 
 
 def test_load_config_grad_accum_alias(tmp_path):

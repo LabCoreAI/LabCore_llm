@@ -19,12 +19,11 @@ def load_meta(meta_path: Path) -> dict:
     return json.loads(meta_path.read_text(encoding="utf-8"))
 
 
-def resolve_tokenizer_name(cli_name: str | None, config_path: str | None, meta: dict) -> str:
+def resolve_tokenizer_name(cli_name: str | None, config: dict | None, meta: dict) -> str:
     if cli_name:
         return cli_name
-    if config_path:
-        cfg = load_config(config_path)
-        return cfg.get("general", {}).get("tokenizer", "char")
+    if config:
+        return config.get("general", {}).get("tokenizer", "char")
     return meta.get("tokenizer", {}).get("type", "char")
 
 
@@ -61,8 +60,10 @@ def main() -> None:
     model = model.to(device)
     model.eval()
 
+    config = load_config(args.config) if args.config else None
+    generation_cfg = config.get("generation", {}) if config else {}
     meta = load_meta(Path(args.meta))
-    tokenizer_name = resolve_tokenizer_name(args.tokenizer, args.config, meta)
+    tokenizer_name = resolve_tokenizer_name(args.tokenizer, config, meta)
     tokenizer = load_tokenizer(meta, tokenizer_name)
     prompt_ids = tokenizer.encode(args.prompt)
     x = torch.tensor([prompt_ids], dtype=torch.long, device=device)
@@ -73,6 +74,8 @@ def main() -> None:
             max_new_tokens=args.max_new_tokens,
             temperature=args.temperature,
             top_k=args.top_k,
+            top_p=generation_cfg.get("top_p", 1.0),
+            repetition_penalty=generation_cfg.get("repetition_penalty", 1.0),
         )
     print(tokenizer.decode(y[0].tolist()))
 

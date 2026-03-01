@@ -51,6 +51,25 @@ Use conservative sampling when debugging reproducibility:
 !!! tip
     If output quality suddenly drops, first verify that `--meta` belongs to the same tokenizer/checkpoint run.
 
+### Sampling Controls
+
+- `temperature`: scales logits before sampling.
+- `top_k`: keeps only the `k` most likely tokens.
+- `top_p`: nucleus sampling cutoff (`1.0` disables it).
+- `repetition_penalty`: penalizes already generated tokens (`1.0` disables it).
+
+`top_p` and `repetition_penalty` are read from `[generation]` when using `generate.py --config ...`.
+
+RTX 4060 stable example:
+
+```toml
+[generation]
+temperature = 0.6
+top_k = 50
+top_p = 0.9
+repetition_penalty = 1.1
+```
+
 ## Output Files / Artifacts Produced
 
 - CLI: generated text in terminal output

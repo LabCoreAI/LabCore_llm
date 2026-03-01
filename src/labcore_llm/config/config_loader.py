@@ -25,4 +25,8 @@ def load_config(path: str | Path) -> dict:
     training_cfg.setdefault("gradient_accumulation_steps", training_cfg["grad_accum_steps"])
     training_cfg.setdefault("precision", "fp32")
 
+    generation_cfg = cfg.setdefault("generation", {})
+    generation_cfg.setdefault("top_p", 1.0)
+    generation_cfg.setdefault("repetition_penalty", 1.0)
+
     return cfg
