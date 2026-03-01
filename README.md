@@ -51,6 +51,17 @@ python train.py --config configs/base.toml --tokenizer char --max-iters 5000
 python generate.py --checkpoint checkpoints/ckpt_last.pt --meta data/processed/meta.json --tokenizer char --prompt "To be"
 ```
 
+Multilingual preset example (`configs/base-multi.toml`, RTX 4060-class target):
+
+```bash
+python -m pip install -e ".[torch,dev,hf]"
+python scripts/prepare_data.py --dataset wikitext --tokenizer bpe --output-format bin --output-dir data
+python train.py --config configs/base-multi.toml
+python generate.py --checkpoint checkpoints_multi/ckpt_last.pt --meta data/meta.json --config configs/base-multi.toml --tokenizer bpe --prompt "Bonjour"
+```
+
+Current data-prep scope: `scripts/prepare_data.py` supports `tinyshakespeare` and `wikitext` dataset names.
+
 ---
 
 ## Preset Families
@@ -58,6 +69,7 @@ python generate.py --checkpoint checkpoints/ckpt_last.pt --meta data/processed/m
 | Family | Path | Sizes |
 |---|---|---|
 | Base preset | `configs/base.toml` | baseline char configuration |
+| Base multi preset | `configs/base-multi.toml` | multilingual-ready 20M profile for RTX 4060-class GPUs |
 | BPE standard | `configs/bpe_medium/` | 5M -> 50M parameter range |
 | BPE RoPE/Flash | `configs/bpe_rope_flash/` | 5M -> 50M parameter range |
 
