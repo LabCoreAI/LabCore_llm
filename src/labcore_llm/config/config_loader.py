@@ -1,13 +1,29 @@
 from __future__ import annotations
 
+import re
 import tomllib
 from pathlib import Path
 
 
+NULL_SENTINEL = "__LABCORE_NULL__"
+SEED_NULL_PATTERN = re.compile(r'(?m)^(\s*seed\s*=\s*)null(\s*(?:#.*)?)$')
+
+
+def _replace_null_sentinel(value):
+    if isinstance(value, dict):
+        return {k: _replace_null_sentinel(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [_replace_null_sentinel(v) for v in value]
+    if value == NULL_SENTINEL:
+        return None
+    return value
+
+
 def load_config(path: str | Path) -> dict:
     config_path = Path(path)
-    with config_path.open("rb") as handle:
-        cfg = tomllib.load(handle)
+    raw = config_path.read_text(encoding="utf-8")
+    normalized = SEED_NULL_PATTERN.sub(rf'\1"{NULL_SENTINEL}"\2', raw)
+    cfg = _replace_null_sentinel(tomllib.loads(normalized))
 
     general_cfg = cfg.setdefault("general", {})
     general_cfg.setdefault("tokenizer", "char")
@@ -28,5 +44,13 @@ def load_config(path: str | Path) -> dict:
     generation_cfg = cfg.setdefault("generation", {})
     generation_cfg.setdefault("top_p", 1.0)
     generation_cfg.setdefault("repetition_penalty", 1.0)
+    generation_cfg.setdefault("seed", None)
+    generation_cfg.setdefault("deterministic", False)
+
+    seed = generation_cfg["seed"]
+    if seed is not None and (not isinstance(seed, int) or isinstance(seed, bool)):
+        raise ValueError("generation.seed must be an integer or null.")
+    if not isinstance(generation_cfg["deterministic"], bool):
+        raise ValueError("generation.deterministic must be a boolean.")
 
     return cfg

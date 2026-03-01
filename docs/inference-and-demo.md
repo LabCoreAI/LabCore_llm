@@ -70,6 +70,21 @@ top_p = 0.9
 repetition_penalty = 1.1
 ```
 
+### Reproducible Generation
+
+- `seed`: fixes Python/NumPy/Torch RNGs for repeatable sampling.
+- `deterministic`: enables deterministic Torch algorithms (`warn_only=True`) and deterministic cuDNN settings.
+
+```toml
+[generation]
+temperature = 0.6
+top_k = 50
+top_p = 0.9
+repetition_penalty = 1.1
+seed = 1337
+deterministic = true
+```
+
 ## Output Files / Artifacts Produced
 
 - CLI: generated text in terminal output
