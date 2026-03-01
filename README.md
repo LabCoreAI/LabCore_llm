@@ -9,6 +9,8 @@ GGUF conversion, and optional LoRA fine-tuning.
 
 [![CI](https://github.com/LabCoreAI/LabCore_llm/actions/workflows/ci.yml/badge.svg)](https://github.com/LabCoreAI/LabCore_llm/actions/workflows/ci.yml)
 [![Docs](https://github.com/LabCoreAI/LabCore_llm/actions/workflows/docs.yml/badge.svg)](https://github.com/LabCoreAI/LabCore_llm/actions/workflows/docs.yml)
+[![Security](https://github.com/LabCoreAI/LabCore_llm/actions/workflows/security.yml/badge.svg)](https://github.com/LabCoreAI/LabCore_llm/actions/workflows/security.yml)
+[![Release](https://github.com/LabCoreAI/LabCore_llm/actions/workflows/release.yml/badge.svg)](https://github.com/LabCoreAI/LabCore_llm/actions/workflows/release.yml)
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.5+-EE4C2C?style=flat&logo=pytorch&logoColor=white)](https://pytorch.org/)
 [![License](https://img.shields.io/badge/License-GPLv3-2EA44F?style=flat&logo=gnu&logoColor=white)](LICENSE)
