@@ -6,7 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import platform
-import subprocess
+import re
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -120,17 +120,64 @@ def _sync_cuda_if_needed(device: torch.device) -> None:
 
 
 def _get_git_commit(repo_root: Path) -> str | None:
+    def _resolve_git_dir(root: Path) -> Path | None:
+        dot_git = root / ".git"
+        if dot_git.is_dir():
+            return dot_git
+        if dot_git.is_file():
+            content = dot_git.read_text(encoding="utf-8").strip()
+            marker = "gitdir:"
+            if content.lower().startswith(marker):
+                git_dir = content[len(marker) :].strip()
+                return (root / git_dir).resolve()
+        return None
+
+    def _read_ref(git_dir: Path, ref_name: str) -> str | None:
+        ref_path = git_dir / ref_name
+        if ref_path.exists():
+            value = ref_path.read_text(encoding="utf-8").strip()
+            if value:
+                return value
+
+        packed_refs = git_dir / "packed-refs"
+        if not packed_refs.exists():
+            return None
+        for line in packed_refs.read_text(encoding="utf-8").splitlines():
+            stripped = line.strip()
+            if not stripped or stripped.startswith("#") or stripped.startswith("^"):
+                continue
+            parts = stripped.split(" ", maxsplit=1)
+            if len(parts) == 2 and parts[1] == ref_name:
+                return parts[0]
+        return None
+
+    commit_re = re.compile(r"^[0-9a-fA-F]{40}$")
     try:
-        output = subprocess.check_output(
-            ["git", "rev-parse", "HEAD"],
-            cwd=repo_root,
-            stderr=subprocess.DEVNULL,
-            text=True,
-        )
+        git_dir = _resolve_git_dir(repo_root)
+        if git_dir is None:
+            return None
+
+        head_path = git_dir / "HEAD"
+        if not head_path.exists():
+            return None
+        head = head_path.read_text(encoding="utf-8").strip()
+        if not head:
+            return None
+
+        if head.startswith("ref:"):
+            ref_name = head.split(":", maxsplit=1)[1].strip()
+            commit = _read_ref(git_dir, ref_name)
+        else:
+            commit = head
     except Exception:
         return None
-    commit = output.strip()
-    return commit or None
+
+    if commit is None:
+        return None
+    commit = commit.strip()
+    if not commit_re.fullmatch(commit):
+        return None
+    return commit
 
 
 def _model_config_fields(model: GPT) -> dict:
