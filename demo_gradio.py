@@ -25,7 +25,7 @@ def load_tokenizer(tokenizer_cfg: dict):
 
 
 def load_local_model(checkpoint_path: Path, meta_path: Path, device: str):
-    checkpoint = torch.load(checkpoint_path, map_location=device)
+    checkpoint = torch.load(checkpoint_path, map_location=device, weights_only=True)  # nosec B614
     model = GPT(GPTConfig(**checkpoint["model_config"]))
     model.load_state_dict(checkpoint["model_state_dict"], strict=False)
     model = model.to(device).eval()
@@ -41,7 +41,7 @@ def load_local_model(checkpoint_path: Path, meta_path: Path, device: str):
     return model, tokenizer
 
 
-def load_hf_model(repo_id: str, device: str):
+def load_hf_model(repo_id: str, repo_revision: str, device: str):
     try:
         from huggingface_hub import hf_hub_download
     except ImportError as exc:
@@ -51,9 +51,9 @@ def load_hf_model(repo_id: str, device: str):
     except ImportError as exc:
         raise RuntimeError("Install safetensors to load remote models: pip install safetensors") from exc
 
-    config_path = Path(hf_hub_download(repo_id=repo_id, filename="config.json"))
-    tokenizer_path = Path(hf_hub_download(repo_id=repo_id, filename="tokenizer.json"))
-    weights_path = Path(hf_hub_download(repo_id=repo_id, filename="model.safetensors"))
+    config_path = Path(hf_hub_download(repo_id=repo_id, filename="config.json", revision=repo_revision))
+    tokenizer_path = Path(hf_hub_download(repo_id=repo_id, filename="tokenizer.json", revision=repo_revision))
+    weights_path = Path(hf_hub_download(repo_id=repo_id, filename="model.safetensors", revision=repo_revision))
 
     model_cfg = json.loads(config_path.read_text(encoding="utf-8"))
     model = GPT(
@@ -123,6 +123,7 @@ def main() -> None:
     parser.add_argument("--checkpoint", default="checkpoints/ckpt_last.pt")
     parser.add_argument("--meta", default="data/processed/meta.json")
     parser.add_argument("--repo-id", default="GhostPunishR/labcore-llm-50M")
+    parser.add_argument("--repo-revision", default="main")
     parser.add_argument("--device", default="cpu")
     parser.add_argument("--port", type=int, default=7860)
     args = parser.parse_args()
@@ -138,7 +139,7 @@ def main() -> None:
         device = "cpu"
 
     if args.source == "hf":
-        model, tokenizer = load_hf_model(repo_id=args.repo_id, device=device)
+        model, tokenizer = load_hf_model(repo_id=args.repo_id, repo_revision=args.repo_revision, device=device)
     else:
         model, tokenizer = load_local_model(Path(args.checkpoint), Path(args.meta), device=device)
 

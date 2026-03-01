@@ -5,7 +5,7 @@ from __future__ import annotations
 
 import argparse
 import shutil
-import subprocess
+import subprocess  # nosec B404
 import sys
 from pathlib import Path
 
@@ -28,7 +28,7 @@ def _resolve_quant_binary(llama_cpp_dir: Path) -> Path:
 
 def _run(command: list[str], cwd: Path | None = None) -> None:
     print(f"$ {' '.join(command)}")
-    subprocess.run(command, cwd=str(cwd) if cwd else None, check=True)
+    subprocess.run(command, cwd=str(cwd) if cwd else None, check=True)  # nosec B603
 
 
 def main() -> None:

@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
+from urllib.parse import urlparse
 
 import numpy as np
 
@@ -14,16 +15,16 @@ from labcore_llm.tokenizer import BPETokenizer, CharTokenizer
 TINY_SHAKESPEARE_FALLBACK_URL = "https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt"
 
 
-def _load_dataset_text(dataset_name: str) -> str:
+def _load_dataset_text(dataset_name: str, dataset_revision: str) -> str:
     try:
         from datasets import load_dataset
     except ImportError as exc:
         raise RuntimeError('Install HF dependencies to use datasets: pip install -e ".[hf]"') from exc
 
     if dataset_name == "wikitext":
-        ds = load_dataset("wikitext", "wikitext-2-raw-v1")
+        ds = load_dataset("wikitext", "wikitext-2-raw-v1", revision=dataset_revision)
     elif dataset_name == "tinyshakespeare":
-        ds = load_dataset("tiny_shakespeare")
+        ds = load_dataset("tiny_shakespeare", revision=dataset_revision)
     else:
         raise ValueError(f"Unsupported dataset name: {dataset_name}")
 
@@ -39,7 +40,22 @@ def _load_dataset_text(dataset_name: str) -> str:
     return merged
 
 
-def load_corpus(dataset_name: str, raw_dir: Path) -> str:
+def _download_tinyshakespeare_fallback() -> str:
+    parsed = urlparse(TINY_SHAKESPEARE_FALLBACK_URL)
+    if parsed.scheme != "https" or parsed.netloc != "raw.githubusercontent.com":
+        raise RuntimeError("Unexpected tinyshakespeare fallback URL.")
+
+    from urllib.request import Request, urlopen
+
+    req = Request(
+        TINY_SHAKESPEARE_FALLBACK_URL,
+        headers={"User-Agent": "LabCoreLLM/1.0"},
+    )
+    with urlopen(req, timeout=30) as response:  # nosec B310
+        return response.read().decode("utf-8")
+
+
+def load_corpus(dataset_name: str, raw_dir: Path, dataset_revision: str) -> str:
     raw_dir.mkdir(parents=True, exist_ok=True)
     raw_path = raw_dir / f"{dataset_name}.txt"
     if raw_path.exists():
@@ -47,15 +63,11 @@ def load_corpus(dataset_name: str, raw_dir: Path) -> str:
 
     if dataset_name == "tinyshakespeare":
         try:
-            text = _load_dataset_text(dataset_name)
+            text = _load_dataset_text(dataset_name, dataset_revision=dataset_revision)
         except Exception:
-            # Backward-compatible fallback if datasets mirror is unavailable.
-            from urllib.request import urlopen
-
-            with urlopen(TINY_SHAKESPEARE_FALLBACK_URL) as response:
-                text = response.read().decode("utf-8")
+            text = _download_tinyshakespeare_fallback()
     else:
-        text = _load_dataset_text(dataset_name)
+        text = _load_dataset_text(dataset_name, dataset_revision=dataset_revision)
 
     raw_path.write_text(text, encoding="utf-8")
     return text
@@ -199,11 +211,16 @@ def main() -> None:
     parser.add_argument("--raw-dir", default="data/raw")
     parser.add_argument("--output-dir", default="data/processed")
     parser.add_argument("--val-ratio", type=float, default=0.1)
+    parser.add_argument(
+        "--dataset-revision",
+        default="main",
+        help="Dataset git ref (branch/tag/commit) on Hugging Face Hub.",
+    )
     args = parser.parse_args()
 
     raw_dir = Path(args.raw_dir)
     output_dir = Path(args.output_dir)
-    text = load_corpus(args.dataset, raw_dir)
+    text = load_corpus(args.dataset, raw_dir, dataset_revision=args.dataset_revision)
 
     build_dataset(
         text,

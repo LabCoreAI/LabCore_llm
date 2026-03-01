@@ -33,6 +33,8 @@ def main() -> None:
     parser.add_argument("--model-id", default="GhostPunishR/labcore-llm-50M")
     parser.add_argument("--dataset", default="yahma/alpaca-cleaned", help="HF dataset path (Alpaca/OpenOrca-style).")
     parser.add_argument("--dataset-split", default="train")
+    parser.add_argument("--model-revision", default="main", help="Model git ref (branch/tag/commit) on Hugging Face Hub.")
+    parser.add_argument("--dataset-revision", default="main", help="Dataset git ref (branch/tag/commit) on Hugging Face Hub.")
     parser.add_argument("--output-dir", default="outputs/lora_instruction")
     parser.add_argument("--config", default="configs/bpe_rope_flash/bpe_50M_rope_flash.toml")
     parser.add_argument("--max-samples", type=int, default=20000)
@@ -67,11 +69,11 @@ def main() -> None:
     learning_rate = args.learning_rate or opt_cfg.get("learning_rate", train_cfg.get("learning_rate", 3e-4))
     batch_size = args.batch_size or train_cfg.get("batch_size", 4)
 
-    tokenizer = AutoTokenizer.from_pretrained(args.model_id, use_fast=True)
+    tokenizer = AutoTokenizer.from_pretrained(args.model_id, use_fast=True, revision=args.model_revision)
     if tokenizer.pad_token_id is None:
         tokenizer.pad_token = tokenizer.eos_token
 
-    model = AutoModelForCausalLM.from_pretrained(args.model_id)
+    model = AutoModelForCausalLM.from_pretrained(args.model_id, revision=args.model_revision)
     lora_cfg = LoraConfig(
         r=16,
         lora_alpha=32,
@@ -82,7 +84,7 @@ def main() -> None:
     )
     model = get_peft_model(model, lora_cfg)
 
-    ds = load_dataset(args.dataset, args.dataset_name, split=args.dataset_split)
+    ds = load_dataset(args.dataset, args.dataset_name, split=args.dataset_split, revision=args.dataset_revision)
     if args.max_samples > 0:
         ds = ds.select(range(min(args.max_samples, len(ds))))
 

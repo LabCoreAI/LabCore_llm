@@ -76,7 +76,7 @@ def main() -> None:
         print("CUDA not available, falling back to CPU.")
         device = "cpu"
 
-    checkpoint = torch.load(args.checkpoint, map_location=device)
+    checkpoint = torch.load(args.checkpoint, map_location=device, weights_only=True)  # nosec B614
     model = GPT(GPTConfig(**checkpoint["model_config"]))
     model.load_state_dict(checkpoint["model_state_dict"])
     model = model.to(device)

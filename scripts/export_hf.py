@@ -34,7 +34,7 @@ def main() -> None:
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    checkpoint = torch.load(checkpoint_path, map_location="cpu")
+    checkpoint = torch.load(checkpoint_path, map_location="cpu", weights_only=True)  # nosec B614
     model_config = checkpoint["model_config"]
     model = GPT(GPTConfig(**model_config))
     model.load_state_dict(checkpoint["model_state_dict"], strict=False)
